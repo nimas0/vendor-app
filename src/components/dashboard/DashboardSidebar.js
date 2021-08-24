@@ -14,22 +14,21 @@ import {
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import useAuth from '../../hooks/useAuth';
-import BriefcaseIcon from '../../icons/Briefcase';
+// import BriefcaseIcon from '../../icons/Briefcase';
 import CalendarIcon from '../../icons/Calendar';
 import ChartPieIcon from '../../icons/ChartPie';
 import ChartSquareBarIcon from '../../icons/ChartSquareBar';
 import ChatAltIcon from '../../icons/ChatAlt';
-import ClipboardListIcon from '../../icons/ClipboardList';
-import FolderOpenIcon from '../../icons/FolderOpen';
-import MailIcon from '../../icons/Mail';
-import ShareIcon from '../../icons/Share';
+// import ClipboardListIcon from '../../icons/ClipboardList';
+// import MailIcon from '../../icons/Mail';
+// import ShareIcon from '../../icons/Share';
 import ShoppingBagIcon from '../../icons/ShoppingBag';
-import ShoppingCartIcon from '../../icons/ShoppingCart';
 import UserIcon from '../../icons/User';
-import UsersIcon from '../../icons/Users';
+// import UsersIcon from '../../icons/Users';
 import Logo from '../Logo';
 import NavSection from '../NavSection';
 import Scrollbar from '../Scrollbar';
+import { CameraOutlined } from '@material-ui/icons';
 
 const sections = [
   {
@@ -70,55 +69,60 @@ const sections = [
   {
     title: 'Management',
     items: [
+      // {
+      //   title: 'Customers',
+      //   path: '/dashboard/customers',
+      //   icon: <UsersIcon fontSize='small' />,
+      //   children: [
+      //     {
+      //       title: 'List',
+      //       path: '/dashboard/customers',
+      //     },
+      //     {
+      //       title: 'Details',
+      //       path: '/dashboard/customers/1',
+      //     },
+      //     {
+      //       title: 'Edit',
+      //       path: '/dashboard/customers/1/edit',
+      //     },
+      //   ],
+      // },
       {
-        title: 'Customers',
-        path: '/dashboard/customers',
-        icon: <UsersIcon fontSize='small' />,
-        children: [
-          {
-            title: 'List',
-            path: '/dashboard/customers',
-          },
-          {
-            title: 'Details',
-            path: '/dashboard/customers/1',
-          },
-          {
-            title: 'Edit',
-            path: '/dashboard/customers/1/edit',
-          },
-        ],
+        title: 'Portfolio',
+        path: '/dashboard/portfolio',
+        icon: <CameraOutlined fontSize='small' />,
       },
-      {
-        title: 'Products',
-        path: '/dashboard/products',
-        icon: <ShoppingCartIcon fontSize='small' />,
-        children: [
-          {
-            title: 'List',
-            path: '/dashboard/products',
-          },
-          {
-            title: 'Create',
-            path: '/dashboard/products/new',
-          },
-        ],
-      },
-      {
-        title: 'Orders',
-        icon: <FolderOpenIcon fontSize='small' />,
-        path: '/dashboard/orders',
-        children: [
-          {
-            title: 'List',
-            path: '/dashboard/orders',
-          },
-          {
-            title: 'Details',
-            path: '/dashboard/orders/1',
-          },
-        ],
-      },
+      // {
+      //   title: 'Products',
+      //   path: '/dashboard/products',
+      //   icon: <ShoppingCartIcon fontSize='small' />,
+      //   children: [
+      //     {
+      //       title: 'List',
+      //       path: '/dashboard/products',
+      //     },
+      //     {
+      //       title: 'Create',
+      //       path: '/dashboard/products/new',
+      //     },
+      //   ],
+      // },
+      // {
+      //   title: 'Orders',
+      //   icon: <FolderOpenIcon fontSize='small' />,
+      //   path: '/dashboard/orders',
+      //   children: [
+      //     {
+      //       title: 'List',
+      //       path: '/dashboard/orders',
+      //     },
+      //     {
+      //       title: 'Details',
+      //       path: '/dashboard/orders/1',
+      //     },
+      //   ],
+      // },
       {
         title: 'Invoices',
         path: '/dashboard/invoices',
@@ -136,70 +140,70 @@ const sections = [
       },
     ],
   },
-  {
-    title: 'Platforms',
-    items: [
-      {
-        title: 'Projects',
-        path: '/dashboard/projects',
-        icon: <BriefcaseIcon fontSize='small' />,
-        children: [
-          {
-            title: 'Browse',
-            path: '/dashboard/projects/browse',
-          },
-          {
-            title: 'Details',
-            path: '/dashboard/projects/1',
-          },
-          {
-            title: 'Create',
-            path: '/dashboard/projects/new',
-          },
-        ],
-      },
-      {
-        title: 'Social',
-        path: '/dashboard/social',
-        icon: <ShareIcon fontSize='small' />,
-        children: [
-          {
-            title: 'Profile',
-            path: '/dashboard/social/profile',
-          },
-          {
-            title: 'Feed',
-            path: '/dashboard/social/feed',
-          },
-        ],
-      },
-    ],
-  },
-  {
-    title: 'Apps',
-    items: [
-      {
-        title: 'Kanban',
-        path: '/dashboard/kanban',
-        icon: <ClipboardListIcon fontSize='small' />,
-      },
-      {
-        title: 'Mail',
-        path: '/dashboard/mail',
-        icon: <MailIcon fontSize='small' />,
-      },
-      {
-        title: 'Chat',
-        path: '/dashboard/chat',
-        icon: <ChatAltIcon fontSize='small' />,
-      },
-      {
-        title: 'Calendar',
-        path: '/dashboard/calendar',
-        icon: <CalendarIcon fontSize='small' />,
-      },
-    ],
-  },
+  // {
+  //   title: 'Platforms',
+  //   items: [
+  //     {
+  //       title: 'Projects',
+  //       path: '/dashboard/projects',
+  //       icon: <BriefcaseIcon fontSize='small' />,
+  //       children: [
+  //         {
+  //           title: 'Browse',
+  //           path: '/dashboard/projects/browse',
+  //         },
+  //         {
+  //           title: 'Details',
+  //           path: '/dashboard/projects/1',
+  //         },
+  //         {
+  //           title: 'Create',
+  //           path: '/dashboard/projects/new',
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       title: 'Social',
+  //       path: '/dashboard/social',
+  //       icon: <ShareIcon fontSize='small' />,
+  //       children: [
+  //         {
+  //           title: 'Profile',
+  //           path: '/dashboard/social/profile',
+  //         },
+  //         {
+  //           title: 'Feed',
+  //           path: '/dashboard/social/feed',
+  //         },
+  //       ],
+  //     },
+  //   ],
+  // },
+  // {
+  //   title: 'Apps',
+  //   items: [
+  //     {
+  //       title: 'Kanban',
+  //       path: '/dashboard/kanban',
+  //       icon: <ClipboardListIcon fontSize='small' />,
+  //     },
+  //     {
+  //       title: 'Mail',
+  //       path: '/dashboard/mail',
+  //       icon: <MailIcon fontSize='small' />,
+  //     },
+  //     {
+  //       title: 'Chat',
+  //       path: '/dashboard/chat',
+  //       icon: <ChatAltIcon fontSize='small' />,
+  //     },
+  //     {
+  //       title: 'Calendar',
+  //       path: '/dashboard/calendar',
+  //       icon: <CalendarIcon fontSize='small' />,
+  //     },
+  //   ],
+  // },
 ];
 
 const DashboardSidebar = (props) => {
@@ -264,23 +268,12 @@ const DashboardSidebar = (props) => {
               />
             </RouterLink>
             <Box sx={{ ml: 2 }}>
-              <Typography
-                color='textPrimary'
-                variant='subtitle2'
-              >
+              <Typography color='textPrimary' variant='subtitle2'>
                 {user.name}
               </Typography>
-              <Typography
-                color='textSecondary'
-                variant='body2'
-              >
-                Your plan:
-                {' '}
-                <Link
-                  color='primary'
-                  component={RouterLink}
-                  to='/pricing'
-                >
+              <Typography color='textSecondary' variant='body2'>
+                Your plan:{' '}
+                <Link color='primary' component={RouterLink} to='/pricing'>
                   {user.plan}
                 </Link>
               </Typography>
@@ -304,16 +297,10 @@ const DashboardSidebar = (props) => {
         </Box>
         <Divider />
         <Box sx={{ p: 2 }}>
-          <Typography
-            color='textPrimary'
-            variant='subtitle2'
-          >
+          <Typography color='textPrimary' variant='subtitle2'>
             Need Help?
           </Typography>
-          <Typography
-            color='textSecondary'
-            variant='body2'
-          >
+          <Typography color='textSecondary' variant='body2'>
             Check our docs
           </Typography>
           <Button

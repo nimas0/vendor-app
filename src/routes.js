@@ -8,6 +8,7 @@ import DocsLayout from './components/docs/DocsLayout';
 import GuestGuard from './components/GuestGuard';
 import LoadingScreen from './components/LoadingScreen';
 import MainLayout from './components/MainLayout';
+import Portfolio from './pages/dashboard/Portfolio';
 
 const Loadable = (Component) => (props) => (
   <Suspense fallback={<LoadingScreen />}>
@@ -18,31 +19,65 @@ const Loadable = (Component) => (props) => (
 // Browse pages
 
 const Browse = Loadable(lazy(() => import('./pages/browse/Browse')));
-const BrowseButtons = Loadable(lazy(() => import('./pages/browse/BrowseButtons')));
-const BrowseCharts = Loadable(lazy(() => import('./pages/browse/BrowseCharts')));
-const BrowseColors = Loadable(lazy(() => import('./pages/browse/BrowseColors')));
-const BrowseDetailLists = Loadable(lazy(() => import('./pages/browse/BrowseDetailLists')));
+const BrowseButtons = Loadable(
+  lazy(() => import('./pages/browse/BrowseButtons'))
+);
+const BrowseCharts = Loadable(
+  lazy(() => import('./pages/browse/BrowseCharts'))
+);
+const BrowseColors = Loadable(
+  lazy(() => import('./pages/browse/BrowseColors'))
+);
+const BrowseDetailLists = Loadable(
+  lazy(() => import('./pages/browse/BrowseDetailLists'))
+);
 const BrowseForms = Loadable(lazy(() => import('./pages/browse/BrowseForms')));
-const BrowseGridLists = Loadable(lazy(() => import('./pages/browse/BrowseGridLists')));
-const BrowseGroupedLists = Loadable(lazy(() => import('./pages/browse/BrowseGroupedLists')));
-const BrowseInputs = Loadable(lazy(() => import('./pages/browse/BrowseInputs')));
-const BrowseModals = Loadable(lazy(() => import('./pages/browse/BrowseModals')));
-const BrowseQuickStats = Loadable(lazy(() => import('./pages/browse/BrowseQuickStats')));
-const BrowseTables = Loadable(lazy(() => import('./pages/browse/BrowseTables')));
-const BrowseTypography = Loadable(lazy(() => import('./pages/browse/BrowseTypography')));
+const BrowseGridLists = Loadable(
+  lazy(() => import('./pages/browse/BrowseGridLists'))
+);
+const BrowseGroupedLists = Loadable(
+  lazy(() => import('./pages/browse/BrowseGroupedLists'))
+);
+const BrowseInputs = Loadable(
+  lazy(() => import('./pages/browse/BrowseInputs'))
+);
+const BrowseModals = Loadable(
+  lazy(() => import('./pages/browse/BrowseModals'))
+);
+const BrowseQuickStats = Loadable(
+  lazy(() => import('./pages/browse/BrowseQuickStats'))
+);
+const BrowseTables = Loadable(
+  lazy(() => import('./pages/browse/BrowseTables'))
+);
+const BrowseTypography = Loadable(
+  lazy(() => import('./pages/browse/BrowseTypography'))
+);
 
 // Authentication pages
 
 const Login = Loadable(lazy(() => import('./pages/authentication/Login')));
-const PasswordRecovery = Loadable(lazy(() => import('./pages/authentication/PasswordRecovery')));
-const PasswordReset = Loadable(lazy(() => import('./pages/authentication/PasswordReset')));
-const Register = Loadable(lazy(() => import('./pages/authentication/Register')));
-const VerifyCode = Loadable(lazy(() => import('./pages/authentication/VerifyCode')));
+const PasswordRecovery = Loadable(
+  lazy(() => import('./pages/authentication/PasswordRecovery'))
+);
+const PasswordReset = Loadable(
+  lazy(() => import('./pages/authentication/PasswordReset'))
+);
+const Register = Loadable(
+  lazy(() => import('./pages/authentication/Register'))
+);
+const VerifyCode = Loadable(
+  lazy(() => import('./pages/authentication/VerifyCode'))
+);
 
 // Blog pages
 
-const BlogPostCreate = Loadable(lazy(() => import('./pages/blog/BlogPostCreate')));
-const BlogPostDetails = Loadable(lazy(() => import('./pages/blog/BlogPostDetails')));
+const BlogPostCreate = Loadable(
+  lazy(() => import('./pages/blog/BlogPostCreate'))
+);
+const BlogPostDetails = Loadable(
+  lazy(() => import('./pages/blog/BlogPostDetails'))
+);
 const BlogPostList = Loadable(lazy(() => import('./pages/blog/BlogPostList')));
 
 // Dashboard pages
@@ -51,19 +86,35 @@ const Account = Loadable(lazy(() => import('./pages/dashboard/Account')));
 const Analytics = Loadable(lazy(() => import('./pages/dashboard/Analytics')));
 const Calendar = Loadable(lazy(() => import('./pages/dashboard/Calendar')));
 const Chat = Loadable(lazy(() => import('./pages/dashboard/Chat')));
-const CustomerDetails = Loadable(lazy(() => import('./pages/dashboard/CustomerDetails')));
-const CustomerEdit = Loadable(lazy(() => import('./pages/dashboard/CustomerEdit')));
-const CustomerList = Loadable(lazy(() => import('./pages/dashboard/CustomerList')));
+const CustomerDetails = Loadable(
+  lazy(() => import('./pages/dashboard/CustomerDetails'))
+);
+const CustomerEdit = Loadable(
+  lazy(() => import('./pages/dashboard/CustomerEdit'))
+);
+const CustomerList = Loadable(
+  lazy(() => import('./pages/dashboard/CustomerList'))
+);
 const Finance = Loadable(lazy(() => import('./pages/dashboard/Finance')));
-const InvoiceDetails = Loadable(lazy(() => import('./pages/dashboard/InvoiceDetails')));
-const InvoiceList = Loadable(lazy(() => import('./pages/dashboard/InvoiceList')));
+const InvoiceDetails = Loadable(
+  lazy(() => import('./pages/dashboard/InvoiceDetails'))
+);
+const InvoiceList = Loadable(
+  lazy(() => import('./pages/dashboard/InvoiceList'))
+);
 const Kanban = Loadable(lazy(() => import('./pages/dashboard/Kanban')));
 const Mail = Loadable(lazy(() => import('./pages/dashboard/Mail')));
-const OrderDetails = Loadable(lazy(() => import('./pages/dashboard/OrderDetails')));
+const OrderDetails = Loadable(
+  lazy(() => import('./pages/dashboard/OrderDetails'))
+);
 const OrderList = Loadable(lazy(() => import('./pages/dashboard/OrderList')));
 const Overview = Loadable(lazy(() => import('./pages/dashboard/Overview')));
-const ProductCreate = Loadable(lazy(() => import('./pages/dashboard/ProductCreate')));
-const ProductList = Loadable(lazy(() => import('./pages/dashboard/ProductList')));
+const ProductCreate = Loadable(
+  lazy(() => import('./pages/dashboard/ProductCreate'))
+);
+const ProductList = Loadable(
+  lazy(() => import('./pages/dashboard/ProductList'))
+);
 
 // Docs pages
 
@@ -71,20 +122,30 @@ const Docs = Loadable(lazy(() => import('./pages/Docs')));
 
 // Error pages
 
-const AuthorizationRequired = Loadable(lazy(() => import('./pages/AuthorizationRequired')));
+const AuthorizationRequired = Loadable(
+  lazy(() => import('./pages/AuthorizationRequired'))
+);
 const NotFound = Loadable(lazy(() => import('./pages/NotFound')));
 const ServerError = Loadable(lazy(() => import('./pages/ServerError')));
 
 // Projects pages
 
-const ProjectBrowse = Loadable(lazy(() => import('./pages/dashboard/ProjectBrowse')));
-const ProjectCreate = Loadable(lazy(() => import('./pages/dashboard/ProjectCreate')));
-const ProjectDetails = Loadable(lazy(() => import('./pages/dashboard/ProjectDetails')));
+const ProjectBrowse = Loadable(
+  lazy(() => import('./pages/dashboard/ProjectBrowse'))
+);
+const ProjectCreate = Loadable(
+  lazy(() => import('./pages/dashboard/ProjectCreate'))
+);
+const ProjectDetails = Loadable(
+  lazy(() => import('./pages/dashboard/ProjectDetails'))
+);
 
 // Social pages
 
 const SocialFeed = Loadable(lazy(() => import('./pages/dashboard/SocialFeed')));
-const SocialProfile = Loadable(lazy(() => import('./pages/dashboard/SocialProfile')));
+const SocialProfile = Loadable(
+  lazy(() => import('./pages/dashboard/SocialProfile'))
+);
 
 // Other pages
 
@@ -103,19 +164,19 @@ const routes = [
           <GuestGuard>
             <Login />
           </GuestGuard>
-        )
+        ),
       },
       {
         path: 'login-unguarded',
-        element: <Login />
+        element: <Login />,
       },
       {
         path: 'password-recovery',
-        element: <PasswordRecovery />
+        element: <PasswordRecovery />,
       },
       {
         path: 'password-reset',
-        element: <PasswordReset />
+        element: <PasswordReset />,
       },
       {
         path: 'register',
@@ -123,17 +184,17 @@ const routes = [
           <GuestGuard>
             <Register />
           </GuestGuard>
-        )
+        ),
       },
       {
         path: 'register-unguarded',
-        element: <Register />
+        element: <Register />,
       },
       {
         path: 'verify-code',
-        element: <VerifyCode />
-      }
-    ]
+        element: <VerifyCode />,
+      },
+    ],
   },
   {
     path: 'blog',
@@ -141,21 +202,21 @@ const routes = [
     children: [
       {
         path: '/',
-        element: <BlogPostList />
+        element: <BlogPostList />,
       },
       {
         path: 'new',
-        element: <BlogPostCreate />
+        element: <BlogPostCreate />,
       },
       {
         path: ':postId',
-        element: <BlogPostDetails />
-      }
-    ]
+        element: <BlogPostDetails />,
+      },
+    ],
   },
   {
     path: 'contact',
-    element: <Contact />
+    element: <Contact />,
   },
   {
     path: 'dashboard',
@@ -167,162 +228,173 @@ const routes = [
     children: [
       {
         path: '/',
-        element: <Overview />
+        element: <Overview />,
       },
       {
         path: 'account',
-        element: <Account />
+        element: <Account />,
       },
       {
         path: 'analytics',
-        element: <Analytics />
+        element: <Analytics />,
       },
       {
         path: 'calendar',
-        element: <Calendar />
+        element: <Calendar />,
       },
       {
         path: 'chat',
         children: [
           {
             path: '/',
-            element: <Chat />
+            element: <Chat />,
           },
           {
             path: 'new',
-            element: <Chat />
+            element: <Chat />,
           },
           {
             path: ':threadKey',
-            element: <Chat />
-          }
-        ]
+            element: <Chat />,
+          },
+        ],
       },
       {
         path: 'customers',
         children: [
           {
             path: '/',
-            element: <CustomerList />
+            element: <CustomerList />,
           },
           {
             path: ':customerId',
-            element: <CustomerDetails />
+            element: <CustomerDetails />,
           },
           {
             path: ':customerId/edit',
-            element: <CustomerEdit />
-          }
-        ]
+            element: <CustomerEdit />,
+          },
+        ],
       },
       {
         path: 'invoices',
         children: [
           {
             path: '/',
-            element: <InvoiceList />
+            element: <InvoiceList />,
           },
           {
             path: ':invoiceId',
-            element: <InvoiceDetails />
-          }
-        ]
+            element: <InvoiceDetails />,
+          },
+        ],
       },
       {
         path: 'kanban',
-        element: <Kanban />
+        element: <Kanban />,
       },
       {
         path: 'mail',
         children: [
           {
             path: '/',
-            element: (
-              <Navigate
-                to="/dashboard/mail/all"
-                replace
-              />
-            )
+            element: <Navigate
+              to="/dashboard/mail/all"
+              replace
+            />,
           },
           {
             path: 'label/:customLabel',
-            element: <Mail />
+            element: <Mail />,
           },
           {
             path: 'label/:customLabel/:emailId',
-            element: <Mail />
+            element: <Mail />,
           },
           {
             path: ':systemLabel',
-            element: <Mail />
+            element: <Mail />,
           },
           {
             path: ':systemLabel/:emailId',
-            element: <Mail />
-          }
-        ]
+            element: <Mail />,
+          },
+        ],
       },
       {
         path: 'orders',
         children: [
           {
             path: '/',
-            element: <OrderList />
+            element: <OrderList />,
           },
           {
             path: ':orderId',
-            element: <OrderDetails />
-          }
-        ]
+            element: <OrderDetails />,
+          },
+        ],
       },
       {
         path: 'finance',
-        element: <Finance />
+        element: <Finance />,
       },
       {
         path: 'products',
         children: [
           {
             path: '/',
-            element: <ProductList />
+            element: <ProductList />,
           },
           {
             path: 'new',
-            element: <ProductCreate />
-          }
-        ]
+            element: <ProductCreate />,
+          },
+        ],
+      },
+      {
+        path: 'portfolio',
+        children: [
+          {
+            path: '/',
+            element: <Portfolio />,
+          },
+          {
+            path: 'new',
+            element: <ProductCreate />,
+          },
+        ],
       },
       {
         path: 'projects',
         children: [
           {
             path: 'browse',
-            element: <ProjectBrowse />
+            element: <ProjectBrowse />,
           },
           {
             path: 'new',
-            element: <ProjectCreate />
+            element: <ProjectCreate />,
           },
           {
             path: ':projectId',
-            element: <ProjectDetails />
-          }
-        ]
+            element: <ProjectDetails />,
+          },
+        ],
       },
       {
         path: 'social',
         children: [
           {
             path: 'feed',
-            element: <SocialFeed />
+            element: <SocialFeed />,
           },
           {
             path: 'profile',
-            element: <SocialProfile />
-          }
-        ]
-      }
-    ]
+            element: <SocialProfile />,
+          },
+        ],
+      },
+    ],
   },
   {
     path: 'docs',
@@ -330,18 +402,16 @@ const routes = [
     children: [
       {
         path: '/',
-        element: (
-          <Navigate
-            to="/docs/overview/welcome"
-            replace
-          />
-        )
+        element: <Navigate
+          to="/docs/overview/welcome"
+          replace
+        />,
       },
       {
         path: '*',
-        element: <Docs />
-      }
-    ]
+        element: <Docs />,
+      },
+    ],
   },
   {
     path: '*',
@@ -349,7 +419,7 @@ const routes = [
     children: [
       {
         path: '/',
-        element: <Home />
+        element: <Home />,
       },
       {
         path: 'browse',
@@ -357,84 +427,84 @@ const routes = [
         children: [
           {
             path: '/',
-            element: <Browse />
+            element: <Browse />,
           },
           {
             path: '/buttons',
-            element: <BrowseButtons />
+            element: <BrowseButtons />,
           },
           {
             path: '/inputs',
-            element: <BrowseInputs />
+            element: <BrowseInputs />,
           },
           {
             path: '/charts',
-            element: <BrowseCharts />
+            element: <BrowseCharts />,
           },
           {
             path: '/colors',
-            element: <BrowseColors />
+            element: <BrowseColors />,
           },
           {
             path: '/data-display/detail-lists',
-            element: <BrowseDetailLists />
+            element: <BrowseDetailLists />,
           },
           {
             path: '/data-display/quick-stats',
-            element: <BrowseQuickStats />
+            element: <BrowseQuickStats />,
           },
           {
             path: '/data-display/tables',
-            element: <BrowseTables />
+            element: <BrowseTables />,
           },
           {
             path: '/forms',
-            element: <BrowseForms />
+            element: <BrowseForms />,
           },
           {
             path: '/modals',
-            element: <BrowseModals />
+            element: <BrowseModals />,
           },
           {
             path: '/lists/grouped-lists',
-            element: <BrowseGroupedLists />
+            element: <BrowseGroupedLists />,
           },
           {
             path: '/lists/grid-lists',
-            element: <BrowseGridLists />
+            element: <BrowseGridLists />,
           },
           {
             path: '/typography',
-            element: <BrowseTypography />
-          }
-        ]
+            element: <BrowseTypography />,
+          },
+        ],
       },
       {
         path: 'checkout',
-        element: <Checkout />
+        element: <Checkout />,
       },
       {
         path: 'pricing',
-        element: <Pricing />
+        element: <Pricing />,
       },
       {
         path: '401',
-        element: <AuthorizationRequired />
+        element: <AuthorizationRequired />,
       },
       {
         path: '404',
-        element: <NotFound />
+        element: <NotFound />,
       },
       {
         path: '500',
-        element: <ServerError />
+        element: <ServerError />,
       },
       {
         path: '*',
-        element: <NotFound />
-      }
-    ]
-  }
+        element: <NotFound />,
+      },
+    ],
+  },
 ];
 
 export default routes;

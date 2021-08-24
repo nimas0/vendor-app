@@ -15,9 +15,9 @@ const slice = createSlice({
     getEvents(state, action) {
       state.events = action.payload;
     },
-    createEvent(state, action) {
-      state.events.push(action.payload);
-    },
+    // createEvent(state, action) {
+    //   state.events.push(action.payload);
+    // },
     selectEvent(state, action) {
       state.isModalOpen = true;
       state.selectedEventId = action.payload;
