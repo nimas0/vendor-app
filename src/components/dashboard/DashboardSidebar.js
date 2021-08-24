@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import {
   Avatar,
   Box,
-  Button,
+  // Button,
   Divider,
   Drawer,
   Link,
@@ -16,13 +16,13 @@ import ReceiptIcon from '@material-ui/icons/Receipt';
 import useAuth from '../../hooks/useAuth';
 // import BriefcaseIcon from '../../icons/Briefcase';
 import CalendarIcon from '../../icons/Calendar';
-import ChartPieIcon from '../../icons/ChartPie';
-import ChartSquareBarIcon from '../../icons/ChartSquareBar';
-import ChatAltIcon from '../../icons/ChatAlt';
+// import ChartPieIcon from '../../icons/ChartPie';
+// import ChartSquareBarIcon from '../../icons/ChartSquareBar';
+// import ChatAltIcon from '../../icons/ChatAlt';
 // import ClipboardListIcon from '../../icons/ClipboardList';
 // import MailIcon from '../../icons/Mail';
 // import ShareIcon from '../../icons/Share';
-import ShoppingBagIcon from '../../icons/ShoppingBag';
+// import ShoppingBagIcon from '../../icons/ShoppingBag';
 import UserIcon from '../../icons/User';
 // import UsersIcon from '../../icons/Users';
 import Logo from '../Logo';
@@ -39,26 +39,26 @@ const sections = [
         path: '/dashboard/calendar',
         icon: <CalendarIcon fontSize='small' />,
       },
-      {
-        title: 'Chat',
-        path: '/dashboard/chat',
-        icon: <ChatAltIcon fontSize='small' />,
-      },
-      {
-        title: 'Overview',
-        path: '/dashboard',
-        icon: <ChartSquareBarIcon fontSize='small' />,
-      },
-      {
-        title: 'Analytics',
-        path: '/dashboard/analytics',
-        icon: <ChartPieIcon fontSize='small' />,
-      },
-      {
-        title: 'Finance',
-        path: '/dashboard/finance',
-        icon: <ShoppingBagIcon fontSize='small' />,
-      },
+      // {
+      //   title: 'Chat',
+      //   path: '/dashboard/chat',
+      //   icon: <ChatAltIcon fontSize='small' />,
+      // },
+      // {
+      //   title: 'Overview',
+      //   path: '/dashboard',
+      //   icon: <ChartSquareBarIcon fontSize='small' />,
+      // },
+      // {
+      //   title: 'Analytics',
+      //   path: '/dashboard/analytics',
+      //   icon: <ChartPieIcon fontSize='small' />,
+      // },
+      // {
+      //   title: 'Finance',
+      //   path: '/dashboard/finance',
+      //   icon: <ShoppingBagIcon fontSize='small' />,
+      // },
       {
         title: 'Account',
         path: '/dashboard/account',
@@ -272,7 +272,7 @@ const DashboardSidebar = (props) => {
                 {user.name}
               </Typography>
               <Typography color='textSecondary' variant='body2'>
-                Your plan:{' '}
+                Vendor Type:{' '}
                 <Link color='primary' component={RouterLink} to='/pricing'>
                   {user.plan}
                 </Link>
@@ -296,7 +296,7 @@ const DashboardSidebar = (props) => {
           ))}
         </Box>
         <Divider />
-        <Box sx={{ p: 2 }}>
+        {/* <Box sx={{ p: 2 }}>
           <Typography color='textPrimary' variant='subtitle2'>
             Need Help?
           </Typography>
@@ -313,7 +313,7 @@ const DashboardSidebar = (props) => {
           >
             Documentation
           </Button>
-        </Box>
+        </Box> */}
       </Scrollbar>
     </Box>
   );
