@@ -1,3 +1,4 @@
+/* eslint-disable implicit-arrow-linebreak */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-wrap-multilines */
@@ -20,6 +21,7 @@ import { Add, Message } from '@material-ui/icons';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import parsePhoneNumber from 'libphonenumber-js';
+import toast, { Toaster } from 'react-hot-toast';
 
 const selectOptions = [
   {
@@ -101,6 +103,8 @@ const BulkSms = () => {
     setChips(value);
   };
 
+  const notify = () => toast('Messages Sent.');
+
   const handleSubmitList = async () => {
     console.log({
       message,
@@ -136,6 +140,7 @@ const BulkSms = () => {
 
       console.log(responseSms);
       setChips([]);
+      notify();
       setLoading(false);
     } catch (error) {
       console.log(error);
