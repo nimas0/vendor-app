@@ -13,6 +13,7 @@ import {
   Radio,
   RadioGroup,
   Typography,
+  CircularProgress,
 } from '@material-ui/core';
 import MultiSelect from '../../MultiSelect';
 import { Add, Message } from '@material-ui/icons';
@@ -84,7 +85,8 @@ const BulkSms = () => {
   const [numberInput, setNumberInput] = useState('');
   const [message, setMessage] = useState('');
   const [location, setLocation] = useState('houston');
-
+  const [loading, setLoading] = useState(false);
+  const [err, setError] = useState(false);
   const handleChipDelete = (chip) => {
     setChips((prevChips) => prevChips.filter((prevChip) => chip !== prevChip));
   };
@@ -107,12 +109,15 @@ const BulkSms = () => {
     });
 
     try {
+      setLoading(true);
       console.log(
         JSON.stringify({
           message,
           numberList: chips,
         })
       );
+      setError(false);
+
       const responseSms = await fetch(
         'https://us-central1-finding-spaces-73b23.cloudfunctions.net/admin/sendBulkSms',
         {
@@ -131,8 +136,11 @@ const BulkSms = () => {
 
       console.log(responseSms);
       setChips([]);
+      setLoading(false);
     } catch (error) {
       console.log(error);
+      setError('something went wrong');
+      setLoading(false);
     }
   };
 
@@ -286,13 +294,20 @@ const BulkSms = () => {
           />
         ))}
         <Box sx={{ flexGrow: 1 }} />
-        <Button
-          onClick={handleSubmitList}
-          variant='contained'
-          label='In network'
-        >
-          Send
-        </Button>
+        {err && err}
+        {loading ? (
+          <Box sx={{ display: 'flex' }}>
+            <CircularProgress />
+          </Box>
+        ) : (
+          <Button
+            onClick={handleSubmitList}
+            variant='contained'
+            label='In network'
+          >
+            Send
+          </Button>
+        )}
       </Box>
       <RadioGroup
         aria-label='gender'
