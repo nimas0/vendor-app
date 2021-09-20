@@ -16,8 +16,8 @@ import ReceiptIcon from '@material-ui/icons/Receipt';
 import useAuth from '../../hooks/useAuth';
 // import BriefcaseIcon from '../../icons/Briefcase';
 import CalendarIcon from '../../icons/Calendar';
-// import ChartPieIcon from '../../icons/ChartPie';
-// import ChartSquareBarIcon from '../../icons/ChartSquareBar';
+import ChartPieIcon from '../../icons/ChartPie';
+import ChartSquareBarIcon from '../../icons/ChartSquareBar';
 // import ChatAltIcon from '../../icons/ChatAlt';
 // import ClipboardListIcon from '../../icons/ClipboardList';
 // import MailIcon from '../../icons/Mail';
@@ -44,16 +44,16 @@ const sections = [
       //   path: '/dashboard/chat',
       //   icon: <ChatAltIcon fontSize='small' />,
       // },
-      // {
-      //   title: 'Overview',
-      //   path: '/dashboard',
-      //   icon: <ChartSquareBarIcon fontSize='small' />,
-      // },
-      // {
-      //   title: 'Analytics',
-      //   path: '/dashboard/analytics',
-      //   icon: <ChartPieIcon fontSize='small' />,
-      // },
+      {
+        title: 'Overview',
+        path: '/dashboard',
+        icon: <ChartSquareBarIcon fontSize='small' />,
+      },
+      {
+        title: 'Analytics',
+        path: '/dashboard/analytics',
+        icon: <ChartPieIcon fontSize='small' />,
+      },
       // {
       //   title: 'Finance',
       //   path: '/dashboard/finance',
