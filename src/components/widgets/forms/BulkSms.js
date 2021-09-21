@@ -306,6 +306,7 @@ const BulkSms = () => {
           </Box>
         ) : (
           <Button
+            disabled={chips.length === 0}
             onClick={handleSubmitList}
             variant='contained'
             label='In network'
