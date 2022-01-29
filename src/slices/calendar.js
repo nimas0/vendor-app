@@ -5,7 +5,7 @@ const initialState = {
   events: [],
   isModalOpen: false,
   selectedEventId: null,
-  selectedRange: null
+  selectedRange: null,
 };
 
 const slice = createSlice({
@@ -34,7 +34,9 @@ const slice = createSlice({
       });
     },
     deleteEvent(state, action) {
-      state.events = state.events.filter((event) => event.id !== action.payload);
+      state.events = state.events.filter(
+        (event) => event.id !== action.payload
+      );
     },
     selectRange(state, action) {
       const { start, end } = action.payload;
@@ -42,7 +44,7 @@ const slice = createSlice({
       state.isModalOpen = true;
       state.selectedRange = {
         start,
-        end
+        end,
       };
     },
     openModal(state) {
@@ -52,8 +54,8 @@ const slice = createSlice({
       state.isModalOpen = false;
       state.selectedEventId = null;
       state.selectedRange = null;
-    }
-  }
+    },
+  },
 });
 
 export const { reducer } = slice;
@@ -77,7 +79,7 @@ export const selectEvent = (eventId) => async (dispatch) => {
 export const updateEvent = (eventId, update) => async (dispatch) => {
   const data = await calendarApi.updateEvent({
     eventId,
-    update
+    update,
   });
 
   dispatch(slice.actions.updateEvent(data));

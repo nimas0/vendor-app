@@ -7,7 +7,7 @@ import {
   getThread,
   markThreadAsSeen,
   removeRecipient,
-  resetActiveThread
+  resetActiveThread,
 } from '../../../slices/chat';
 import { useDispatch, useSelector } from '../../../store';
 import ChatMessageAdd from './ChatMessageAdd';
@@ -27,7 +27,7 @@ const threadSelector = (state) => {
     id: null,
     messages: [],
     participants: [],
-    unreadMessages: 0
+    unreadMessages: 0,
   };
 };
 
@@ -35,7 +35,9 @@ const ChatThread = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { threadKey } = useParams();
-  const { activeThreadId, participants, recipients } = useSelector((state) => state.chat);
+  const { activeThreadId, participants, recipients } = useSelector(
+    (state) => state.chat
+  );
   const thread = useSelector((state) => threadSelector(state));
 
   const getDetails = async () => {
@@ -92,12 +94,10 @@ const ChatThread = () => {
         backgroundColor: 'background.default',
         display: 'flex',
         flexDirection: 'column',
-        flexGrow: 1
+        flexGrow: 1,
       }}
     >
-      {mode === 'DETAIL' && (
-        <ChatThreadToolbar participants={participants} />
-      )}
+      {mode === 'DETAIL' && <ChatThreadToolbar participants={participants} />}
       {mode === 'COMPOSE' && (
         <ChatThreadComposer
           onAddRecipient={handleAddRecipient}
@@ -108,7 +108,7 @@ const ChatThread = () => {
       <Box
         sx={{
           flexGrow: 1,
-          overflow: 'auto'
+          overflow: 'auto',
         }}
       >
         <ChatMessages
@@ -117,10 +117,7 @@ const ChatThread = () => {
         />
       </Box>
       <Divider />
-      <ChatMessageAdd
-        disabled={false}
-        onSend={handleSendMessage}
-      />
+      <ChatMessageAdd disabled={false} onSend={handleSendMessage} />
     </Box>
   );
 };

@@ -4,7 +4,6 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import RUG from 'react-upload-gallery';
 import 'react-upload-gallery/dist/style.css';
-// import { galleryApi } from '../../../__fakeApi__/galleryApi';
 
 const PhotoGallery = ({ initial }) => {
   if (initial) {

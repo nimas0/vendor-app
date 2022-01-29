@@ -1,6 +1,9 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import {
   Box,
   Card,
+  CardHeader,
   IconButton,
   List,
   ListItem,
@@ -8,72 +11,67 @@ import {
   ListItemSecondaryAction,
   ListItemText,
   Tooltip,
-  Typography
+  Typography,
 } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 import CreditCardIcon from '../../../icons/CreditCard';
 import MailIcon from '../../../icons/Mail';
 import ChevronRightIcon from '../../../icons/ChevronRight';
-
-const notifications = [
-  {
-    id: '5e8883a4f7877f898c408c27',
-    message: 'to send service quotes',
-    type: 'invite',
-    value: 6
-  },
-  {
-    id: '5e8883aa34190e0457a6e2b9',
-    message: 'from clients',
-    type: 'message',
-    value: 2
-  },
-  {
-    id: '5e8883af168cad3e1f4fe0ae',
-    message: 'that needs your confirmation',
-    type: 'payout',
-    value: 1
-  }
-];
+import { Add } from '@material-ui/icons';
+import Modal9 from '../modals/Modal9';
+import TaskModal from '../../dashboard/overview/TaskModal';
+import Check from '../../../icons/Check';
 
 const iconsMap = {
   invite: SendIcon,
   message: MailIcon,
-  payout: CreditCardIcon
+  payout: CreditCardIcon,
+  task: Add,
 };
 
-const GroupedList4 = () => (
+const GroupedList4 = ({ tasks, handleTaskModalOpen, handleClose }) => (
   <Box
     sx={{
-      backgroundColor: 'background.default',
-      p: 3
+      backgroundColor: 'transparent',
+      p: 6,
     }}
   >
-    <Card>
+    <Card elevation={0}>
+      <CardHeader
+        title={`Tasks Completed: ${tasks.count} out 5`}
+        subheader='Complete these tasks to simulate selling a home'
+      />
       <List>
-        {notifications.map((notification, i) => {
-          const Icon = iconsMap[notification.type];
+        {tasks.tasks.map((task, i) => {
+          const Icon = iconsMap.task;
 
           return (
             <ListItem
-              divider={i < notifications.length - 1}
-              key={notification.id}
+              onClick={() => handleTaskModalOpen(task.id)}
+              button
+              id={task.id}
+              divider={i < tasks.length - 1}
+              key={task.id}
             >
               <ListItemIcon>
-                <Icon fontSize="small" />
+                <Icon fontSize='small' />
               </ListItemIcon>
               <ListItemText>
                 <Typography
-                  color="textPrimary"
-                  variant="subtitle2"
+                  color={task.completed ? 'primary' : 'textPrimary'}
+                  variant='subtitle2'
                 >
-                  {`${notification.value} ${notification.type}s ${notification.message}`}
+                  {` ${task.label}`}
                 </Typography>
               </ListItemText>
               <ListItemSecondaryAction>
-                <Tooltip title="View">
-                  <IconButton edge="end">
-                    <ChevronRightIcon fontSize="small" />
+                <Tooltip title='View'>
+                  <IconButton edge='end'>
+                    {task.completed ? (
+                      <Check color='primary' />
+                    ) : (
+                      <ChevronRightIcon fontSize='small' />
+                    )}
                   </IconButton>
                 </Tooltip>
               </ListItemSecondaryAction>
@@ -82,6 +80,12 @@ const GroupedList4 = () => (
         })}
       </List>
     </Card>
+    <TaskModal
+      tasks={tasks}
+      activeTask={tasks.selectedTask}
+      open={tasks.isModalOpen}
+      onClose={handleClose}
+    />
   </Box>
 );
 

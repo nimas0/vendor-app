@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import {
-  HomeClients,
+  // HomeClients,
   HomeHero,
-  HomeOverview,
-  HomeRoles,
-  HomeFeatures,
-  HomeTestimonials
+  // HomeOverview,
+  // HomeRoles,
+  // HomeFeatures,
+  // HomeTestimonials,
 } from '../components/home';
 import gtm from '../lib/gtm';
 
@@ -18,15 +18,15 @@ const Home = () => {
   return (
     <>
       <Helmet>
-        <title>Material Kit Pro</title>
+        <title>Finding Spaces</title>
       </Helmet>
       <div>
         <HomeHero />
-        <HomeOverview />
+        {/* <HomeOverview />
         <HomeRoles />
         <HomeTestimonials />
         <HomeFeatures />
-        <HomeClients />
+        <HomeClients /> */}
       </div>
     </>
   );

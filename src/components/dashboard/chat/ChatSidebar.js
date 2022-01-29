@@ -50,13 +50,14 @@ const ChatSidebar = () => {
   return (
     <Box
       sx={{
-        backgroundColor: 'background.paper',
+        backgroundColor: 'background.default',
+
         borderRight: 1,
         borderColor: 'divider',
         display: 'flex',
         flexDirection: 'column',
         maxWidth: '100%',
-        width: 300
+        width: 300,
       }}
     >
       <Box
@@ -65,32 +66,26 @@ const ChatSidebar = () => {
           display: 'flex',
           flexShrink: 0,
           height: 64,
-          px: 2
+          px: 2,
         }}
       >
-        <Typography
-          color="textPrimary"
-          variant="h5"
-        >
+        <Typography color='textPrimary' variant='h5'>
           Chats
         </Typography>
         <Box sx={{ flexGrow: 1 }} />
         <IconButton>
-          <CogIcon fontSize="small" />
+          <CogIcon fontSize='small' />
         </IconButton>
-        <IconButton
-          component={RouterLink}
-          to="/dashboard/chat/new"
-        >
-          <PencilAltIcon fontSize="small" />
+        <IconButton component={RouterLink} to='/dashboard/chat/new'>
+          <PencilAltIcon fontSize='small' />
         </IconButton>
       </Box>
       <Box
         sx={{
           display: {
             sm: 'block',
-            xs: 'none'
-          }
+            xs: 'none',
+          },
         }}
       >
         <ChatContactSearch

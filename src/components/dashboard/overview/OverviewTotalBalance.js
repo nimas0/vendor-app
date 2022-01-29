@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-wrap-multilines */
+/* eslint-disable react/jsx-max-props-per-line */
 import numeral from 'numeral';
 import {
   Badge,
@@ -10,110 +12,91 @@ import {
   List,
   ListItem,
   ListItemText,
-  Typography
+  Typography,
 } from '@material-ui/core';
 import ArrowRightIcon from '../../../icons/ArrowRight';
 
 const currencies = [
   {
-    amount: 21500,
+    amount: 500,
     color: '#6C76C4',
-    name: 'US Dollars'
+    name: 'Space Tokens',
   },
   {
-    amount: 15300,
+    amount: 100,
     color: '#33BB78',
-    name: 'Bitcoin'
+    name: 'Ada',
   },
   {
-    amount: 1076.81,
+    amount: 500000.81,
     color: '#FF4081',
-    name: 'XRP Ripple'
-  }
+    name: 'NFT (1234 Main Street) - Est Value: ',
+  },
 ];
 
 const OverviewTotalBalance = (props) => (
   <Card {...props}>
     <CardHeader
-      subheader={(
-        <Typography
-          color="textPrimary"
-          variant="h4"
-        >
-          {numeral(3787681).format('$0,0.00')}
+      subheader={
+        <Typography color='textPrimary' variant='h4'>
+          {numeral(500).format('$0,0.00')}
         </Typography>
-      )}
+      }
       sx={{ pb: 0 }}
-      title={(
-        <Typography
-          color="textSecondary"
-          variant="overline"
-        >
-          Total balance
+      title={
+        <Typography color='textSecondary' variant='overline'>
+          Total Space Tokens
         </Typography>
-      )}
+      }
     />
     <CardContent>
       <Divider sx={{ mb: 2 }} />
-      <Typography
-        color="textSecondary"
-        variant="overline"
-      >
-        Available currency
+      <Typography color='textSecondary' variant='overline'>
+        Wallet Details
       </Typography>
-      <List
-        disablePadding
-        sx={{ pt: 2 }}
-      >
+      <List disablePadding sx={{ pt: 2 }}>
         {currencies.map((currency) => (
           <ListItem
             disableGutters
             key={currency.name}
             sx={{
               pb: 2,
-              pt: 0
+              pt: 0,
             }}
           >
             <ListItemText
               disableTypography
-              primary={(
+              primary={
                 <Box
                   sx={{
                     display: 'flex',
-                    justifyContent: 'space-between'
+                    justifyContent: 'space-between',
                   }}
                 >
                   <Badge
                     anchorOrigin={{
                       vertical: 'top',
-                      horizontal: 'left'
+                      horizontal: 'left',
                     }}
-                    variant="dot"
+                    variant='dot'
                     sx={{
                       pl: '20px',
                       '& .MuiBadge-badge': {
                         backgroundColor: currency.color,
                         left: 6,
-                        top: 11
-                      }
+                        top: 11,
+                      },
                     }}
                   >
-                    <Typography
-                      color="textPrimary"
-                      variant="subtitle2"
-                    >
+                    <Typography color='textPrimary' variant='subtitle2'>
                       {currency.name}
                     </Typography>
                   </Badge>
-                  <Typography
-                    color="textSecondary"
-                    variant="subtitle2"
-                  >
-                    {numeral(currency.amount)
-                      .format('$0,0.00')}
+                  <Typography color='textSecondary' variant='subtitle2'>
+                    {numeral(currency.amount).format('$0,0.00')}
                   </Typography>
                 </Box>
-              )}
+              }
             />
           </ListItem>
         ))}
@@ -124,22 +107,36 @@ const OverviewTotalBalance = (props) => (
           alignItems: 'flex-start',
           display: 'flex',
           flexDirection: 'column',
-          pt: 2
+          pt: 2,
         }}
       >
         <Button
-          color="primary"
-          endIcon={<ArrowRightIcon fontSize="small" />}
-          variant="text"
+          color='primary'
+          endIcon={<ArrowRightIcon fontSize='small' />}
+          variant='text'
         >
-          Add money
+          Add tokens
         </Button>
         <Button
-          color="primary"
-          endIcon={<ArrowRightIcon fontSize="small" />}
-          variant="text"
+          color='primary'
+          endIcon={<ArrowRightIcon fontSize='small' />}
+          variant='text'
+        >
+          Add Ada
+        </Button>
+        <Button
+          color='primary'
+          endIcon={<ArrowRightIcon fontSize='small' />}
+          variant='text'
         >
           Withdraw funds
+        </Button>
+        <Button
+          color='primary'
+          endIcon={<ArrowRightIcon fontSize='small' />}
+          variant='text'
+        >
+          Stake Funds
         </Button>
       </Box>
     </CardContent>

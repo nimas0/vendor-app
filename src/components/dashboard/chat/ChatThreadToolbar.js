@@ -10,7 +10,7 @@ import {
   Menu,
   MenuItem,
   Tooltip,
-  Typography
+  Typography,
 } from '@material-ui/core';
 import { experimentalStyled } from '@material-ui/core/styles';
 import ArchiveIcon from '../../../icons/Archive';
@@ -27,8 +27,8 @@ const ParticipantAvatar = experimentalStyled(Avatar)(({ styleProps }) => {
       height: 30,
       width: 30,
       '&:nth-of-type(2)': {
-        mt: '10px'
-      }
+        mt: '10px',
+      },
     };
   }
 
@@ -42,12 +42,12 @@ const ChatThreadToolbar = (props) => {
 
   // We hardcode the current user ID because the mocked that is not in sync with the auth provider.
   // When implementing this app with a real database, replace this ID with the ID from Auth Context.
-  const otherParticipants = participants.filter((participant) => (participant.id
-    !== '5e86809283e28b96d2d38537'));
-  const displayNames = otherParticipants.reduce((names, participant) => [
-    ...names,
-    participant.name
-  ], []).join(', ');
+  const otherParticipants = participants.filter(
+    (participant) => participant.id !== '5e86809283e28b96d2d38537'
+  );
+  const displayNames = otherParticipants
+    .reduce((names, participant) => [...names, participant.name], [])
+    .join(', ');
 
   const handleMenuOpen = () => {
     setOpenMenu(true);
@@ -61,13 +61,14 @@ const ChatThreadToolbar = (props) => {
     <Box
       sx={{
         alignItems: 'center',
-        backgroundColor: 'background.paper',
+        backgroundColor: 'background.default',
         borderBottom: (theme) => `1px solid ${theme.palette.divider}`,
+
         display: 'flex',
         flexShrink: 0,
         minHeight: 64,
         px: 2,
-        py: 1
+        py: 1,
       }}
       {...other}
     >
@@ -79,9 +80,9 @@ const ChatThreadToolbar = (props) => {
             height: 30,
             width: 30,
             '&:nth-of-type(2)': {
-              mt: '10px'
-            }
-          }
+              mt: '10px',
+            },
+          },
         }}
       >
         <AvatarGroup max={2}>
@@ -93,27 +94,20 @@ const ChatThreadToolbar = (props) => {
             />
           ))}
         </AvatarGroup>
-        <Typography
-          color="textPrimary"
-          sx={{ ml: 2 }}
-          variant="subtitle2"
-        >
+        <Typography color='textPrimary' sx={{ ml: 2 }} variant='subtitle2'>
           {displayNames}
         </Typography>
       </Box>
       <Box sx={{ flexGrow: 1 }} />
       <IconButton>
-        <PhoneIcon fontSize="small" />
+        <PhoneIcon fontSize='small' />
       </IconButton>
       <IconButton>
-        <CameraIcon fontSize="small" />
+        <CameraIcon fontSize='small' />
       </IconButton>
-      <Tooltip title="More options">
-        <IconButton
-          onClick={handleMenuOpen}
-          ref={moreRef}
-        >
-          <DotsHorizontalIcon fontSize="small" />
+      <Tooltip title='More options'>
+        <IconButton onClick={handleMenuOpen} ref={moreRef}>
+          <DotsHorizontalIcon fontSize='small' />
         </IconButton>
       </Tooltip>
       <Menu
@@ -125,27 +119,27 @@ const ChatThreadToolbar = (props) => {
       >
         <MenuItem>
           <ListItemIcon>
-            <BanIcon fontSize="small" />
+            <BanIcon fontSize='small' />
           </ListItemIcon>
-          <ListItemText primary="Block contact" />
+          <ListItemText primary='Block contact' />
         </MenuItem>
         <MenuItem>
           <ListItemIcon>
-            <TrashIcon fontSize="small" />
+            <TrashIcon fontSize='small' />
           </ListItemIcon>
-          <ListItemText primary="Delete thread" />
+          <ListItemText primary='Delete thread' />
         </MenuItem>
         <MenuItem>
           <ListItemIcon>
-            <ArchiveIcon fontSize="small" />
+            <ArchiveIcon fontSize='small' />
           </ListItemIcon>
-          <ListItemText primary="Archive thread" />
+          <ListItemText primary='Archive thread' />
         </MenuItem>
         <MenuItem>
           <ListItemIcon>
-            <BellIcon fontSize="small" />
+            <BellIcon fontSize='small' />
           </ListItemIcon>
-          <ListItemText primary="Mute notifications" />
+          <ListItemText primary='Mute notifications' />
         </MenuItem>
       </Menu>
     </Box>
@@ -153,11 +147,11 @@ const ChatThreadToolbar = (props) => {
 };
 
 ChatThreadToolbar.propTypes = {
-  participants: PropTypes.array
+  participants: PropTypes.array,
 };
 
 ChatThreadToolbar.defaultProps = {
-  participants: []
+  participants: [],
 };
 
 export default ChatThreadToolbar;

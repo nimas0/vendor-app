@@ -1,3 +1,4 @@
+/* eslint-disable implicit-arrow-linebreak */
 import { Suspense, lazy } from 'react';
 import { Navigate } from 'react-router-dom';
 import AuthGuard from './components/AuthGuard';
@@ -9,12 +10,16 @@ import GuestGuard from './components/GuestGuard';
 import LoadingScreen from './components/LoadingScreen';
 import MainLayout from './components/MainLayout';
 import Portfolio from './pages/dashboard/Portfolio';
+import QuestionsPage from './pages/dashboard/QuestionsPage';
+import Store from './pages/dashboard/Store';
 
-const Loadable = (Component) => (props) => (
-  <Suspense fallback={<LoadingScreen />}>
-    <Component {...props} />
-  </Suspense>
-);
+const Loadable = (Component) => (props) =>
+  (
+    // eslint-disable-next-line implicit-arrow-linebreak
+    <Suspense fallback={<LoadingScreen />}>
+      <Component {...props} />
+    </Suspense>
+  );
 
 // Browse pages
 
@@ -149,10 +154,8 @@ const SocialProfile = Loadable(
 
 // Other pages
 
-const Checkout = Loadable(lazy(() => import('./pages/Checkout')));
 const Contact = Loadable(lazy(() => import('./pages/Contact')));
 const Home = Loadable(lazy(() => import('./pages/Home')));
-const Pricing = Loadable(lazy(() => import('./pages/Pricing')));
 
 const routes = [
   {
@@ -239,6 +242,14 @@ const routes = [
         element: <Analytics />,
       },
       {
+        path: 'store',
+        element: <Store />,
+      },
+      {
+        path: 'questions',
+        element: <QuestionsPage />,
+      },
+      {
         path: 'calendar',
         element: <Calendar />,
       },
@@ -298,10 +309,7 @@ const routes = [
         children: [
           {
             path: '/',
-            element: <Navigate
-              to="/dashboard/mail/all"
-              replace
-            />,
+            element: <Navigate to='/dashboard/mail/all' replace />,
           },
           {
             path: 'label/:customLabel',
@@ -402,10 +410,7 @@ const routes = [
     children: [
       {
         path: '/',
-        element: <Navigate
-          to="/docs/overview/welcome"
-          replace
-        />,
+        element: <Navigate to='/docs/overview/welcome' replace />,
       },
       {
         path: '*',
@@ -478,14 +483,6 @@ const routes = [
             element: <BrowseTypography />,
           },
         ],
-      },
-      {
-        path: 'checkout',
-        element: <Checkout />,
-      },
-      {
-        path: 'pricing',
-        element: <Pricing />,
       },
       {
         path: '401',
