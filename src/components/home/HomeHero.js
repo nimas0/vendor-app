@@ -8,11 +8,13 @@ import { Box, Container, Grid, IconButton } from '@material-ui/core';
 import HomeView from '../widgets/grid-lists/HomeView';
 // import { useTheme } from '@material-ui/core/styles';
 import ReactMapGL, { Marker } from 'react-map-gl';
-import homeData from '../../__fakeApi__/home.json';
 import { LocationOn } from '@material-ui/icons';
 import ClaimModal from '../property/ClaimModal';
 
-const HomeHero = ({ properties, handleClose, handleOpen }, ...props) => {
+const HomeHero = (
+  { properties, handleClose, handleOpen },
+  ...props
+) => {
   const [viewport, setViewport] = useState({
     latitude: 25.749656677246094,
     longitude: -80.43821716308594,
@@ -43,16 +45,10 @@ const HomeHero = ({ properties, handleClose, handleOpen }, ...props) => {
       }}
       {...props}
     >
-      <Grid
-        spacing={3}
-        container
-      >
-        <Grid
-          item
-          xs={8}
-        >
+      <Grid spacing={3} container>
+        <Grid item xs={8}>
           <ReactMapGL
-            mapStyle='mapbox://styles/nimas0/ckysy19yp7egy15qogb8clmbo'
+            mapStyle="mapbox://styles/nimas0/ckysy19yp7egy15qogb8clmbo"
             mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
             {...viewport}
             onViewportChange={(vp) => {
@@ -67,17 +63,14 @@ const HomeHero = ({ properties, handleClose, handleOpen }, ...props) => {
                   longitude={property.address.longitude}
                   onClick={() => handleOpen(property.id)}
                 >
-                  <IconButton color='primary'>
-                    <LocationOn fontSize='large' />
+                  <IconButton color="primary">
+                    <LocationOn fontSize="large" />
                   </IconButton>
                 </Marker>
               ))}
           </ReactMapGL>
         </Grid>
-        <Grid
-          item
-          xs={4}
-        >
+        <Grid item xs={4}>
           <HomeView
             activeProperty={properties.selectedPropertyId}
             properties={properties.properties}
