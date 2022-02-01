@@ -95,6 +95,7 @@ const MainNavbar = (props) => {
           sx={{
             height: 32,
             mx: 2,
+            backgroundColor: 'transparent',
           }}
         />
         <Link
@@ -184,15 +185,11 @@ const MainNavbar = (props) => {
         </Box>
       </Toolbar>
       <Toolbar
+        elevation={3}
         sx={{
           minHeight: 64,
-          backgroundColor: '#142c38',
-          borderBottom: 0,
-          borderTop: '.5px',
-          borderLeft: 0,
-          borderRight: 0,
-          borderColor: 'grey',
-          borderStyle: 'solid',
+          backgroundColor: '#2B2E35',
+          borderRadius: 0,
         }}
       >
         {' '}

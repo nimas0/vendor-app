@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-wrap-multilines */
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { experimentalStyled } from '@material-ui/core/styles';

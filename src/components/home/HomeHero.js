@@ -1,3 +1,5 @@
+/* eslint-disable operator-linebreak */
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import { useState } from 'react';
@@ -10,8 +12,7 @@ import homeData from '../../__fakeApi__/home.json';
 import { LocationOn } from '@material-ui/icons';
 import ClaimModal from '../property/ClaimModal';
 
-const HomeHero = (props) => {
-  const [isApplicationOpen, setIsApplicationOpen] = useState(false);
+const HomeHero = ({ properties, handleClose, handleOpen }, ...props) => {
   const [viewport, setViewport] = useState({
     latitude: 25.749656677246094,
     longitude: -80.43821716308594,
@@ -19,14 +20,6 @@ const HomeHero = (props) => {
     width: 'auto',
     height: '800px',
   });
-
-  const handleApplyModalOpen = () => {
-    setIsApplicationOpen(true);
-  };
-
-  const handleApplyModalClose = () => {
-    setIsApplicationOpen(false);
-  };
 
   return (
     // const theme = useTheme();
@@ -50,8 +43,14 @@ const HomeHero = (props) => {
       }}
       {...props}
     >
-      <Grid spacing={3} container>
-        <Grid item xs={8}>
+      <Grid
+        spacing={3}
+        container
+      >
+        <Grid
+          item
+          xs={8}
+        >
           <ReactMapGL
             mapStyle='mapbox://styles/nimas0/ckysy19yp7egy15qogb8clmbo'
             mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
@@ -60,25 +59,38 @@ const HomeHero = (props) => {
               setViewport(vp);
             }}
           >
-            {homeData.homes.map((home) => (
-              <Marker
-                key={home.address}
-                latitude={home.latitude}
-                longitude={home.longitude}
-                onClick={handleApplyModalOpen}
-              >
-                <IconButton color='primary'>
-                  <LocationOn fontSize='large' />
-                </IconButton>
-              </Marker>
-            ))}
+            {properties &&
+              properties.properties.map((property) => (
+                <Marker
+                  key={property.address.formatted_street_address}
+                  latitude={property.address.latitude}
+                  longitude={property.address.longitude}
+                  onClick={() => handleOpen(property.id)}
+                >
+                  <IconButton color='primary'>
+                    <LocationOn fontSize='large' />
+                  </IconButton>
+                </Marker>
+              ))}
           </ReactMapGL>
         </Grid>
-        <Grid sx={{ backgroundColor: '#142c38' }} item xs={4}>
-          <HomeView />
+        <Grid
+          item
+          xs={4}
+        >
+          <HomeView
+            activeProperty={properties.selectedPropertyId}
+            properties={properties.properties}
+            handleOpen={handleOpen}
+          />
         </Grid>
       </Grid>
-      <ClaimModal onClose={handleApplyModalClose} open={isApplicationOpen} />
+      <ClaimModal
+        onClose={handleClose}
+        open={properties.isModalOpen}
+        activeProperty={properties.selectedPropertyId}
+        properties={properties.properties}
+      />
     </Box>
   );
 };

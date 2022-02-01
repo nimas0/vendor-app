@@ -1,3 +1,4 @@
+/* eslint-disable implicit-arrow-linebreak */
 import { createContext, useEffect, useReducer } from 'react';
 import PropTypes from 'prop-types';
 import firebase from '../lib/firebase';
@@ -5,7 +6,7 @@ import firebase from '../lib/firebase';
 const initialState = {
   isAuthenticated: false,
   isInitialized: false,
-  user: null
+  user: null,
 };
 
 const reducer = (state, action) => {
@@ -16,7 +17,7 @@ const reducer = (state, action) => {
       ...state,
       isAuthenticated,
       isInitialized: true,
-      user
+      user,
     };
   }
 
@@ -29,43 +30,48 @@ const AuthContext = createContext({
   createUserWithEmailAndPassword: () => Promise.resolve(),
   signInWithEmailAndPassword: () => Promise.resolve(),
   signInWithGoogle: () => Promise.resolve(),
-  logout: () => Promise.resolve()
+  logout: () => Promise.resolve(),
 });
 
 export const AuthProvider = (props) => {
   const { children } = props;
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  useEffect(() => firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-      // Here you should extract the complete user profile to make it available in your entire app.
-      // The auth state only provides basic information.
-      dispatch({
-        type: 'AUTH_STATE_CHANGED',
-        payload: {
-          isAuthenticated: true,
-          user: {
-            id: user.uid,
-            avatar: user.photoURL,
-            email: user.email,
-            name: 'Jane Rotanson',
-            plan: 'Premium'
-          }
+  useEffect(
+    () =>
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          // Here you should extract the complete user profile to make it available in your entire app.
+          // The auth state only provides basic information.
+          console.log('user3', user.customClaims);
+          dispatch({
+            type: 'AUTH_STATE_CHANGED',
+            payload: {
+              isAuthenticated: true,
+              user: {
+                id: user.uid,
+                avatar: user.photoURL,
+                email: user.email,
+                name: 'Jane Rotanson',
+                plan: 'Premium',
+              },
+            },
+          });
+        } else {
+          dispatch({
+            type: 'AUTH_STATE_CHANGED',
+            payload: {
+              isAuthenticated: false,
+              user: null,
+            },
+          });
         }
-      });
-    } else {
-      dispatch({
-        type: 'AUTH_STATE_CHANGED',
-        payload: {
-          isAuthenticated: false,
-          user: null
-        }
-      });
-    }
-  }), [dispatch]);
+      }),
+    [dispatch]
+  );
 
-  const signInWithEmailAndPassword = (email,
-    password) => firebase.auth().signInWithEmailAndPassword(email, password);
+  const signInWithEmailAndPassword = (email, password) =>
+    firebase.auth().signInWithEmailAndPassword(email, password);
 
   const signInWithGoogle = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
@@ -73,8 +79,8 @@ export const AuthProvider = (props) => {
     return firebase.auth().signInWithPopup(provider);
   };
 
-  const createUserWithEmailAndPassword = async (email,
-    password) => firebase.auth().createUserWithEmailAndPassword(email, password);
+  const createUserWithEmailAndPassword = async (email, password) =>
+    firebase.auth().createUserWithEmailAndPassword(email, password);
 
   const logout = async () => {
     await firebase.auth().signOut();
@@ -88,7 +94,7 @@ export const AuthProvider = (props) => {
         createUserWithEmailAndPassword,
         signInWithEmailAndPassword,
         signInWithGoogle,
-        logout
+        logout,
       }}
     >
       {children}
@@ -97,7 +103,7 @@ export const AuthProvider = (props) => {
 };
 
 AuthProvider.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };
 
 export default AuthContext;

@@ -1,59 +1,64 @@
+/* eslint-disable operator-linebreak */
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 // import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Box, Dialog, Button, Typography } from '@material-ui/core';
+import {
+  Box,
+  Dialog,
+  Button,
+  Typography,
+  CardMedia,
+  CardActions,
+} from '@material-ui/core';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import Page1 from './Page1';
+import Page2 from './Page2';
 // import getInitials from '../../../utils/getInitials';
 
 const ClaimModal = (props) => {
-  const { authorAvatar, authorName, onClose, open, ...other } = props;
-  // const [value, setValue] = useState('');
+  // eslint-disable-next-line react/prop-types
+  const {
+    authorAvatar,
+    authorName,
+    onClose,
+    activeProperty,
+    properties,
+    ...other
+  } = props;
+  const property =
+    properties && properties.filter((p) => p.id === activeProperty)[0];
+  const [page, setPage] = useState(false);
   const navigate = useNavigate();
-  const handleClaim = () => {
-    navigate('/dashboard');
+  const handleClose = () => {
+    onClose();
+    setPage(false);
   };
 
   return (
-    <Dialog maxWidth='lg' onClose={onClose} open={open} {...other}>
-      <Box sx={{ p: 3 }}>
+    <Dialog onClose={handleClose} open={properties.isModalOpen} {...other}>
+      <CardMedia image={property && property.image} sx={{ height: 200 }} />
+      <Box
+        sx={{
+          minWidth: '600px',
+          minHeight: '300px',
+          p: 3,
+        }}
+      >
         <Typography
           align='center'
           color='textPrimary'
           gutterBottom
           variant='h4'
         >
-          1234 Main Street Miami FL
+          {property && property.address.formatted_street_address}
         </Typography>
-        <Typography align='center' color='textSecondary' variant='subtitle2'>
-          Select Verify Ownership and Claim to proceed with our integrated 1
-          click KYC api
-        </Typography>
-        <Box sx={{ mt: 6, textAlign: 'center' }}>
-          <Button onClick={handleClaim} align='center'>
-            Generate NFT
-          </Button>
-          <Box
-            sx={{
-              alignItems: 'center',
-              display: 'flex',
-              mt: 6,
-            }}
-          >
-            <Box sx={{ ml: 0 }}>
-              <Typography color='textPrimary' variant='subtitle2'>
-                {authorName}
-              </Typography>
-              {/* <Typography color='textSecondary' variant='body2'>
-                Author note: Please remember to include your soft skills.
-              </Typography> */}
-            </Box>
-          </Box>
-        </Box>
-        <Box
-          sx={{
-            mt: 3,
-            p: 3,
-          }}
-        />
+        {page !== true ? (
+          <Page1 setPage={setPage} />
+        ) : (
+          <Page2 onClose={onClose} />
+        )}
       </Box>
     </Dialog>
   );

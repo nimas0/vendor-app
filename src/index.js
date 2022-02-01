@@ -11,7 +11,7 @@ import LocalizationProvider from '@material-ui/lab/LocalizationProvider';
 import AdapterDateFns from '@material-ui/lab/AdapterDateFns';
 import StyledEngineProvider from '@material-ui/core/StyledEngineProvider';
 import App from './App';
-import { AuthProvider } from './contexts/JWTContext';
+import { AuthProvider } from './contexts/FirebaseAuthContext';
 import { SettingsProvider } from './contexts/SettingsContext';
 import store from './store';
 
@@ -32,5 +32,6 @@ ReactDOM.render(
         </StyledEngineProvider>
       </ReduxProvider>
     </HelmetProvider>
-  </StrictMode>, document.getElementById('root')
+  </StrictMode>,
+  document.getElementById('root')
 );

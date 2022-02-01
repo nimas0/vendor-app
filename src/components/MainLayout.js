@@ -9,6 +9,9 @@ import MainSidebar from './MainSidebar';
 const MainLayoutRoot = experimentalStyled('div')(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
   paddingTop: 84,
+  margin: 0,
+  height: '100%',
+  overflow: 'hidden',
 }));
 
 const MainLayout = ({ children }) => {

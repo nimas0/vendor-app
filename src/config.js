@@ -14,16 +14,14 @@ export const auth0Config = {
 };
 
 export const firebaseConfig = {
-  apiKey: 'AIzaSyBDtdJhJUuHUGEFW-ViyDxJErx2JoFz8Jw',
-  authDomain: 'finding-spaces-73b23.firebaseapp.com',
-  databaseURL: 'http://localhost:9000?ns=finding-spaces-73b23',
-  projectId: 'finding-spaces-73b23',
-  storageBucket: 'finding-spaces-73b23.appspot.com',
-  messagingSenderId: '48951865601',
-  appId: '1:48951865601:web:2eb4d8a3fe14a1caf22b00',
-  measurementId: 'G-7CK0W02CGV',
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
 };
-
 export const gtmConfig = {
   containerId: process.env.REACT_APP_GTM_CONTAINER_ID,
 };

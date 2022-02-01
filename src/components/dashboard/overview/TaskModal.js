@@ -13,20 +13,31 @@ import {
 } from '@material-ui/core';
 import { alpha } from '@material-ui/core/styles';
 import CheckIcon from '../../../icons/Check';
-import { useDispatch } from 'react-redux';
-import { markAsCompleted, closeModal } from '../../../slices/tasks';
-import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  markAsCompleted,
+  closeModal,
+  toggleLoading,
+} from '../../../slices/tasks';
+import { useEffect, useState } from 'react';
+import LoadingTask from '../../property/LoadingTask';
 
-const TaskModal = ({ onClose, open, tasks, activeTask, ...other }) => {
+const TaskModal = ({
+  onClose,
+  open,
+  tasks,
+  activeTask,
+  setLoading,
+  ...other
+}) => {
   const task = tasks.tasks.filter((t) => t.id === activeTask);
-  const [loading, setLoading] = useState(false);
   console.log('selected Task', task);
   const dispatch = useDispatch();
-  const handleSubmit = async (id) => {
-    setLoading(true);
+  const handleSubmit = (id) => {
+    setTimeout(() => dispatch(toggleLoading(tasks.propertyId)), 5000);
     dispatch(markAsCompleted(id));
-    dispatch(closeModal());
-    setLoading(false);
+    dispatch(toggleLoading(tasks.propertyId));
+    setTimeout(() => dispatch(closeModal(tasks.propertyId)), 5000);
   };
 
   return (
@@ -56,41 +67,58 @@ const TaskModal = ({ onClose, open, tasks, activeTask, ...other }) => {
                 mb: 2,
               }}
             >
-              <CheckIcon />
+              {!tasks.loading ? <CheckIcon /> : <CircularProgress />}
             </Avatar>
-            {loading && (
-              <>
-                <CircularProgress key={loading} />
-                <Typography>Generating Action</Typography>
-              </>
-            )}
 
             <Typography color='textPrimary' variant='h5'>
               {task.length > 0 ? task[0].label : ''}
             </Typography>
-            <Typography
-              align='center'
-              color='textSecondary'
-              sx={{ mt: 1 }}
-              variant='body2'
-            >
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-              Provident facere eum obcaecati pariatur magnam eius fugit nostrum
-              sint enim, amet rem aspernatur distinctio tempora repudiandae,
-              maiores quod. Ad, expedita assumenda!
-            </Typography>
-            <Button
-              key={tasks.count}
-              onClick={() => handleSubmit(activeTask)}
-              disabled={loading}
-              color='primary'
-              fullWidth
-              size='large'
-              sx={{ mt: 4 }}
-              variant='contained'
-            >
-              {task.length > 0 ? task[0].actionLabel : ''}
-            </Button>
+
+            {tasks.loading ? (
+              <LoadingTask />
+            ) : (
+              <Typography
+                align='center'
+                color='textSecondary'
+                sx={{ mt: 1 }}
+                variant='body2'
+              >
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                Provident facere eum obcaecati pariatur magnam eius fugit
+                nostrum sint enim, amet rem aspernatur distinctio tempora
+                repudiandae, maiores quod. Ad, expedita assumenda!
+              </Typography>
+            )}
+
+            {task.length > 0 && task[0].id === 'closeHome' ? (
+              <Button
+                target='_blank'
+                href='https://spatialweb.net/@findingspaces'
+                onClick={() => handleSubmit(tasks.propertyId)}
+                key={tasks.count}
+                disabled={tasks.loading}
+                color='primary'
+                fullWidth
+                size='large'
+                sx={{ mt: 4 }}
+                variant='contained'
+              >
+                {task.length > 0 ? task[0].actionLabel : ''}
+              </Button>
+            ) : (
+              <Button
+                key={tasks.count}
+                onClick={() => handleSubmit(tasks.propertyId)}
+                disabled={tasks.loading}
+                color='primary'
+                fullWidth
+                size='large'
+                sx={{ mt: 4 }}
+                variant='contained'
+              >
+                {task.length > 0 ? task[0].actionLabel : ''}
+              </Button>
+            )}
           </Paper>
         </Container>
       </Box>

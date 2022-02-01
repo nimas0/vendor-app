@@ -13,6 +13,7 @@ if (!firebase.apps.length) {
 if (window.location.hostname === 'localhost') {
   firebase.functions().useEmulator('localhost', 5001);
 }
+
 const auth = firebase.auth();
 const db = firebase.firestore();
 

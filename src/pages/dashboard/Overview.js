@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-wrap-multilines */
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import {
   Box,
@@ -25,21 +25,56 @@ import InformationCircleIcon from '../../icons/InformationCircle';
 import PlusIcon from '../../icons/Plus';
 
 import gtm from '../../lib/gtm';
-
-// import firebase from '../../lib/firebase';
+import useAuth from '../../hooks/useAuth';
+import { useDispatch } from 'react-redux';
+import { getClaimed } from '../../slices/tasks';
+import Tour from 'reactour';
 
 const Overview = () => {
   const { settings } = useSettings();
-
+  const dispatch = useDispatch();
+  const user = useAuth();
   useEffect(() => {
     gtm.push({ event: 'page_view' });
   }, []);
 
+  const [tour, setTour] = useState(true);
+  const steps = [
+    {
+      selector: '#body',
+      content: 'Home Claimed! Now you are ready to sell your home. ',
+    },
+    {
+      selector: '#wallet',
+      content:
+        'This is your wallet. Here is your NFT and some space tokens to purchase services',
+    },
+    {
+      selector: '#taskbar',
+      content:
+        'Complete these tasks to simulate using space tokens and selling your NFT',
+    },
+  ];
+
+  useEffect(() => {
+    dispatch(getClaimed(user.user.id));
+  }, []);
+
+  console.log('user!', user.user.id);
   return (
     <>
       <Helmet>
         <title>Dashboard: Finding Spaces</title>
       </Helmet>
+      <Tour
+        disableInteraction
+        steps={steps}
+        isOpen={tour}
+        onRequestClose={() => setTour(false)}
+        lastStepNextButton={
+          <Button onClick={() => setTour(false)}>Start Simulation</Button>
+        }
+      />
       <Box
         sx={{
           backgroundColor: 'background.default',
