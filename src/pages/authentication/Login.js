@@ -10,7 +10,7 @@ import {
   Link,
   Typography,
 } from '@material-ui/core';
-import AuthBanner from '../../components/authentication/AuthBanner';
+
 import {
   LoginAmplify,
   LoginAuth0,
