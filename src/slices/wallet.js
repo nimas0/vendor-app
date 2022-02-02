@@ -1,3 +1,4 @@
+/* eslint-disable operator-assignment */
 /* eslint-disable operator-linebreak */
 /* eslint-disable no-shadow */
 /* eslint-disable no-unused-vars */
@@ -25,9 +26,19 @@ const initialState = {
   data: {},
 };
 
-export const getBalance = createAsyncThunk('users/getBalance', async () => {
+export const getBalance = createAsyncThunk(
+  'users/getBalance',
+  async () => {
+    const response = await axios.get(
+      'https://www.wolframcloud.com/obj/christianp/MyProjects/FindingSpaces/API/v1/wallet?address=addr_test1vpev77fsxvu8r2xktae26n2x69fdheu7jgdvrq995kchezccca8ud',
+    );
+    return response.data.Data;
+  },
+);
+
+export const getNft = createAsyncThunk('users/nft', async () => {
   const response = await axios.get(
-    'https://www.wolframcloud.com/obj/christianp/MyProjects/FindingSpaces/API/v1/wallet?address=addr_test1qzpr2w3dt0y5m6mvnp42rhszc0ra80hth675329n0mvqj29ee6g6hdpct9pegent6m020jcuhj6sl34s7nhs36z5vl0qqnmzny'
+    'https://www.wolframcloud.com/obj/christianp/MyProjects/FindingSpaces/API/v1/nft?nftid=FS1643812270',
   );
   return response.data.Data;
 });
@@ -43,8 +54,8 @@ const slice = createSlice({
     getNft(state, action) {
       // take NFT id and look up
     },
-    setSpaceTokenAmount(state, action) {
-      // retrieve wallet balance
+    spendTokens(state) {
+      state.data.balanceSPACE = state.data.balanceSPACE - 100;
     },
   },
   extraReducers: {
@@ -53,19 +64,35 @@ const slice = createSlice({
     },
     [getBalance.fulfilled]: (state, action) => {
       state.status = 'success';
-      console.log(action);
       state.data = action.payload;
     },
     [getBalance.rejected]: (state, action) => {
       state.status = 'failed';
+    },
+    [getNft.pending]: (state, action) => {
+      state.status2 = 'loading';
+    },
+    [getNft.fulfilled]: (state, action) => {
+      state.status2 = 'success';
+      state.nft = action.payload;
+    },
+    [getNft.rejected]: (state, action) => {
+      state.status2 = 'failed';
     },
   },
 });
 
 export const { reducer } = slice;
 
-export const mint = (propertyId) => (dispatch) => {
-  dispatch(slice.actions.openModal({ propertyId }));
+export const spendTokens = () => (dispatch) => {
+  dispatch(slice.actions.spendTokens());
 };
+
+export const mint = createAsyncThunk('users/mint', async () => {
+  const response = await axios.get(
+    'https://www.wolframcloud.com/obj/christianp/MyProjects/FindingSpaces/API/v1/wallet?address=addr_test1qzpr2w3dt0y5m6mvnp42rhszc0ra80hth675329n0mvqj29ee6g6hdpct9pegent6m020jcuhj6sl34s7nhs36z5vl0qqnmzny',
+  );
+  return response.data.Data;
+});
 
 export default slice;

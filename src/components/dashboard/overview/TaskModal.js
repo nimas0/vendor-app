@@ -21,6 +21,7 @@ import {
 } from '../../../slices/tasks';
 import { useEffect, useState } from 'react';
 import LoadingTask from '../../property/LoadingTask';
+import { spendTokens } from '../../../slices/wallet';
 
 const TaskModal = ({
   onClose,
@@ -33,15 +34,16 @@ const TaskModal = ({
   const task = tasks.tasks.filter((t) => t.id === activeTask);
   console.log('selected Task', task);
   const dispatch = useDispatch();
-  const handleSubmit = (id) => {
+  const handleSubmit = async (id) => {
     setTimeout(() => dispatch(toggleLoading(tasks.propertyId)), 5000);
     dispatch(markAsCompleted(id));
     dispatch(toggleLoading(tasks.propertyId));
     setTimeout(() => dispatch(closeModal(tasks.propertyId)), 5000);
+    setTimeout(() => dispatch(spendTokens()), 5200);
   };
 
   return (
-    <Dialog maxWidth='lg' onClose={onClose} open={open} {...other}>
+    <Dialog maxWidth="lg" onClose={onClose} open={open} {...other}>
       <Box
         sx={{
           backgroundColor: 'background.default',
@@ -49,9 +51,9 @@ const TaskModal = ({
           p: 3,
         }}
       >
-        <Container maxWidth='sm'>
+        <Container maxWidth="sm">
           <Paper
-            elevation={12}
+            elevation={0}
             sx={{
               p: 3,
               display: 'flex',
@@ -70,7 +72,7 @@ const TaskModal = ({
               {!tasks.loading ? <CheckIcon /> : <CircularProgress />}
             </Avatar>
 
-            <Typography color='textPrimary' variant='h5'>
+            <Typography color="textPrimary" variant="h5">
               {task.length > 0 ? task[0].label : ''}
             </Typography>
 
@@ -78,30 +80,28 @@ const TaskModal = ({
               <LoadingTask />
             ) : (
               <Typography
-                align='center'
-                color='textSecondary'
+                align="center"
+                color="textSecondary"
                 sx={{ mt: 1 }}
-                variant='body2'
+                variant="body2"
               >
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Provident facere eum obcaecati pariatur magnam eius fugit
-                nostrum sint enim, amet rem aspernatur distinctio tempora
-                repudiandae, maiores quod. Ad, expedita assumenda!
+                Simulate ordering third party services with
+                findingSpaces easy 1 click solution
               </Typography>
             )}
 
             {task.length > 0 && task[0].id === 'closeHome' ? (
               <Button
-                target='_blank'
-                href='https://spatialweb.net/@findingspaces'
+                target="_blank"
+                href="https://spatialweb.net/@findingspaces"
                 onClick={() => handleSubmit(tasks.propertyId)}
                 key={tasks.count}
                 disabled={tasks.loading}
-                color='primary'
+                color="primary"
                 fullWidth
-                size='large'
+                size="large"
                 sx={{ mt: 4 }}
-                variant='contained'
+                variant="contained"
               >
                 {task.length > 0 ? task[0].actionLabel : ''}
               </Button>
@@ -110,11 +110,11 @@ const TaskModal = ({
                 key={tasks.count}
                 onClick={() => handleSubmit(tasks.propertyId)}
                 disabled={tasks.loading}
-                color='primary'
+                color="primary"
                 fullWidth
-                size='large'
+                size="large"
                 sx={{ mt: 4 }}
-                variant='contained'
+                variant="contained"
               >
                 {task.length > 0 ? task[0].actionLabel : ''}
               </Button>

@@ -16,51 +16,73 @@ import {
   Typography,
 } from '@material-ui/core';
 import ArrowRightIcon from '../../../icons/ArrowRight';
-import { getBalance } from '../../../slices/wallet';
+import { getBalance, getNft } from '../../../slices/wallet';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import AnimatedNumber from 'animated-number-react';
 
 const OverviewTotalBalance = (props) => {
   const dispatch = useDispatch();
   const wallet = useSelector((state) => state.wallet);
   const status = useSelector((state) => state.wallet.status);
   useEffect(async () => {
-    await dispatch(getBalance());
+    dispatch(getBalance());
+    dispatch(getNft());
   }, []);
 
   const currencies = [
     {
-      amount: wallet.data.balanceSPACE,
+      amount: wallet.data.balanceADA,
       color: '#6C76C4',
-      name: 'Space Tokens',
+      name: 'Ada',
+      type: 'token',
     },
     {
-      amount: 500000.81,
+      amount: 1,
+      id: 'FS1643812270',
+      link: 'https://testnet.cardanoscan.io/transaction/47069722864814ba992a33831fb89accbc6e96cbcc72968ac8a2d9327537a545',
       color: '#FF4081',
-      name: 'NFT (1234 Main Street) - Est Value: ',
+      name: '15573 SW 32 TER MIAMI FL',
+      type: 'nft',
     },
   ];
 
   return (
-    <Card id='wallet' {...props}>
+    <Card
+      style={{ border: 'none', boxShadow: 'none' }}
+      sx={{
+        backgroundColor: 'transparent',
+        borderStyle: 'none',
+      }}
+      id="wallet"
+      {...props}
+    >
       <CardHeader
         subheader={
           status !== 'loading' ? (
-            <Typography color='textPrimary' variant='h4'>
-              ₳{numeral(wallet.data.balanceADA).format('0,0.00')}
+            <Typography color="textPrimary" variant="h4">
+              <AnimatedNumber
+                value={wallet.data.balanceSPACE}
+                formatValue={(value) => value.toFixed(2)}
+              />{' '}
+              Space Tokens
             </Typography>
           ) : (
-            <Skeleton variant='rectangular' width='auto' height={40} />
+            <Skeleton
+              variant="rectangular"
+              width="auto"
+              height={40}
+            />
           )
         }
         sx={{ pb: 0 }}
         title={
           status !== 'loading' ? (
-            <Typography color='textSecondary' variant='overline'>
-              Total Ada
+            <Typography color="textSecondary" variant="overline">
+              Total Space Tokens
             </Typography>
           ) : (
-            <Typography color='textSecondary' variant='overline'>
+            <Typography color="textSecondary" variant="overline">
               Loading Wallet
             </Typography>
           )
@@ -68,7 +90,7 @@ const OverviewTotalBalance = (props) => {
       />
       <CardContent>
         <Divider sx={{ mb: 2 }} />
-        <Typography color='textSecondary' variant='overline'>
+        <Typography color="textSecondary" variant="overline">
           Wallet Details
         </Typography>
         <List disablePadding sx={{ pt: 2 }}>
@@ -95,7 +117,7 @@ const OverviewTotalBalance = (props) => {
                         vertical: 'top',
                         horizontal: 'left',
                       }}
-                      variant='dot'
+                      variant="dot"
                       sx={{
                         pl: '20px',
                         '& .MuiBadge-badge': {
@@ -105,13 +127,32 @@ const OverviewTotalBalance = (props) => {
                         },
                       }}
                     >
-                      <Typography color='textPrimary' variant='subtitle2'>
+                      <Typography
+                        color="textPrimary"
+                        variant="subtitle2"
+                      >
                         {currency.name}
                       </Typography>
                     </Badge>
-                    <Typography color='textSecondary' variant='subtitle2'>
-                      {numeral(currency.amount).format('$0,0.00')}
-                    </Typography>
+                    {currency.type === 'nft' ? (
+                      <Button
+                        href={currency.link}
+                        target="_blank"
+                        color="textSecondary"
+                        variant="subtitle2"
+                      >
+                        View NFT
+                      </Button>
+                    ) : (
+                      <Typography
+                        color="textSecondary"
+                        variant="subtitle2"
+                      >
+                        {numeral(currency.amount / 1000000).format(
+                          '$0,0.00',
+                        )}
+                      </Typography>
+                    )}
                   </Box>
                 }
               />
@@ -128,32 +169,13 @@ const OverviewTotalBalance = (props) => {
           }}
         >
           <Button
-            color='primary'
-            endIcon={<ArrowRightIcon fontSize='small' />}
-            variant='text'
+            href="https://testnet.cardanoscan.io/address/6072cf7930333871a8d65f72ad4d46d152dbe79e921ac180a5a5b17c8b"
+            target="_blank"
+            color="primary"
+            endIcon={<ArrowRightIcon fontSize="small" />}
+            variant="text"
           >
-            Add tokens
-          </Button>
-          <Button
-            color='primary'
-            endIcon={<ArrowRightIcon fontSize='small' />}
-            variant='text'
-          >
-            Add Ada
-          </Button>
-          <Button
-            color='primary'
-            endIcon={<ArrowRightIcon fontSize='small' />}
-            variant='text'
-          >
-            Withdraw funds
-          </Button>
-          <Button
-            color='primary'
-            endIcon={<ArrowRightIcon fontSize='small' />}
-            variant='text'
-          >
-            Stake Funds
+            View Wallet Testnet
           </Button>
         </Box>
       </CardContent>

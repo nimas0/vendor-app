@@ -50,6 +50,7 @@
     "@material-ui/system": "5.0.0-alpha.34",
     "@react-pdf/renderer": "^1.6.13",
     "@reduxjs/toolkit": "^1.5.0",
+    "animated-number-react": "^0.1.2",
     "apexcharts": "^3.23.1",
     "aws-amplify": "^3.0.20",
     "axios": "^0.25.0",

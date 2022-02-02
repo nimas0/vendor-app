@@ -63,24 +63,30 @@ const slice = createSlice({
     openModal(state, action) {
       const { propertyId } = action.payload;
       console.log('opnmodal', action.payload);
-      const index = state.findIndex((item) => item.propertyId === propertyId);
+      const index = state.findIndex(
+        (item) => item.propertyId === propertyId,
+      );
       state[index].isModalOpen = true;
     },
     closeModal(state, action) {
       const { propertyId } = action.payload;
       console.log('closemodal', action.payload);
-      const index = state.findIndex((item) => item.propertyId === propertyId);
+      const index = state.findIndex(
+        (item) => item.propertyId === propertyId,
+      );
       state[index].isModalOpen = false;
       state[index].selectedTask = null;
     },
     markAsCompleted(state, action) {
       const { propertyId } = action.payload;
       console.log('markasCompleted', action.payload);
-      const index = state.findIndex((task) => task.propertyId === propertyId);
+      const index = state.findIndex(
+        (task) => task.propertyId === propertyId,
+      );
       console.log('prepare', state[index].selectedTask);
 
       const selectedIndex = state[index].tasks.findIndex(
-        (task) => task.id === state[index].selectedTask
+        (task) => task.id === state[index].selectedTask,
       );
       console.log('selctedcomplete', selectedIndex);
       state[index].tasks[selectedIndex].completed = true;
@@ -89,13 +95,21 @@ const slice = createSlice({
     selectTask(state, action) {
       console.log('selectTask', action.payload);
       const { taskId, propertyId } = action.payload;
-      const index = state.findIndex((item) => item.propertyId === propertyId);
-      console.log('selectTaskIndex', index, state[index].selectedTask);
+      const index = state.findIndex(
+        (item) => item.propertyId === propertyId,
+      );
+      console.log(
+        'selectTaskIndex',
+        index,
+        state[index].selectedTask,
+      );
       state[index].selectedTask = taskId;
     },
     resetTask(state, action) {
       const { propertyId } = action.payload;
-      const index = state.findIndex((item) => item.propertyId === propertyId);
+      const index = state.findIndex(
+        (item) => item.propertyId === propertyId,
+      );
 
       state[index].selectedTask = null;
     },
@@ -111,7 +125,9 @@ const slice = createSlice({
     },
     setLoading(state, action) {
       const { propertyId } = action.payload;
-      const index = state.findIndex((item) => item.propertyId === propertyId);
+      const index = state.findIndex(
+        (item) => item.propertyId === propertyId,
+      );
       state[index].loading = !state[index].loading;
     },
   },

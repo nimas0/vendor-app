@@ -4,24 +4,24 @@ import { Helmet } from 'react-helmet-async';
 import {
   Box,
   Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardHeader,
+  // Card,
+  // CardActions,
+  // CardContent,
+  // CardHeader,
   Container,
   Grid,
   Typography,
 } from '@material-ui/core';
 import {
-  OverviewPrivateWallet,
+  // OverviewPrivateWallet,
   OverviewTotalBalance,
-  OverviewTotalTransactions,
+  // OverviewTotalTransactions,
   OverviewWeeklyEarnings,
 } from '../../components/dashboard/overview';
 import useSettings from '../../hooks/useSettings';
 
-import ExternalLinkIcon from '../../icons/ExternalLink';
-import InformationCircleIcon from '../../icons/InformationCircle';
+// import ExternalLinkIcon from '../../icons/ExternalLink';
+// import InformationCircleIcon from '../../icons/InformationCircle';
 import PlusIcon from '../../icons/Plus';
 
 import gtm from '../../lib/gtm';
@@ -72,7 +72,9 @@ const Overview = () => {
         isOpen={tour}
         onRequestClose={() => setTour(false)}
         lastStepNextButton={
-          <Button onClick={() => setTour(false)}>Start Simulation</Button>
+          <Button onClick={() => setTour(false)}>
+            Start Simulation
+          </Button>
         }
       />
       <Box
@@ -85,35 +87,35 @@ const Overview = () => {
         <Container maxWidth={settings.compact ? 'xl' : false}>
           <Grid container spacing={4}>
             <Grid
-              alignItems='center'
+              alignItems="center"
               container
-              justifyContent='flex-start'
+              justifyContent="flex-start"
               spacing={3}
               item
               xs={12}
             >
               <Grid item>
-                <Typography color='textPrimary' variant='h5'>
+                <Typography color="textPrimary" variant="h5">
                   My Properties
                 </Typography>
-                <Typography color='textSecondary' variant='subtitle2'>
+                <Typography color="textSecondary" variant="subtitle2">
                   Here is a list of your claimed properties
                 </Typography>
               </Grid>
               <Grid item>
                 <Button
-                  color='primary'
-                  startIcon={<PlusIcon fontSize='small' />}
-                  variant='contained'
+                  color="primary"
+                  startIcon={<PlusIcon fontSize="small" />}
+                  variant="contained"
                 >
                   Claim Existing Property
                 </Button>
               </Grid>
               <Grid item>
                 <Button
-                  color='primary'
-                  startIcon={<PlusIcon fontSize='small' />}
-                  variant='contained'
+                  color="primary"
+                  startIcon={<PlusIcon fontSize="small" />}
+                  variant="contained"
                 >
                   Buy New Property
                 </Button>
@@ -122,8 +124,8 @@ const Overview = () => {
 
             <Grid
               container
-              justifyContent='flex-start'
-              alignItems='stretch'
+              justifyContent="flex-start"
+              alignItems="stretch"
               item
               md={8}
               xs={12}
@@ -131,9 +133,9 @@ const Overview = () => {
               <Grid item md={12}>
                 <OverviewWeeklyEarnings />
                 <br />
-                <OverviewPrivateWallet />
+                {/* <OverviewPrivateWallet />
                 <br />
-                <OverviewPrivateWallet />
+                <OverviewPrivateWallet /> */}
               </Grid>
             </Grid>
 
@@ -141,13 +143,13 @@ const Overview = () => {
               <Grid item xs={12}>
                 <OverviewTotalBalance />
                 <br />
-                <OverviewTotalTransactions />
+                {/* <OverviewTotalTransactions /> */}
                 <br />
-                <Card>
+                {/* <Card>
                   <CardHeader
                     disableTypography
                     subheader={
-                      <Typography color='textPrimary' variant='h6'>
+                      <Typography color="textPrimary" variant="h6">
                         Need help figuring things out?
                       </Typography>
                     }
@@ -159,11 +161,11 @@ const Overview = () => {
                           pb: 2,
                         }}
                       >
-                        <InformationCircleIcon color='primary' />
+                        <InformationCircleIcon color="primary" />
                         <Typography
-                          color='textPrimary'
+                          color="textPrimary"
                           sx={{ pl: 1 }}
-                          variant='h6'
+                          variant="h6"
                         >
                           Help Center
                         </Typography>
@@ -172,10 +174,10 @@ const Overview = () => {
                     sx={{ pb: 0 }}
                   />
                   <CardContent sx={{ pt: '8px' }}>
-                    <Typography color='textSecondary' variant='body2'>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua.
+                    <Typography color="textSecondary" variant="body2">
+                      Lorem ipsum dolor sit amet, consectetur
+                      adipiscing elit, sed do eiusmod tempor
+                      incididunt ut labore et dolore magna aliqua.
                     </Typography>
                   </CardContent>
                   <CardActions
@@ -185,14 +187,14 @@ const Overview = () => {
                     }}
                   >
                     <Button
-                      color='primary'
-                      endIcon={<ExternalLinkIcon fontSize='small' />}
-                      variant='text'
+                      color="primary"
+                      endIcon={<ExternalLinkIcon fontSize="small" />}
+                      variant="text"
                     >
                       Help Center
                     </Button>
                   </CardActions>
-                </Card>
+                </Card> */}
               </Grid>
             </Grid>
           </Grid>
