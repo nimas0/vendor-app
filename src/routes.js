@@ -167,7 +167,11 @@ const routes = [
   },
   {
     path: '*',
-    element: <MainLayout />,
+    element: (
+      <AuthGuard>
+        <MainLayout />
+      </AuthGuard>
+    ),
     children: [
       {
         path: '/',
