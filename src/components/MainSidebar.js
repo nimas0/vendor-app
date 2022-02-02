@@ -18,15 +18,15 @@ const MainSidebar = (props) => {
 
   return (
     <Drawer
-      anchor="left"
+      anchor='left'
       onClose={onMobileClose}
       open={!lgUp && openMobile}
-      variant="temporary"
+      variant='temporary'
       PaperProps={{
         sx: {
           backgroundColor: 'background.default',
-          width: 256
-        }
+          width: 256,
+        },
       }}
     >
       <Box
@@ -35,56 +35,56 @@ const MainSidebar = (props) => {
           display: 'flex',
           flexDirection: 'column',
           height: '100%',
-          p: 2
+          p: 2,
         }}
       >
-        <RouterLink to="/">
+        <RouterLink to='/'>
           <Logo />
         </RouterLink>
         <Box
           sx={{
             display: 'flex',
             pb: 2,
-            pt: 3
+            pt: 3,
           }}
         >
           <Link
-            color="textSecondary"
+            color='textSecondary'
             component={RouterLink}
-            to="/browse"
-            underline="none"
-            variant="body1"
+            to='/browse'
+            underline='none'
+            variant='body1'
           >
             Browse Components
           </Link>
           <Chip
-            color="primary"
-            label="NEW"
-            size="small"
+            color='primary'
+            label='NEW'
+            size='small'
             sx={{
               maxHeight: 20,
               ml: 1,
-              mr: 2
+              mr: 2,
             }}
           />
         </Box>
         <Link
-          color="textSecondary"
+          color='textSecondary'
           component={RouterLink}
-          to="/docs"
-          underline="none"
-          variant="body1"
+          to='/docs'
+          underline='none'
+          variant='body1'
         >
           Documentation
         </Link>
         <Button
-          color="primary"
-          component="a"
-          href="https://material-ui.com/store/items/devias-kit-pro"
-          size="small"
+          color='primary'
+          component='a'
+          href='https://material-ui.com/store/items/devias-kit-pro'
+          size='small'
           sx={{ mt: 4 }}
-          target="_blank"
-          variant="contained"
+          target='_blank'
+          variant='contained'
         >
           Get the kit
         </Button>
@@ -95,7 +95,7 @@ const MainSidebar = (props) => {
 
 MainSidebar.propTypes = {
   onMobileClose: PropTypes.func,
-  openMobile: PropTypes.bool
+  openMobile: PropTypes.bool,
 };
 
 export default MainSidebar;

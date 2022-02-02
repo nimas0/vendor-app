@@ -6,14 +6,24 @@ import ChevronDownIcon from '../icons/ChevronDown';
 import ChevronRightIcon from '../icons/ChevronRight';
 
 const NavItem = (props) => {
-  const { active, children, depth, icon, info, open: openProp, path, title, ...other } = props;
+  const {
+    active,
+    children,
+    depth,
+    icon,
+    info,
+    open: openProp,
+    path,
+    title,
+    ...other
+  } = props;
   const [open, setOpen] = useState(openProp);
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
 
-  let paddingLeft = 16;
+  let paddingLeft = 26;
 
   if (depth > 0) {
     paddingLeft = 32 + 8 * depth;
@@ -26,13 +36,18 @@ const NavItem = (props) => {
         disableGutters
         sx={{
           display: 'block',
-          py: 0
+          py: 0,
         }}
         {...other}
       >
         <Button
-          endIcon={!open ? <ChevronRightIcon fontSize="small" />
-            : <ChevronDownIcon fontSize="small" />}
+          endIcon={
+            !open ? (
+              <ChevronRightIcon fontSize='small' />
+            ) : (
+              <ChevronDownIcon fontSize='small' />
+            )
+          }
           onClick={handleToggle}
           startIcon={icon}
           sx={{
@@ -42,20 +57,17 @@ const NavItem = (props) => {
             pl: `${paddingLeft}px`,
             pr: '8px',
             py: '12px',
-            textAlign: 'left',
+
+            textAlign: 'center',
             textTransform: 'none',
-            width: '100%'
+            width: '100%',
           }}
-          variant="text"
+          variant='text'
         >
-          <Box sx={{ flexGrow: 1 }}>
-            {title}
-          </Box>
+          <Box sx={{ flexGrow: 1 }}>{title}</Box>
           {info}
         </Button>
-        <Collapse in={open}>
-          {children}
-        </Collapse>
+        <Collapse in={open}>{children}</Collapse>
       </ListItem>
     );
   }
@@ -66,7 +78,7 @@ const NavItem = (props) => {
       disableGutters
       sx={{
         display: 'flex',
-        py: 0
+        py: 0,
       }}
     >
       <Button
@@ -74,28 +86,27 @@ const NavItem = (props) => {
         startIcon={icon}
         sx={{
           color: 'text.secondary',
-          fontWeight: 'fontWeightMedium',
+          fontWeight: 'fontWeightBold',
           justifyContent: 'flex-start',
           textAlign: 'left',
           pl: `${paddingLeft}px`,
           pr: '8px',
           py: '12px',
+          mb: 2,
           textTransform: 'none',
           width: '100%',
           ...(active && {
-            color: 'primary.main',
+            color: 'info.dark',
             fontWeight: 'fontWeightBold',
             '& svg': {
-              color: 'primary.main'
-            }
-          })
+              color: 'info.dark',
+            },
+          }),
         }}
-        variant="text"
+        variant='text'
         to={path}
       >
-        <Box sx={{ flexGrow: 1 }}>
-          {title}
-        </Box>
+        <Box sx={{ flexGrow: 1 }}>{title}</Box>
         {info}
       </Button>
     </ListItem>
@@ -110,12 +121,12 @@ NavItem.propTypes = {
   info: PropTypes.node,
   open: PropTypes.bool,
   path: PropTypes.string,
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
 };
 
 NavItem.defaultProps = {
   active: false,
-  open: false
+  open: false,
 };
 
 export default NavItem;

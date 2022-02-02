@@ -1,5 +1,3 @@
-import Chart from 'react-apexcharts';
-import numeral from 'numeral';
 import {
   Avatar,
   Box,
@@ -8,107 +6,85 @@ import {
   CardActions,
   CardContent,
   Divider,
-  Typography
+  Typography,
 } from '@material-ui/core';
 import { alpha, useTheme } from '@material-ui/core/styles';
 import ArrowRightIcon from '../../../icons/ArrowRight';
-import ChevronDownIcon from '../../../icons/ChevronDown';
+import ChevronUpIcon from '../../../icons/ChevronUp';
+import { Dock, Home, TransferWithinAStation } from '@material-ui/icons';
 
-const OverviewPrivateWallet = (props) => {
+const OverviewWeeklyEarnings = (props) => {
   const theme = useTheme();
-
-  const chartOptions = {
-    chart: {
-      background: 'transparent',
-      stacked: false,
-      toolbar: {
-        show: false
-      }
-    },
-    colors: ['#27c6db'],
-    labels: [''],
-    plotOptions: {
-      radialBar: {
-        dataLabels: {
-          value: {
-            show: false
-          }
-        },
-        hollow: {
-          size: '60%'
-        },
-        track: {
-          background: theme.palette.background.default
-        }
-      }
-    },
-    theme: {
-      mode: theme.palette.mode
-    }
-  };
-
-  const chartSeries = [83];
 
   return (
     <Card {...props}>
       <CardContent
         sx={{
+          alignItems: 'center',
           display: 'flex',
-          alignItems: 'center'
         }}
       >
-        <Chart
-          height="160"
-          options={chartOptions}
-          series={chartSeries}
-          type="radialBar"
-          width="160"
-        />
+        <Box>
+          <Avatar
+            sx={{
+              backgroundColor: alpha(theme.palette.success.main, 0.08),
+              color: 'black',
+              padding: 5,
+              margin: 2,
+            }}
+            variant='rounded'
+          >
+            <Home fontSize='large' color='black' />
+          </Avatar>
+        </Box>
         <Box
           sx={{
             display: 'flex',
-            flex: 1
+            flex: 1,
           }}
         >
           <div>
-            <Typography
-              color="textPrimary"
-              variant="h4"
-            >
-              {numeral(2150000).format('$0,0.00')}
+            <Typography color='textPrimary' variant='h4'>
+              3434 Real One Blvd Miami Fl
             </Typography>
-            <Typography
-              color="textPrimary"
-              sx={{ mt: 1 }}
-              variant="subtitle2"
-            >
-              Your private wallet
+            <Typography color='textSecondary' sx={{ mt: 1 }} variant='overline'>
+              Owned since 2008
             </Typography>
           </div>
           <Box sx={{ flexGrow: 1 }} />
           <Avatar
             sx={{
-              backgroundColor: alpha(theme.palette.error.main, 0.08),
-              color: 'error.main'
+              backgroundColor: alpha(theme.palette.success.main, 0.08),
+              color: 'success.main',
             }}
-            variant="rounded"
+            variant='rounded'
           >
-            <ChevronDownIcon fontSize="small" />
+            <ChevronUpIcon fontSize='small' />
           </Avatar>
         </Box>
       </CardContent>
       <Divider />
       <CardActions>
+        <Button color='info' endIcon={<Dock fontSize='small' />} variant='text'>
+          View NFT
+        </Button>
         <Button
-          color="primary"
-          endIcon={<ArrowRightIcon fontSize="small" />}
-          variant="text"
+          color='info'
+          endIcon={<TransferWithinAStation fontSize='small' />}
+          variant='text'
         >
-          Withdraw money
+          Transfer
+        </Button>
+        <Button
+          color='info'
+          endIcon={<ArrowRightIcon fontSize='small' />}
+          variant='text'
+        >
+          List for Sale
         </Button>
       </CardActions>
     </Card>
   );
 };
 
-export default OverviewPrivateWallet;
+export default OverviewWeeklyEarnings;

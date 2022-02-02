@@ -4,3 +4,4 @@ export { default as OverviewPrivateWallet } from './OverviewPrivateWallet';
 export { default as OverviewTotalBalance } from './OverviewTotalBalance';
 export { default as OverviewTotalTransactions } from './OverviewTotalTransactions';
 export { default as OverviewWeeklyEarnings } from './OverviewWeeklyEarnings';
+export { default as SendBulkSms } from './SendBulkSms';

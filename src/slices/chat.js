@@ -6,14 +6,14 @@ const initialState = {
   activeThreadId: null,
   contacts: {
     byId: {},
-    allIds: []
+    allIds: [],
   },
   threads: {
     byId: {},
-    allIds: []
+    allIds: [],
   },
   participants: [],
-  recipients: []
+  recipients: [],
 };
 
 const slice = createSlice({
@@ -30,6 +30,7 @@ const slice = createSlice({
       const threads = action.payload;
 
       state.threads.byId = objFromArray(threads);
+      console.log('allIds', Object.keys(state.threads.byId));
       state.threads.allIds = Object.keys(state.threads.byId);
     },
     getThread(state, action) {
@@ -63,7 +64,9 @@ const slice = createSlice({
     },
     addRecipient(state, action) {
       const recipient = action.payload;
-      const exists = state.recipients.find((_recipient) => _recipient.id === recipient.id);
+      const exists = state.recipients.find(
+        (_recipient) => _recipient.id === recipient.id
+      );
 
       if (!exists) {
         state.recipients.push(recipient);
@@ -72,9 +75,11 @@ const slice = createSlice({
     removeRecipient(state, action) {
       const recipientId = action.payload;
 
-      state.recipients = state.recipients.filter((recipient) => recipient.id !== recipientId);
-    }
-  }
+      state.recipients = state.recipients.filter(
+        (recipient) => recipient.id !== recipientId
+      );
+    },
+  },
 });
 
 export const { reducer } = slice;

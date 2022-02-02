@@ -25,8 +25,12 @@
     "no-plusplus": "off",
     "no-return-assign": "off",
     "object-curly-newline": "off",
+    "jsx-quotes": [0, "off"],
     "react/forbid-prop-types": "off",
     "react/jsx-filename-extension": "off",
+    "linebreak-style": 0,
+"global-require": 0,
+"eslint linebreak-style": [0, "error", "windows"],
     "react/jsx-max-props-per-line": [
       1,
       {
@@ -35,6 +39,9 @@
     ],
     "react/jsx-props-no-spreading": "off",
     "react/react-in-jsx-scope": "off",
-    "react/require-default-props": "off"
+    "react/require-default-props": "off",
+    "react/jsx-one-expression-per-line": "off",
+    "react/jsx-indent": "off"
+    
   }
 }

@@ -1,3 +1,5 @@
+/* eslint-disable operator-linebreak */
+/* eslint-disable no-underscore-dangle */
 import { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Box } from '@material-ui/core';
@@ -14,7 +16,8 @@ const ChatMessages = (props) => {
     // eslint-disable-next-line no-underscore-dangle
     if (rootRef?.current?._container) {
       // eslint-disable-next-line no-underscore-dangle
-      rootRef.current._container.scrollTop = rootRef.current._container.scrollHeight;
+      rootRef.current._container.scrollTop =
+        rootRef.current._container.scrollHeight;
     }
   };
 
@@ -23,15 +26,12 @@ const ChatMessages = (props) => {
   }, [messages, scrollToBottom]);
 
   return (
-    <Scrollbar
-      options={{ suppressScrollX: true }}
-      ref={rootRef}
-      {...other}
-    >
+    <Scrollbar options={{ suppressScrollX: true }} ref={rootRef} {...other}>
       <Box sx={{ p: 2 }}>
         {messages.map((message) => {
-          const participant = participants
-            .find((_participant) => _participant.id === message.senderId);
+          const participant = participants.find(
+            (_participant) => _participant.id === message.senderId
+          );
           let senderAvatar;
           let senderName;
           let senderType;
@@ -67,7 +67,7 @@ const ChatMessages = (props) => {
 
 ChatMessages.propTypes = {
   messages: PropTypes.array,
-  participants: PropTypes.array
+  participants: PropTypes.array,
 };
 
 export default ChatMessages;

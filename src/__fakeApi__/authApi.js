@@ -9,8 +9,8 @@ const users = [
     email: 'demo@devias.io',
     name: 'Jane Rotanson',
     password: 'Password123!',
-    plan: 'Premium'
-  }
+    plan: 'Photographer',
+  },
 ];
 
 class AuthApi {
@@ -22,13 +22,15 @@ class AuthApi {
         // Find the user
         const user = users.find((_user) => _user.email === email);
 
-        if (!user || (user.password !== password)) {
+        if (!user || user.password !== password) {
           reject(new Error('Please check your email and password'));
           return;
         }
 
         // Create the access token
-        const accessToken = sign({ userId: user.id }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
+        const accessToken = sign({ userId: user.id }, JWT_SECRET, {
+          expiresIn: JWT_EXPIRES_IN,
+        });
 
         resolve(accessToken);
       } catch (err) {
@@ -57,12 +59,14 @@ class AuthApi {
           email,
           name,
           password,
-          plan: 'Standard'
+          plan: 'Standard',
         };
 
         users.push(user);
 
-        const accessToken = sign({ userId: user.id }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
+        const accessToken = sign({ userId: user.id }, JWT_SECRET, {
+          expiresIn: JWT_EXPIRES_IN,
+        });
 
         resolve(accessToken);
       } catch (err) {
@@ -91,7 +95,7 @@ class AuthApi {
           avatar: user.avatar,
           email: user.email,
           name: user.name,
-          plan: user.plan
+          plan: user.plan,
         });
       } catch (err) {
         console.error('[Auth Api]: ', err);

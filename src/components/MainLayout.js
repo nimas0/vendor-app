@@ -2,14 +2,16 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Outlet } from 'react-router-dom';
 import { experimentalStyled } from '@material-ui/core/styles';
-import Footer from './Footer';
+// import Footer from './Footer';
 import MainNavbar from './MainNavbar';
 import MainSidebar from './MainSidebar';
 
 const MainLayoutRoot = experimentalStyled('div')(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
+  paddingTop: 84,
+  margin: 0,
   height: '100%',
-  paddingTop: 64
+  overflow: 'hidden',
 }));
 
 const MainLayout = ({ children }) => {
@@ -23,13 +25,13 @@ const MainLayout = ({ children }) => {
         openMobile={isSidebarMobileOpen}
       />
       {children || <Outlet />}
-      <Footer />
+      {/* <Footer /> */}
     </MainLayoutRoot>
   );
 };
 
 MainLayout.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 export default MainLayout;

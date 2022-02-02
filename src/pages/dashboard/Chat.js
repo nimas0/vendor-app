@@ -26,7 +26,8 @@ const Chat = () => {
         sx={{
           backgroundColor: 'background.default',
           display: 'flex',
-          height: '100%'
+          height: '95%',
+          marginTop: 5,
         }}
       >
         <ChatSidebar />

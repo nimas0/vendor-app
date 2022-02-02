@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-wrap-multilines */
 import { useRef, useState, useEffect } from 'react';
 import { formatDistanceToNowStrict } from 'date-fns';
 import {
@@ -11,12 +12,13 @@ import {
   ListItemText,
   Popover,
   Tooltip,
-  Typography
+  Typography,
 } from '@material-ui/core';
-import UsersIcon from '../../icons/Users';
+// import UsersIcon from '../../icons/Users';
 import { getContacts } from '../../slices/chat';
 import { useDispatch, useSelector } from '../../store';
 import StatusIndicator from '../StatusIndicator';
+import { AccountBalanceWalletTwoTone } from '@material-ui/icons';
 
 const ContactsPopover = () => {
   const dispatch = useDispatch();
@@ -38,35 +40,28 @@ const ContactsPopover = () => {
 
   return (
     <>
-      <Tooltip title="Contacts">
-        <IconButton
-          color="inherit"
-          onClick={handleOpen}
-          ref={anchorRef}
-        >
-          <UsersIcon fontSize="small" />
+      <Tooltip title='Contacts'>
+        <IconButton onClick={handleOpen} ref={anchorRef}>
+          <AccountBalanceWalletTwoTone fontSize='small' />
         </IconButton>
       </Tooltip>
       <Popover
         anchorEl={anchorRef.current}
         anchorOrigin={{
           horizontal: 'center',
-          vertical: 'bottom'
+          vertical: 'bottom',
         }}
         onClose={handleClose}
         open={open}
         PaperProps={{
           sx: {
             p: 2,
-            width: 320
-          }
+            width: 320,
+          },
         }}
       >
-        <Typography
-          color="textPrimary"
-          variant="h6"
-        >
-          Contacts
+        <Typography color='textPrimary' variant='h6'>
+          Wallet
         </Typography>
         <Box sx={{ mt: 2 }}>
           <List disablePadding>
@@ -74,45 +69,31 @@ const ContactsPopover = () => {
               const contact = contacts.byId[contactId];
 
               return (
-                <ListItem
-                  disableGutters
-                  key={contact.id}
-                >
+                <ListItem disableGutters key={contact.id}>
                   <ListItemAvatar>
                     <Avatar src={contact.avatar} />
                   </ListItemAvatar>
                   <ListItemText
                     disableTypography
-                    primary={(
+                    primary={
                       <Link
-                        color="textPrimary"
-                        display="block"
+                        color='textPrimary'
+                        display='block'
                         noWrap
-                        underline="none"
-                        variant="subtitle2"
+                        underline='none'
+                        variant='subtitle2'
                       >
                         {contact.name}
                       </Link>
-                    )}
+                    }
                   />
-                  {contact.isActive
-                    ? (
-                      <StatusIndicator
-                        size="small"
-                        status="online"
-                      />
-                    )
-                    : (
-                      <Typography
-                        color="textSecondary"
-                        noWrap
-                        variant="caption"
-                      >
-                        {formatDistanceToNowStrict(contact.lastActivity)}
-                        {' '}
-                        ago
-                      </Typography>
-                    )}
+                  {contact.isActive ? (
+                    <StatusIndicator size='small' status='online' />
+                  ) : (
+                    <Typography color='textSecondary' noWrap variant='caption'>
+                      {formatDistanceToNowStrict(contact.lastActivity)} ago
+                    </Typography>
+                  )}
                 </ListItem>
               );
             })}
