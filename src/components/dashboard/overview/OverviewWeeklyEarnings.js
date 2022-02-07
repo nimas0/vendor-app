@@ -25,7 +25,7 @@ const OverviewWeeklyEarnings = (props) => {
   const claims = useSelector((state) => (state && state.tasks) || []);
   const dispatch = useDispatch();
 
-  console.log('tasks', claims);
+  console.log('taskss', claims);
   const handleTaskModalOpen = (propertyId, taskId) => {
     console.log('handleTaskModal', propertyId, taskId);
     dispatch(selectTask(propertyId, taskId));
