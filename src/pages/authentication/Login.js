@@ -38,7 +38,7 @@ const Login = () => {
   return (
     <>
       <Helmet>
-        <title>Login | Material Kit Pro</title>
+        <title>Finding Spaces</title>
       </Helmet>
       <Box
         sx={{
