@@ -10,7 +10,7 @@ import {
   Link,
   Typography,
 } from '@material-ui/core';
-import AuthBanner from '../../components/authentication/AuthBanner';
+
 import {
   LoginAmplify,
   LoginAuth0,
@@ -38,7 +38,7 @@ const Login = () => {
   return (
     <>
       <Helmet>
-        <title>Login | Material Kit Pro</title>
+        <title>Finding Spaces</title>
       </Helmet>
       <Box
         sx={{

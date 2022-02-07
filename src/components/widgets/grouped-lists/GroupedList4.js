@@ -33,52 +33,58 @@ const iconsMap = {
   task: Add,
 };
 
-const GroupedList4 = ({ tasks, handleTaskModalOpen, handleClose }) => {
+const GroupedList4 = ({
+  tasks,
+  handleTaskModalOpen,
+  handleClose,
+}) => {
   console.log('tasks!!!', tasks);
   const [loading, setLoading] = useState(false);
   return (
     <Box
-      id='taskbar'
+      id="taskbar"
       sx={{
         backgroundColor: 'transparent',
-        p: 6,
       }}
     >
-      <Card elevation={0}>
+      <Card sx={{ mt: 0 }} elevation={0}>
         <CardHeader
+          sx={{ mt: 0, pt: 0 }}
           title={`Tasks Completed: ${tasks.count} out 5`}
-          subheader='Complete these tasks to simulate selling a home'
+          subheader="Complete these tasks to simulate selling a home"
         />
-        <List>
+        <List dense>
           {tasks.tasks.map((task, i) => {
             const Icon = iconsMap.task;
             console.log('listmap', tasks.propertyId);
             return (
               <ListItem
-                onClick={() => handleTaskModalOpen(tasks.propertyId, task.id)}
+                onClick={() =>
+                  handleTaskModalOpen(tasks.propertyId, task.id)
+                }
                 button
                 id={task.id}
                 divider={i < tasks.length - 1}
                 key={task.id}
               >
                 <ListItemIcon>
-                  <Icon fontSize='small' />
+                  <Icon fontSize="small" />
                 </ListItemIcon>
                 <ListItemText>
                   <Typography
                     color={task.completed ? 'primary' : 'textPrimary'}
-                    variant='subtitle2'
+                    variant="subtitle2"
                   >
                     {` ${task.label}`}
                   </Typography>
                 </ListItemText>
                 <ListItemSecondaryAction>
-                  <Tooltip title='View'>
-                    <IconButton edge='end'>
+                  <Tooltip title="View">
+                    <IconButton edge="end">
                       {task.completed ? (
-                        <Check color='primary' />
+                        <Check color="primary" />
                       ) : (
-                        <ChevronRightIcon fontSize='small' />
+                        <ChevronRightIcon fontSize="small" />
                       )}
                     </IconButton>
                   </Tooltip>
