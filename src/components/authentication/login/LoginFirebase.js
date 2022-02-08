@@ -7,7 +7,7 @@ import {
   Divider,
   FormHelperText,
   TextField,
-  Typography
+  Typography,
 } from '@material-ui/core';
 import useAuth from '../../../hooks/useAuth';
 import useMounted from '../../../hooks/useMounted';
@@ -35,8 +35,8 @@ const LoginFirebase = (props) => {
           color: 'common.black',
           '&:hover': {
             backgroundColor: 'common.white',
-            color: 'common.black'
-          }
+            color: 'common.black',
+          },
         }}
         variant="contained"
       >
@@ -52,7 +52,7 @@ const LoginFirebase = (props) => {
         sx={{
           alignItems: 'center',
           display: 'flex',
-          mt: 2
+          mt: 2,
         }}
       >
         <Box sx={{ flexGrow: 1 }}>
@@ -71,26 +71,28 @@ const LoginFirebase = (props) => {
       </Box>
       <Formik
         initialValues={{
-          email: 'demo@devias.io',
-          password: 'Password123!',
-          submit: null
+          email: '',
+          password: '',
+          submit: null,
         }}
-        validationSchema={Yup
-          .object()
-          .shape({
-            email: Yup
-              .string()
-              .email('Must be a valid email')
-              .max(255)
-              .required('Email is required'),
-            password: Yup
-              .string()
-              .max(255)
-              .required('Password is required')
-          })}
-        onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
+        validationSchema={Yup.object().shape({
+          email: Yup.string()
+            .email('Must be a valid email')
+            .max(255)
+            .required('Email is required'),
+          password: Yup.string()
+            .max(255)
+            .required('Password is required'),
+        })}
+        onSubmit={async (
+          values,
+          { setErrors, setStatus, setSubmitting },
+        ) => {
           try {
-            await signInWithEmailAndPassword(values.email, values.password);
+            await signInWithEmailAndPassword(
+              values.email,
+              values.password,
+            );
 
             if (mounted.current) {
               setStatus({ success: true });
@@ -106,12 +108,16 @@ const LoginFirebase = (props) => {
           }
         }}
       >
-        {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
-          <form
-            noValidate
-            onSubmit={handleSubmit}
-            {...props}
-          >
+        {({
+          errors,
+          handleBlur,
+          handleChange,
+          handleSubmit,
+          isSubmitting,
+          touched,
+          values,
+        }) => (
+          <form noValidate onSubmit={handleSubmit} {...props}>
             <TextField
               error={Boolean(touched.email && errors.email)}
               fullWidth
@@ -140,9 +146,7 @@ const LoginFirebase = (props) => {
             />
             {errors.submit && (
               <Box sx={{ mt: 3 }}>
-                <FormHelperText error>
-                  {errors.submit}
-                </FormHelperText>
+                <FormHelperText error>{errors.submit}</FormHelperText>
               </Box>
             )}
             <Box sx={{ mt: 2 }}>
@@ -160,12 +164,7 @@ const LoginFirebase = (props) => {
             <Box sx={{ mt: 2 }}>
               <Alert severity="info">
                 <div>
-                  You can use
-                  {' '}
-                  <b>demo@devias.io</b>
-                  {' '}
-                  and password
-                  {' '}
+                  You can use <b>demo@devias.io</b> and password{' '}
                   <b>Password123!</b>
                 </div>
               </Alert>

@@ -23,7 +23,6 @@ import AnimatedNumber from 'animated-number-react';
 
 const OverviewTotalBalance = (props) => {
   const dispatch = useDispatch();
-  const wallet = useSelector((state) => state.wallet);
   const status = useSelector((state) => state.wallet.status);
   useEffect(async () => {
     dispatch(getBalance());
@@ -32,7 +31,7 @@ const OverviewTotalBalance = (props) => {
 
   const currencies = [
     {
-      amount: wallet.data.balanceADA,
+      // amount: wallet.data.balanceADA,
       color: '#6C76C4',
       name: 'Ada',
       type: 'token',
@@ -62,7 +61,7 @@ const OverviewTotalBalance = (props) => {
           status !== 'loading' ? (
             <Typography color="textPrimary" variant="h4">
               <AnimatedNumber
-                value={wallet.data.balanceSPACE}
+                // value={wallet && wallet.data.balanceSPACE}
                 formatValue={(value) => value.toFixed(2)}
               />{' '}
               Space Tokens

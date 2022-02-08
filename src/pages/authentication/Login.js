@@ -10,14 +10,13 @@ import {
   Link,
   Typography,
 } from '@material-ui/core';
-
+import Logo from '../../assets/images/logo.png';
 import {
   LoginAmplify,
   LoginAuth0,
   LoginFirebase,
   LoginJWT,
 } from '../../components/authentication/login';
-import Logo from '../../components/Logo';
 import useAuth from '../../hooks/useAuth';
 import gtm from '../../lib/gtm';
 
@@ -38,7 +37,7 @@ const Login = () => {
   return (
     <>
       <Helmet>
-        <title>Finding Spaces</title>
+        <title>Finding Spaces Login Page</title>
       </Helmet>
       <Box
         sx={{
@@ -57,12 +56,13 @@ const Login = () => {
             }}
           >
             <RouterLink to="/">
-              <Logo
+              <img alt="logo" src={Logo} />
+              {/* <Logo
                 sx={{
                   height: 40,
-                  width: 40,
+                  width: 'auto',
                 }}
-              />
+              /> */}
             </RouterLink>
           </Box>
           <Card>
