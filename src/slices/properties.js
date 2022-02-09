@@ -1,12 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { propertyApi } from '../__fakeApi__/listingApi';
+import firebase from 'firebase';
+
+const db = firebase.firestore();
 
 const initialState = {
   isModalOpen: false,
   isLoaded: false,
   selectedPropertyId: null,
   properties: [],
-  tour: true,
+  tourCompleted: true,
   steps: [
     {
       selector: '#body',
@@ -42,10 +45,55 @@ const slice = createSlice({
       state.selectedTask = null;
     },
     closeTour(state) {
-      state.tour = false;
+      state.tourCompleted = false;
+    },
+    initializeTour(state, action) {
+      state.tourCompleted = action.payload;
     },
   },
 });
+
+export const initializeTour = (uid) => async (dispatch) => {
+  const userReference = db.collection('users').doc(uid);
+
+  try {
+    const snapshot = await userReference.get();
+    console.log('initializeTour', snapshot.exists);
+
+    if (snapshot.exists) {
+      // get tour status and set
+      const data = snapshot.data();
+      if (typeof data.tourCompleted === 'boolean') {
+        dispatch(
+          slice.actions.initializeTour({
+            tourCompleted: data.tourCompleted,
+          }),
+        );
+      } else {
+        await userReference.set(
+          {
+            marketplaceTourCompleted: false,
+          },
+          { merge: true },
+        );
+        dispatch(
+          slice.actions.initializeTour({ tourCompleted: true }),
+        );
+      }
+    } else {
+      // set tour
+      await userReference.set(
+        {
+          tourCompleted: false,
+        },
+        { merge: true },
+      );
+      dispatch(slice.actions.initializeTour({ tourCompleted: true }));
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const getProperties = () => async (dispatch) => {
   const data = await propertyApi.getProperties();
@@ -68,7 +116,21 @@ export const resetSelect = () => (dispatch) => {
   dispatch(slice.actions.resetSelect());
 };
 
-export const closeTour = () => (dispatch) => {
+export const postClaim = () => () => {
+  const request = firebase.functions().httpsCallable('processClaim');
+  request().then((results) => {
+    console.log('results from functions', results);
+  });
+};
+
+export const closeTour = (uid) => (dispatch) => {
+  const userReference = db.collection('users').doc(uid);
+  userReference.set(
+    {
+      tourCompleted: true,
+    },
+    { merge: true },
+  );
   dispatch(slice.actions.closeTour());
 };
 

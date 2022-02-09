@@ -88,8 +88,41 @@ exports.generateWalletOnUserCreation = functions.https.onCall(
       admin.auth().setCustomUserClaims(uid, {
         walletAddress: walletAddress,
       });
+
       functions.logger.log('walletAddress', walletAddress);
       return { walletAddress: walletAddress };
+    } catch (error) {
+      functions.logger.log(error);
+      return;
+    }
+  },
+);
+
+exports.processClaim = functions.https.onCall(
+  async (data, context) => {
+    functions.logger.log('i got called');
+    const uid = context.auth.uid;
+
+    // const options = {
+    //   method: 'POST',
+    //   url: 'https://www.wolframcloud.com/obj/christianp/MyProjects/FindingSpaces/API/v1/wallet',
+    //   data: {
+    //     network: 'testnet',
+    //   },
+    //   headers: {
+    //     'Content-Type': 'application-json',
+    //   },
+    // };
+
+    try {
+      // const results = (await axios(options)).data;
+      // const walletAddress = results.Data.address;
+
+      // admin.auth().setCustomUserClaims(uid, {
+      //   walletAddress: walletAddress,
+      // });
+
+      return 'got called!';
     } catch (error) {
       functions.logger.log(error);
       return;

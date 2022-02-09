@@ -28,17 +28,31 @@ const ClaimModal = (props) => {
     ...other
   } = props;
   const property =
-    properties && properties.filter((p) => p.id === activeProperty)[0];
+    properties &&
+    properties.filter((p) => p.id === activeProperty)[0];
   const [page, setPage] = useState(false);
   const navigate = useNavigate();
+
+  const handleClaim = () => {
+    setPage(true);
+    dispatch();
+  };
+
   const handleClose = () => {
     onClose();
     setPage(false);
   };
 
   return (
-    <Dialog onClose={handleClose} open={properties.isModalOpen} {...other}>
-      <CardMedia image={property && property.image} sx={{ height: 200 }} />
+    <Dialog
+      onClose={handleClose}
+      open={properties.isModalOpen}
+      {...other}
+    >
+      <CardMedia
+        image={property && property.image}
+        sx={{ height: 200 }}
+      />
       <Box
         sx={{
           minWidth: '600px',
@@ -47,10 +61,10 @@ const ClaimModal = (props) => {
         }}
       >
         <Typography
-          align='center'
-          color='textPrimary'
+          align="center"
+          color="textPrimary"
           gutterBottom
-          variant='h4'
+          variant="h4"
         >
           {property && property.address.formatted_street_address}
         </Typography>

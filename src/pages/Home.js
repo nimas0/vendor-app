@@ -17,15 +17,18 @@ import {
   closeModal,
   closeTour,
   getProperties,
+  initializeTour,
   openModal,
   resetSelect,
   selectProperty,
 } from '../slices/properties';
 import { Button } from '@material-ui/core';
+import useAuth from '../hooks/useAuth';
 
 const Home = () => {
   const dispatch = useDispatch();
   const properties = useSelector((state) => state.properties);
+  const { user } = useAuth();
 
   const handleOpen = (id) => {
     console.log(id);
@@ -44,6 +47,8 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getProperties());
+    console.log('authid', user);
+    dispatch(initializeTour(user.id));
   }, []);
 
   return (
@@ -54,10 +59,10 @@ const Home = () => {
       <Tour
         disableInteraction
         steps={properties.steps}
-        isOpen={properties.tour}
-        onRequestClose={() => dispatch(closeTour())}
+        isOpen={!properties.tourCompleted || false}
+        onRequestClose={() => dispatch(closeTour(user.id))}
         lastStepNextButton={
-          <Button onClick={() => dispatch(closeTour())}>
+          <Button onClick={() => dispatch(closeTour(user.id))}>
             Start Simulation
           </Button>
         }
