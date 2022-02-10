@@ -40,7 +40,7 @@ const HomeHero = (
 
     <Box
       sx={{
-        backgroundColor: 'background.paper',
+        backgroundColor: 'transparent',
         pt: 6,
       }}
       {...props}

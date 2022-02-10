@@ -26,12 +26,13 @@ import PlusIcon from '../../icons/Plus';
 
 import gtm from '../../lib/gtm';
 import useAuth from '../../hooks/useAuth';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getClaimed } from '../../slices/tasks';
 import Tour from 'reactour';
 
 const Overview = () => {
   const { settings } = useSettings();
+  const loading = useSelector((state) => state.tasks.loading);
   const dispatch = useDispatch();
   const user = useAuth();
   useEffect(() => {
@@ -60,7 +61,8 @@ const Overview = () => {
     dispatch(getClaimed(user.user.id));
   }, []);
 
-  console.log('user!', user.user.id);
+  console.log('user!', loading);
+  if (loading) return 'loading';
   return (
     <>
       <Helmet>

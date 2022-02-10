@@ -1,13 +1,22 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 
-import { Box, Button, CardActions, Typography } from '@material-ui/core';
+import {
+  Box,
+  Button,
+  CardActions,
+  Typography,
+} from '@material-ui/core';
 
-const Page1 = ({ setPage }) => (
+const Page1 = ({ handleClaim }) => (
   <>
-    <Typography align='center' color='textSecondary' variant='subtitle2'>
-      Select Verify Ownership and Claim to proceed with our integrated 1 click
-      KYC api
+    <Typography
+      align="center"
+      color="textSecondary"
+      variant="subtitle2"
+    >
+      Select Verify Ownership and Claim to proceed with our integrated
+      1 click KYC api
     </Typography>
     <Box sx={{ mt: 6, textAlign: 'center' }}>
       <Box
@@ -18,7 +27,7 @@ const Page1 = ({ setPage }) => (
         }}
       >
         <Box sx={{ ml: 0 }}>
-          <Typography color='textPrimary' variant='subtitle2' />
+          <Typography color="textPrimary" variant="subtitle2" />
           {/* <Typography color='textSecondary' variant='body2'>
           Author note: Please remember to include your soft skills.
         </Typography> */}
@@ -27,10 +36,10 @@ const Page1 = ({ setPage }) => (
     </Box>
     <CardActions>
       <Button
-        variant='contained'
+        variant="contained"
         fullWidth
-        onClick={() => setPage((prev) => !prev)}
-        align='center'
+        onClick={() => handleClaim()}
+        align="center"
       >
         Claim Property and Generate NFT
       </Button>

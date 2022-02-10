@@ -52,32 +52,48 @@ export const AuthProvider = (props) => {
               .functions()
               .httpsCallable('generateWalletOnUserCreation');
             genWalletAddress().then((results) => {
-              console.log('results from functions', results);
+              console.log(
+                'results from functions',
+                results.data.walletAddress,
+              );
               walletAddress = results.data.walletAddress;
+              dispatch({
+                type: 'AUTH_STATE_CHANGED',
+                payload: {
+                  isAuthenticated: true,
+                  user: {
+                    id: user.uid,
+                    avatar: user.photoURL,
+                    email: user.email,
+                    name: user.displayName,
+                    walletAddress,
+                  },
+                },
+              });
             });
           } else {
             walletAddress = claims.walletAddress;
             console.log(walletAddress);
-          }
-
-          dispatch({
-            type: 'AUTH_STATE_CHANGED',
-            payload: {
-              isAuthenticated: true,
-              user: {
-                id: user.uid,
-                avatar: user.photoURL,
-                email: user.email,
-                name: user.displayName,
-                walletAddress,
+            dispatch({
+              type: 'AUTH_STATE_CHANGED',
+              payload: {
+                isAuthenticated: true,
+                user: {
+                  id: user.uid,
+                  avatar: user.photoURL,
+                  email: user.email,
+                  name: user.displayName,
+                  walletAddress,
+                },
               },
-            },
-          });
+            });
+          }
         } else {
           dispatch({
             type: 'AUTH_STATE_CHANGED',
             payload: {
               isAuthenticated: false,
+              isLoading: false,
               user: null,
             },
           });

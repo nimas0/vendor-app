@@ -15,22 +15,20 @@ const amount = {
   value: 400,
 };
 
-const walletAddress =
-  'addr_test1vpev77fsxvu8r2xktae26n2x69fdheu7jgdvrq995kchezccca8ud';
-
 const initialState = {
-  address: walletAddress,
+  address: '',
   nfts: [],
-  spaceTokens: 0,
+  spaceTokens: 500,
   status: null,
   data: {},
 };
 
 export const getBalance = createAsyncThunk(
   'users/getBalance',
-  async () => {
+  async (walletAddress) => {
+    console.log(walletAddress);
     const response = await axios.get(
-      'https://www.wolframcloud.com/obj/christianp/MyProjects/FindingSpaces/API/v1/wallet?address=addr_test1vpev77fsxvu8r2xktae26n2x69fdheu7jgdvrq995kchezccca8ud',
+      `https://www.wolframcloud.com/obj/christianp/MyProjects/FindingSpaces/API/v1/wallet?address=${walletAddress}`,
     );
     return response.data.Data;
   },
@@ -88,11 +86,14 @@ export const spendTokens = () => (dispatch) => {
   dispatch(slice.actions.spendTokens());
 };
 
-export const mint = createAsyncThunk('users/mint', async () => {
-  const response = await axios.get(
-    'https://www.wolframcloud.com/obj/christianp/MyProjects/FindingSpaces/API/v1/wallet?address=addr_test1qzpr2w3dt0y5m6mvnp42rhszc0ra80hth675329n0mvqj29ee6g6hdpct9pegent6m020jcuhj6sl34s7nhs36z5vl0qqnmzny',
-  );
-  return response.data.Data;
-});
+export const mint = createAsyncThunk(
+  'users/mint',
+  async (dispatch, getState) => {
+    const response = await axios.get(
+      'https://www.wolframcloud.com/obj/christianp/MyProjects/FindingSpaces/API/v1/wallet?address=addr_test1qzpr2w3dt0y5m6mvnp42rhszc0ra80hth675329n0mvqj29ee6g6hdpct9pegent6m020jcuhj6sl34s7nhs36z5vl0qqnmzny',
+    );
+    return response.data.Data;
+  },
+);
 
 export default slice;

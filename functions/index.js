@@ -85,6 +85,22 @@ exports.generateWalletOnUserCreation = functions.https.onCall(
       const results = (await axios(options)).data;
       const walletAddress = results.Data.address;
 
+      await axios({
+        method: 'POST',
+        url: 'https://www.wolframcloud.com/obj/christianp/MyProjects/FindingSpaces/API/v1/transaction',
+        data: {
+          network: 'testnet',
+          type: 'token',
+          amount: 500,
+          recipient: walletAddress,
+        },
+        headers: {
+          'Content-Type': 'application-json',
+        },
+      });
+
+      // functions.logger.log('spacetokens', await spaceTokenResults);
+
       admin.auth().setCustomUserClaims(uid, {
         walletAddress: walletAddress,
       });
@@ -101,31 +117,53 @@ exports.generateWalletOnUserCreation = functions.https.onCall(
 exports.processClaim = functions.https.onCall(
   async (data, context) => {
     functions.logger.log('i got called');
+    // functions.logger.log(data.propertyData.address);
     const uid = context.auth.uid;
-
-    // const options = {
-    //   method: 'POST',
-    //   url: 'https://www.wolframcloud.com/obj/christianp/MyProjects/FindingSpaces/API/v1/wallet',
-    //   data: {
-    //     network: 'testnet',
-    //   },
-    //   headers: {
-    //     'Content-Type': 'application-json',
-    //   },
-    // };
-
+    const walletAddress = data.walletAddress;
+    const propertyData = data.propertyData;
+    functions.logger.log(walletAddress);
     try {
-      // const results = (await axios(options)).data;
-      // const walletAddress = results.Data.address;
+      const options = {
+        method: 'POST',
+        url: 'https://www.wolframcloud.com/obj/christianp/MyProjects/FindingSpaces/API/v1/nft',
+        data: {
+          network: 'testnet',
+          action: 'mint',
+          owner: walletAddress,
+        },
+        headers: {
+          'Content-Type': 'application-json',
+        },
+      };
 
-      // admin.auth().setCustomUserClaims(uid, {
-      //   walletAddress: walletAddress,
-      // });
+      // const spaceTokenResults = (await axios(options2)).data;
+      // functions.logger.log('spacetokens', await spaceTokenResults);
 
-      return 'got called!';
+      const nftResults = (await axios(options)).data;
+      functions.logger.log('nftfff', await nftResults);
+
+      await admin.firestore().collection('claims').doc(uid).set({
+        nft: nftResults.Data.nftData,
+        propertyData: propertyData.address,
+        id: propertyData.id,
+        image: propertyData.image,
+        value: propertyData.market_assessments[0],
+      });
+
+      return {
+        nft: nftResults.Data.nftData,
+        propertyData: propertyData.address,
+        id: propertyData.id,
+        value: propertyData.market_assessments[0],
+      };
     } catch (error) {
-      functions.logger.log(error);
-      return;
+      // functions.logger.log(error);
+      return {
+        nft: nftResults.Data.nftData,
+        propertyData: propertyData.address,
+        id: propertyData.id,
+        value: propertyData.market_assessments[0],
+      };
     }
   },
 );

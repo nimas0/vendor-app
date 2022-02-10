@@ -15,6 +15,10 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Page1 from './Page1';
 import Page2 from './Page2';
+import { claimHome } from '../../slices/tasks';
+import { useDispatch, useSelector } from 'react-redux';
+import useAuth from '../../hooks/useAuth';
+
 // import getInitials from '../../../utils/getInitials';
 
 const ClaimModal = (props) => {
@@ -30,12 +34,19 @@ const ClaimModal = (props) => {
   const property =
     properties &&
     properties.filter((p) => p.id === activeProperty)[0];
+  const auth = useAuth();
   const [page, setPage] = useState(false);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  console.log('auth', auth);
+  const selectedPropertyId = useSelector(
+    (state) => state.properties.selectedPropertyId,
+  );
   const handleClaim = () => {
+    const address = auth.user.walletAddress;
     setPage(true);
-    dispatch();
+    dispatch(claimHome(selectedPropertyId, address));
+    // dispatch();
   };
 
   const handleClose = () => {
@@ -69,7 +80,7 @@ const ClaimModal = (props) => {
           {property && property.address.formatted_street_address}
         </Typography>
         {page !== true ? (
-          <Page1 setPage={setPage} />
+          <Page1 handleClaim={handleClaim} setPage={setPage} />
         ) : (
           <Page2 onClose={onClose} />
         )}

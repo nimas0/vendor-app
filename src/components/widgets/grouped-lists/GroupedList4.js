@@ -56,12 +56,10 @@ const GroupedList4 = ({
         <List dense>
           {tasks.tasks.map((task, i) => {
             const Icon = iconsMap.task;
-            console.log('listmap', tasks.propertyId);
+            console.log('listmap', task.id);
             return (
               <ListItem
-                onClick={() =>
-                  handleTaskModalOpen(tasks.propertyId, task.id)
-                }
+                onClick={() => handleTaskModalOpen(task.id)}
                 button
                 id={task.id}
                 divider={i < tasks.length - 1}

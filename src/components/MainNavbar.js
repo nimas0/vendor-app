@@ -15,6 +15,7 @@ import {
 import MenuIcon from '../icons/Menu';
 import { styled } from '@material-ui/styles';
 import { SearchTwoTone } from '@material-ui/icons';
+import AccountPopover from './dashboard/AccountPopover';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -70,7 +71,7 @@ const MainNavbar = (props) => {
     >
       <Toolbar sx={{ minHeight: 64 }}>
         <IconButton
-          color='inherit'
+          color="inherit"
           onClick={onSidebarMobileOpen}
           sx={{
             display: {
@@ -78,20 +79,21 @@ const MainNavbar = (props) => {
             },
           }}
         >
-          <MenuIcon fontSize='small' />
+          <MenuIcon fontSize="small" />
         </IconButton>
 
         <Link
-          color='textSecondary'
+          disabled
+          color="textSecondary"
           component={RouterLink}
-          to='/browse'
-          underline='none'
-          variant='body1'
+          to="/"
+          underline="none"
+          variant="body1"
         >
           Sell
         </Link>
         <Divider
-          orientation='vertical'
+          orientation="vertical"
           sx={{
             height: 32,
             mx: 2,
@@ -99,36 +101,36 @@ const MainNavbar = (props) => {
           }}
         />
         <Link
-          color='textSecondary'
+          color="textSecondary"
           component={RouterLink}
-          to='/docs'
-          underline='none'
-          variant='body1'
+          to="/"
+          underline="none"
+          variant="body1"
         >
           Buy
         </Link>
         <Divider
-          orientation='vertical'
+          orientation="vertical"
           sx={{
             height: 32,
             mx: 2,
           }}
         />
         <Link
-          color='textSecondary'
+          color="textSecondary"
           component={RouterLink}
-          to='/docs'
-          underline='none'
-          variant='body1'
+          to="/"
+          underline="none"
+          variant="body1"
         >
           Claim Home
         </Link>
 
         <Box sx={{ flexGrow: 1 }} />
-        <RouterLink to='/'>
+        <RouterLink to="/">
           <img
-            alt='finding spaces'
-            src='https://firebasestorage.googleapis.com/v0/b/finding-spaces-73b23.appspot.com/o/logo%20idea-2-transparent.png?alt=media&token=0bc11614-2775-4c8c-8052-c897afb2b336'
+            alt="finding spaces"
+            src="https://firebasestorage.googleapis.com/v0/b/finding-spaces-73b23.appspot.com/o/logo%20idea-2-transparent.png?alt=media&token=0bc11614-2775-4c8c-8052-c897afb2b336"
           />
         </RouterLink>
         <Box sx={{ flexGrow: 1 }} />
@@ -141,47 +143,49 @@ const MainNavbar = (props) => {
             },
           }}
         >
-          <Link
-            color='textSecondary'
+          {/* <Link
+            color="textSecondary"
             component={RouterLink}
-            to='/browse'
-            underline='none'
-            variant='body1'
+            to="/browse"
+            underline="none"
+            variant="body1"
           >
             Sign up
           </Link>
           <Divider
-            orientation='vertical'
+            orientation="vertical"
             sx={{
               height: 32,
               mx: 2,
             }}
           />
           <Link
-            color='textSecondary'
+            color="textSecondary"
             component={RouterLink}
-            to='/docs'
-            underline='none'
-            variant='body1'
+            to="/docs"
+            underline="none"
+            variant="body1"
           >
             Sign In
-          </Link>
-          <Divider
-            orientation='vertical'
+          </Link> */}
+          <Button
+            color="primary"
+            component={RouterLink}
+            to="/dashboard"
+            variant="contained"
+          >
+            Dashboard
+          </Button>
+          {/* <Divider
+            orientation="vertical"
             sx={{
               height: 32,
               mx: 2,
             }}
-          />
-          <Button
-            color='primary'
-            component={RouterLink}
-            to='/dashboard'
-            size='small'
-            variant='contained'
-          >
-            Dashboard
-          </Button>
+          /> */}
+          <Box sx={{ ml: 2 }}>
+            <AccountPopover />
+          </Box>
         </Box>
       </Toolbar>
       <Toolbar
@@ -198,36 +202,36 @@ const MainNavbar = (props) => {
             <SearchTwoTone />
           </SearchIconWrapper>
           <StyledInputBase
-            placeholder='Search…'
+            placeholder="Search…"
             inputProps={{ 'aria-label': 'search' }}
           />
         </Search>
         <Button
           sx={{ m: 1, backgroundColor: 'white', color: 'black' }}
-          variant='contained'
+          variant="contained"
         >
           For Sale
         </Button>
         <Button
           sx={{ m: 1, backgroundColor: 'white', color: 'black' }}
-          variant='contained'
+          variant="contained"
         >
           Price
         </Button>
         <Button
           sx={{ m: 1, backgroundColor: 'white', color: 'black' }}
-          variant='contained'
+          variant="contained"
         >
           Bed & Baths
         </Button>
         <Button
           sx={{ m: 1, backgroundColor: 'white', color: 'black' }}
-          variant='contained'
+          variant="contained"
         >
           Home Type
         </Button>
         <Box sx={{ flexGrow: 1 }} />
-        <Typography variant='h6' sx={{ color: 'white' }}>
+        <Typography variant="h6" sx={{ color: 'white' }}>
           Search Results 3 of 3
         </Typography>
       </Toolbar>

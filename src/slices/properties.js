@@ -45,10 +45,10 @@ const slice = createSlice({
       state.selectedTask = null;
     },
     closeTour(state) {
-      state.tourCompleted = false;
+      state.tourCompleted = true;
     },
     initializeTour(state, action) {
-      state.tourCompleted = action.payload;
+      state.tourCompleted = action.payload.tourCompleted;
     },
   },
 });
@@ -118,20 +118,20 @@ export const resetSelect = () => (dispatch) => {
 
 export const postClaim = () => () => {
   const request = firebase.functions().httpsCallable('processClaim');
-  request().then((results) => {
+  request({}).then((results) => {
     console.log('results from functions', results);
   });
 };
 
-export const closeTour = (uid) => (dispatch) => {
+export const closeTour = (uid) => async (dispatch) => {
   const userReference = db.collection('users').doc(uid);
-  userReference.set(
+  dispatch(slice.actions.closeTour());
+  await userReference.set(
     {
       tourCompleted: true,
     },
     { merge: true },
   );
-  dispatch(slice.actions.closeTour());
 };
 
 export const { reducer } = slice;

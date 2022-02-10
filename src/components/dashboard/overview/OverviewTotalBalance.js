@@ -20,12 +20,15 @@ import { getBalance, getNft } from '../../../slices/wallet';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import AnimatedNumber from 'animated-number-react';
+import useAuth from '../../../hooks/useAuth';
 
 const OverviewTotalBalance = (props) => {
   const dispatch = useDispatch();
-  const status = useSelector((state) => state.wallet.status);
+  const { user } = useAuth();
+  const wallet = useSelector((state) => state.wallet);
+
   useEffect(async () => {
-    dispatch(getBalance());
+    dispatch(getBalance(user.walletAddress));
     dispatch(getNft());
   }, []);
 
@@ -58,10 +61,10 @@ const OverviewTotalBalance = (props) => {
     >
       <CardHeader
         subheader={
-          status !== 'loading' ? (
+          wallet.status !== 'loading' ? (
             <Typography color="textPrimary" variant="h4">
               <AnimatedNumber
-                // value={wallet && wallet.data.balanceSPACE}
+                value={wallet && wallet.data.balanceSPACE}
                 formatValue={(value) => value.toFixed(2)}
               />{' '}
               Space Tokens
@@ -76,7 +79,7 @@ const OverviewTotalBalance = (props) => {
         }
         sx={{ pb: 0 }}
         title={
-          status !== 'loading' ? (
+          wallet.status !== 'loading' ? (
             <Typography color="textSecondary" variant="overline">
               Total Space Tokens
             </Typography>

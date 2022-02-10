@@ -59,7 +59,7 @@ const Home = () => {
       <Tour
         disableInteraction
         steps={properties.steps}
-        isOpen={!properties.tourCompleted || false}
+        isOpen={!properties.tourCompleted}
         onRequestClose={() => dispatch(closeTour(user.id))}
         lastStepNextButton={
           <Button onClick={() => dispatch(closeTour(user.id))}>
