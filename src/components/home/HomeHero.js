@@ -17,10 +17,11 @@ const HomeHero = (
 ) => {
   const [viewport, setViewport] = useState({
     latitude: 25.749656677246094,
-    longitude: -80.43821716308594,
+    longitude: -80.23821716308594,
     zoom: 11,
-    width: 'auto',
-    height: '800px',
+    width: '100%',
+    height: '100vh',
+    style: { zIndex: 0 },
   });
 
   return (
@@ -40,13 +41,13 @@ const HomeHero = (
 
     <Box
       sx={{
-        backgroundColor: 'background.paper',
+        backgroundColor: 'transparent',
         pt: 6,
       }}
       {...props}
     >
-      <Grid spacing={3} container>
-        <Grid item xs={8}>
+      <Grid spacing={5} container>
+        <Grid item xs={12} md={6} lg={6} xl={12}>
           <ReactMapGL
             mapStyle="mapbox://styles/nimas0/ckysy19yp7egy15qogb8clmbo"
             mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
@@ -70,14 +71,25 @@ const HomeHero = (
               ))}
           </ReactMapGL>
         </Grid>
-        <Grid item xs={4}>
-          <HomeView
-            activeProperty={properties.selectedPropertyId}
-            properties={properties.properties}
-            handleOpen={handleOpen}
-          />
-        </Grid>
       </Grid>
+      <div
+        style={{
+          zIndex: 1,
+          position: 'absolute',
+          overflow: 'hidden',
+          overflowY: 'scroll', // adde
+          right: 0,
+          top: 120,
+          width: '37%',
+        }}
+      >
+        <HomeView
+          style={{ zIndex: 1 }}
+          activeProperty={properties.selectedPropertyId}
+          properties={properties.properties}
+          handleOpen={handleOpen}
+        />
+      </div>
       <ClaimModal
         onClose={handleClose}
         open={properties.isModalOpen}

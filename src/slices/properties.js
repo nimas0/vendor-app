@@ -1,16 +1,25 @@
+/* eslint-disable react/no-unescaped-entities */
 import { createSlice } from '@reduxjs/toolkit';
 import { propertyApi } from '../__fakeApi__/listingApi';
+import firebase from 'firebase';
+import WelcomeTour from '../components/property/WelcomeTour';
+
+// const db = firebase.firestore();
 
 const initialState = {
   isModalOpen: false,
   isLoaded: false,
   selectedPropertyId: null,
   properties: [],
-  tour: true,
+  tour: false,
   steps: [
     {
       selector: '#body',
-      content: 'Welcome to Finding Spaces',
+      content: (
+        <>
+          <WelcomeTour />
+        </>
+      ),
     },
     {
       selector: '#homeview',
@@ -44,8 +53,56 @@ const slice = createSlice({
     closeTour(state) {
       state.tour = false;
     },
+    openTour(state) {
+      state.tour = true;
+    },
+    // initializeTour(state, action) {
+    //   state.tour = action.payload.tour;
+    // },
   },
 });
+
+// export const initializeTour = (uid) => async (dispatch) => {
+//   const userReference = db.collection('users').doc(uid);
+
+//   try {
+//     const snapshot = await userReference.get();
+//     console.log('initializeTour', snapshot.exists);
+
+//     if (snapshot.exists) {
+//       // get tour status and set
+//       const data = snapshot.data();
+//       if (typeof data.tour === 'boolean') {
+//         dispatch(
+//           slice.actions.initializeTour({
+//             tour: data.tour,
+//           }),
+//         );
+//       } else {
+//         await userReference.set(
+//           {
+//             marketplacetour: false,
+//           },
+//           { merge: true },
+//         );
+//         dispatch(
+//           slice.actions.initializeTour({ tour: true }),
+//         );
+//       }
+//     } else {
+//       // set tour
+//       await userReference.set(
+//         {
+//           tour: false,
+//         },
+//         { merge: true },
+//       );
+//       dispatch(slice.actions.initializeTour({ tour: true }));
+//     }
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 export const getProperties = () => async (dispatch) => {
   const data = await propertyApi.getProperties();
@@ -68,8 +125,33 @@ export const resetSelect = () => (dispatch) => {
   dispatch(slice.actions.resetSelect());
 };
 
-export const closeTour = () => (dispatch) => {
+export const postClaim = () => () => {
+  const request = firebase.functions().httpsCallable('processClaim');
+  request({}).then((results) => {
+    console.log('results from functions', results);
+  });
+};
+
+export const openTour = () => async (dispatch) => {
+  // const userReference = db.collection('users').doc(uid);
+  dispatch(slice.actions.openTour());
+  // await userReference.set(
+  //   {
+  //     tour: true,
+  //   },
+  //   { merge: true },
+  // );
+};
+
+export const closeTour = () => async (dispatch) => {
+  // const userReference = db.collection('users').doc(uid);
   dispatch(slice.actions.closeTour());
+  // await userReference.set(
+  //   {
+  //     tour: true,
+  //   },
+  //   { merge: true },
+  // );
 };
 
 export const { reducer } = slice;

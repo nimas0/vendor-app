@@ -1,6 +1,10 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { formatDistanceToNowStrict, subHours, subMinutes } from 'date-fns';
+import {
+  formatDistanceToNowStrict,
+  subHours,
+  subMinutes,
+} from 'date-fns';
 import numeral from 'numeral';
 import {
   Avatar,
@@ -18,29 +22,39 @@ import {
 import red from '@material-ui/core/colors/red';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import UsersIcon from '../../../icons/Users';
-import { BedroomParentRounded, ShowerRounded } from '@material-ui/icons';
+import {
+  BedroomParentRounded,
+  ShowerRounded,
+} from '@material-ui/icons';
 
 const GridList2 = ({ properties, handleOpen }) => (
   <Box
-    id='homeview'
+    id="homeview"
     mb={2}
-    display='flex'
-    flexDirection='column'
-    height='800px' // fixed the height
+    display="flex"
+    flexDirection="column"
+    height="85vh" // fixed the height
     style={{
       overflow: 'hidden',
       overflowY: 'scroll', // added scroll
     }}
     sx={{
-      backgroundColor: 'transparent',
-
+      backgroundColor: 'rgba(255, 255, 255, 0.75)',
+      backdropFilter: 'blur(3px)',
+      zIndex: 1,
       pt: 6,
-      pl: 3,
+      pl: 9,
       pr: 9,
+      pb: 30,
+      overflow: 'hidden',
+      overflowY: 'scroll', // adde
     }}
   >
     <Grid container spacing={3}>
-      <Typography sx={{ pl: 4, mt: 6, mb: 0, color: 'black' }} variant='h6'>
+      <Typography
+        sx={{ pl: 4, mt: 6, mb: 0, color: 'black', zIndex: 1 }}
+        variant="h6"
+      >
         Miami FL Real Estate & Homes For Sale
       </Typography>
       {properties.map((property, i) => (
@@ -53,6 +67,8 @@ const GridList2 = ({ properties, handleOpen }) => (
                 boxShadow: '0px 11px 22px rgba(0,0,0, 0.25)',
                 transition: '0.15s ease-in-out',
               },
+
+              zIndex: 1,
             }}
             elevation={7}
           >
@@ -62,6 +78,7 @@ const GridList2 = ({ properties, handleOpen }) => (
                 sx={{
                   backgroundColor: 'transparent',
                   height: 180,
+                  zIndex: 1,
                 }}
               />
             </Box>
@@ -72,9 +89,10 @@ const GridList2 = ({ properties, handleOpen }) => (
                 pl: 2,
                 pr: 3,
                 py: 2,
+                zIndex: 1,
               }}
             >
-              <Typography color='textPrimary' variant='h6'>
+              <Typography color="textPrimary" variant="h6">
                 {numeral(property.valuation.value).format('$0,0')}
               </Typography>
               <Box sx={{ flexGrow: 1 }} />
@@ -84,12 +102,12 @@ const GridList2 = ({ properties, handleOpen }) => (
                   display: 'flex',
                 }}
               >
-                <Tooltip title='Unlike'>
+                <Tooltip title="Unlike">
                   <IconButton sx={{ color: red['600'] }}>
-                    <FavoriteIcon fontSize='small' />
+                    <FavoriteIcon fontSize="small" />
                   </IconButton>
                 </Tooltip>
-                <Typography color='textSecondary' variant='subtitle2'>
+                <Typography color="textSecondary" variant="subtitle2">
                   {property.likes}
                 </Typography>
               </Box>
@@ -101,17 +119,17 @@ const GridList2 = ({ properties, handleOpen }) => (
                   ml: 2,
                 }}
               >
-                <UsersIcon fontSize='small' />
+                <UsersIcon fontSize="small" />
                 <Typography
-                  color='textSecondary'
+                  color="textSecondary"
                   sx={{ ml: 1 }}
-                  variant='subtitle2'
+                  variant="subtitle2"
                 >
                   {property.showings}
                 </Typography>
               </Box>
               <Divider
-                orientation='vertical'
+                orientation="vertical"
                 sx={{
                   height: 32,
                   mx: 2,
@@ -126,13 +144,13 @@ const GridList2 = ({ properties, handleOpen }) => (
               >
                 <Typography
                   sx={{ mr: 1 }}
-                  color='textPrimary'
-                  variant='overline'
+                  color="textPrimary"
+                  variant="overline"
                 >
                   {property.structure.beds_count}
                 </Typography>
-                <Tooltip title='Bedrooms'>
-                  <Typography variant='caption'>Bds</Typography>
+                <Tooltip title="Bedrooms">
+                  <Typography variant="caption">Bds</Typography>
                 </Tooltip>
               </Box>
               <Box
@@ -143,13 +161,13 @@ const GridList2 = ({ properties, handleOpen }) => (
               >
                 <Typography
                   sx={{ mr: 0.5, ml: 2 }}
-                  color='textPrimary'
-                  variant='overline'
+                  color="textPrimary"
+                  variant="overline"
                 >
                   {property.structure.baths}
                 </Typography>
-                <Tooltip title='Bathrooms'>
-                  <Typography variant='caption'>ba</Typography>
+                <Tooltip title="Bathrooms">
+                  <Typography variant="caption">ba</Typography>
                 </Tooltip>
               </Box>
               <Box
@@ -160,13 +178,13 @@ const GridList2 = ({ properties, handleOpen }) => (
               >
                 <Typography
                   sx={{ mr: 0.5, ml: 2 }}
-                  color='textPrimary'
-                  variant='overline'
+                  color="textPrimary"
+                  variant="overline"
                 >
                   {property.structure.total_area_sq_ft}
                 </Typography>
-                <Tooltip title='Square Feet'>
-                  <Typography variant='caption'>sqft</Typography>
+                <Tooltip title="Square Feet">
+                  <Typography variant="caption">sqft</Typography>
                 </Tooltip>
               </Box>
             </Box>
@@ -177,13 +195,17 @@ const GridList2 = ({ properties, handleOpen }) => (
                 py: 2,
               }}
             >
-              <Typography variant='h6' sx={{ textTransform: 'capitalize' }}>
+              <Typography
+                variant="h6"
+                sx={{ textTransform: 'capitalize' }}
+              >
                 {`${property.address.formatted_street_address} ${property.address.city} ${property.address.state}`}{' '}
               </Typography>
             </Box>
           </Card>
         </Grid>
       ))}
+      <div style={{ height: '40px' }} />
     </Grid>
   </Box>
 );

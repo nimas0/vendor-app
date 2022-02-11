@@ -1,3 +1,5 @@
+/* eslint-disable function-paren-newline */
+/* eslint-disable implicit-arrow-linebreak */
 /* eslint-disable operator-assignment */
 /* eslint-disable operator-linebreak */
 /* eslint-disable no-shadow */
@@ -15,22 +17,20 @@ const amount = {
   value: 400,
 };
 
-const walletAddress =
-  'addr_test1vpev77fsxvu8r2xktae26n2x69fdheu7jgdvrq995kchezccca8ud';
-
 const initialState = {
-  address: walletAddress,
+  address: '',
   nfts: [],
-  spaceTokens: 0,
+  spaceTokens: 500,
   status: null,
   data: {},
 };
 
 export const getBalance = createAsyncThunk(
   'users/getBalance',
-  async () => {
+  async (walletAddress) => {
+    console.log(walletAddress);
     const response = await axios.get(
-      'https://www.wolframcloud.com/obj/christianp/MyProjects/FindingSpaces/API/v1/wallet?address=addr_test1vpev77fsxvu8r2xktae26n2x69fdheu7jgdvrq995kchezccca8ud',
+      `https://www.wolframcloud.com/obj/christianp/MyProjects/FindingSpaces/API/v1/wallet?address=${walletAddress}`,
     );
     return response.data.Data;
   },
@@ -54,8 +54,11 @@ const slice = createSlice({
     getNft(state, action) {
       // take NFT id and look up
     },
+    spendRealTokens(state, action) {
+      state.spend = action.payload;
+    },
     spendTokens(state) {
-      state.data.balanceSPACE = state.data.balanceSPACE - 100;
+      state.data.balanceSPACE = state.data.balanceSPACE - 50;
     },
   },
   extraReducers: {
@@ -88,11 +91,40 @@ export const spendTokens = () => (dispatch) => {
   dispatch(slice.actions.spendTokens());
 };
 
-export const mint = createAsyncThunk('users/mint', async () => {
-  const response = await axios.get(
-    'https://www.wolframcloud.com/obj/christianp/MyProjects/FindingSpaces/API/v1/wallet?address=addr_test1qzpr2w3dt0y5m6mvnp42rhszc0ra80hth675329n0mvqj29ee6g6hdpct9pegent6m020jcuhj6sl34s7nhs36z5vl0qqnmzny',
-  );
-  return response.data.Data;
-});
+export const mint = createAsyncThunk(
+  'users/mint',
+  async (dispatch, getState) => {
+    const response = await axios.get(
+      'https://www.wolframcloud.com/obj/christianp/MyProjects/FindingSpaces/API/v1/wallet?address=addr_test1qzpr2w3dt0y5m6mvnp42rhszc0ra80hth675329n0mvqj29ee6g6hdpct9pegent6m020jcuhj6sl34s7nhs36z5vl0qqnmzny',
+    );
+    return response.data.Data;
+  },
+);
+
+export const spendRealTokens =
+  (walletAddress) => async (dispatch) => {
+    const request = firebase
+      .functions()
+      .httpsCallable('spendRealTokens');
+    try {
+      request({ walletAddress }).then((results) => {
+        console.log('results from functions', results);
+      });
+    } catch (error) {
+      console.log('fuck', error);
+    }
+  };
+
+export const transferNFT =
+  (walletAddress, nftId) => async (dispatch) => {
+    const request = firebase.functions().httpsCallable('sendNFT');
+    try {
+      request({ walletAddress, nftId }).catch((error) =>
+        console.log(error),
+      );
+    } catch (error) {
+      console.log('sdf', error);
+    }
+  };
 
 export default slice;

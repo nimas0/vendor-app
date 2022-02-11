@@ -1,6 +1,7 @@
 /* eslint-disable operator-linebreak */
 /* eslint-disable no-unused-vars */
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 // import objFromArray from '../utils/objFromArray';
 // import { chatApi } from '../__fakeApi__/chatApi';
 import firebase from '../lib/firebase';
@@ -11,10 +12,7 @@ const amount = {
   value: 400,
 };
 
-const walletAddress =
-  'addr_test1vpev77fsxvu8r2xktae26n2x69fdheu7jgdvrq995kchezccca8ud';
-
-const data = {
+const initialState = {
   tasks: [
     {
       label: 'Prepare Your Home For Sale',
@@ -50,85 +48,63 @@ const data = {
   selectedTask: null,
   isModalOpen: false,
   count: 0,
-  loading: false,
+  loading: true,
   propertyId: null,
+  propertyData: null,
 };
-
-const initialState = [];
 
 const slice = createSlice({
   name: 'tasks',
   initialState,
   reducers: {
     openModal(state, action) {
-      const { propertyId } = action.payload;
-      console.log('opnmodal', action.payload);
-      const index = state.findIndex(
-        (item) => item.propertyId === propertyId,
-      );
-      state[index].isModalOpen = true;
+      // const { propertyId } = action.payload;
+      // console.log('opnmodal', action.payload);
+      // const index = state.findIndex(
+      //   (item) => item.propertyId === propertyId,
+      // );
+      state.isModalOpen = true;
     },
     closeModal(state, action) {
-      const { propertyId } = action.payload;
-      console.log('closemodal', action.payload);
-      const index = state.findIndex(
-        (item) => item.propertyId === propertyId,
-      );
-      state[index].isModalOpen = false;
-      state[index].selectedTask = null;
+      state.isModalOpen = false;
+      state.selectedTask = null;
     },
     markAsCompleted(state, action) {
-      const { propertyId } = action.payload;
-      console.log('markasCompleted', action.payload);
-      const index = state.findIndex(
-        (task) => task.propertyId === propertyId,
-      );
-      console.log('prepare', state[index].selectedTask);
-
-      const selectedIndex = state[index].tasks.findIndex(
-        (task) => task.id === state[index].selectedTask,
-      );
-      console.log('selctedcomplete', selectedIndex);
-      state[index].tasks[selectedIndex].completed = true;
-      state[index].count += 1;
+      const id = action.payload;
+      console.log('id', id);
+      const index = state.tasks.findIndex((task) => task.id === id);
+      state.tasks[index].completed = true;
+      state.count += 1;
     },
     selectTask(state, action) {
-      console.log('selectTask', action.payload);
-      const { taskId, propertyId } = action.payload;
-      const index = state.findIndex(
-        (item) => item.propertyId === propertyId,
-      );
-      console.log(
-        'selectTaskIndex',
-        index,
-        state[index].selectedTask,
-      );
-      state[index].selectedTask = taskId;
+      // console.log('selectTask', action.payload);
+      const { taskId } = action.payload;
+      // const index = state.findIndex(
+      //   (item) => item.propertyId === propertyId,
+      // );
+      // console.log(
+      //   'selectTaskIndex',
+      //   index,
+      //   state[index].selectedTask,
+      // );
+      state.selectedTask = taskId;
     },
     resetTask(state, action) {
-      const { propertyId } = action.payload;
-      const index = state.findIndex(
-        (item) => item.propertyId === propertyId,
-      );
-
-      state[index].selectedTask = null;
+      state.selectedTask = null;
     },
     getClaimed(state, action) {
-      console.log('getclaimed', action.payload, state);
-      state.push(...action.payload);
+      console.log('getclaimed', action.payload);
+      state.propertyData = action.payload;
     },
     claimHome(state, action) {
-      // state.push(action.payload);
+      console.log('claimHome', action.payload);
+      state.propertyData = action.payload;
     },
     closeTour(state) {
       state.tour = false;
     },
     setLoading(state, action) {
-      const { propertyId } = action.payload;
-      const index = state.findIndex(
-        (item) => item.propertyId === propertyId,
-      );
-      state[index].loading = !state[index].loading;
+      state.loading = action.payload;
     },
   },
 });
@@ -139,8 +115,8 @@ export const openModal = (propertyId) => (dispatch) => {
   dispatch(slice.actions.openModal({ propertyId }));
 };
 
-export const toggleLoading = (propertyId) => (dispatch) => {
-  dispatch(slice.actions.setLoading({ propertyId }));
+export const setLoading = (bool) => (dispatch) => {
+  dispatch(slice.actions.setLoading(bool));
 };
 
 export const closeModal = (propertyId) => (dispatch) => {
@@ -148,38 +124,29 @@ export const closeModal = (propertyId) => (dispatch) => {
   dispatch(slice.actions.closeModal({ propertyId }));
 };
 
-export const markAsCompleted = (propertyId) => async (dispatch) => {
-  dispatch(slice.actions.markAsCompleted({ propertyId }));
+export const markAsCompleted = (id) => (dispatch) => {
+  dispatch(slice.actions.markAsCompleted(id));
 };
 
-export const selectTask = (propertyId, taskId) => (dispatch) => {
-  dispatch(slice.actions.selectTask({ propertyId, taskId }));
+export const selectTask = (taskId) => (dispatch) => {
+  console.log('tasalksjdflkasjdflkasjdf', taskId);
+  dispatch(slice.actions.selectTask({ taskId }));
 };
 
-export const resetTask = (propertyId) => (dispatch) => {
-  dispatch(slice.actions.resetTask({ propertyId }));
+export const resetTask = () => (dispatch) => {
+  dispatch(slice.actions.resetTask());
 };
 
 export const getClaimed = (uid) => async (dispatch) => {
   try {
-    const finalState = [];
-
-    console.log('uid', uid);
+    dispatch(setLoading(true));
     const docRef = firebase.firestore().collection('claims').doc(uid);
     const snapshot = await docRef.get();
-    const claims = snapshot.data();
+    const claim = snapshot.data();
 
-    console.log('array', claims);
-
-    Object.values(claims).forEach((claim) => {
-      console.log('claimobj', claim);
-      const claimedState = deepCopy(data);
-      claimedState.propertyId = claim;
-      finalState.push(claimedState);
-    });
-
-    console.log('claimedState', finalState);
-    dispatch(slice.actions.getClaimed(finalState));
+    console.log('array', claim);
+    dispatch(slice.actions.getClaimed({ ...claim }));
+    dispatch(setLoading(false));
   } catch (error) {
     console.log(error);
   }
@@ -189,18 +156,36 @@ export const closeTour = () => (dispatch) => {
   dispatch(slice.actions.closeTour());
 };
 
-export const claimHome = (id, uid) => async (dispatch) => {
-  try {
-    await firebase.firestore().collection('claims').doc(uid).set({
-      propertyId: id,
-    });
+export const claimHome =
+  (id, walletAddress, navigate) => async (dispatch, getState) => {
+    const request = firebase
+      .functions()
+      .httpsCallable('processClaim');
+    const { properties } = getState();
+    const propertyData = properties.properties.filter(
+      (item) => item.id === id,
+    );
+    console.log('propertyData', propertyData[0]);
+    try {
+      dispatch(setLoading(true));
+      request({ propertyData: propertyData[0], walletAddress }).then(
+        (results) => {
+          console.log('results from functions', results);
+          dispatch(slice.actions.claimHome(results.data));
+          dispatch(setLoading(false));
+          navigate('/dashboard');
+        },
+      );
 
-    const claimedState = deepCopy(data);
-    claimedState.propertyId = id;
-    dispatch(slice.actions.claimHome(claimedState));
-  } catch (error) {
-    console.error('Error writing document: ', error);
-  }
-};
+      // await firebase.firestore().collection('claims').doc(uid).set({
+      //   propertyId: id,
+      // });
+      // const claimedState = deepCopy(data);
+      // claimedState.propertyId = id;
+      // dispatch(slice.actions.claimHome(claimedState));
+    } catch (error) {
+      console.error('Error writing document: ', error);
+    }
+  };
 
 export default slice;

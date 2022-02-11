@@ -22,10 +22,12 @@ import {
   selectProperty,
 } from '../slices/properties';
 import { Button } from '@material-ui/core';
+import useAuth from '../hooks/useAuth';
 
 const Home = () => {
   const dispatch = useDispatch();
   const properties = useSelector((state) => state.properties);
+  const { user } = useAuth();
 
   const handleOpen = (id) => {
     console.log(id);
@@ -44,6 +46,7 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getProperties());
+    console.log('authid', user);
   }, []);
 
   return (
@@ -68,11 +71,6 @@ const Home = () => {
           handleOpen={handleOpen}
           handleClose={handleClose}
         />
-        {/* <HomeOverview />
-        <HomeRoles />
-        <HomeTestimonials />
-        <HomeFeatures />
-        <HomeClients /> */}
       </div>
     </>
   );

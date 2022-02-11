@@ -39,35 +39,67 @@ export const AuthProvider = (props) => {
 
   useEffect(
     () =>
-      firebase.auth().onAuthStateChanged((user) => {
+      firebase.auth().onAuthStateChanged(async (user) => {
         if (user) {
           // Here you should extract the complete user profile to make it available in your entire app.
           // The auth state only provides basic information.
-          console.log('user3', user.customClaims);
-          dispatch({
-            type: 'AUTH_STATE_CHANGED',
-            payload: {
-              isAuthenticated: true,
-              user: {
-                id: user.uid,
-                avatar: user.photoURL,
-                email: user.email,
-                name: 'Jane Rotanson',
-                plan: 'Premium',
+          const { claims } = await user.getIdTokenResult(true);
+          let walletAddress = '';
+
+          if (!claims.walletAddress) {
+            console.log('made it');
+            const genWalletAddress = firebase
+              .functions()
+              .httpsCallable('generateWalletOnUserCreation');
+            genWalletAddress().then((results) => {
+              console.log(
+                'results from functions',
+                results.data.walletAddress,
+              );
+              walletAddress = results.data.walletAddress;
+              dispatch({
+                type: 'AUTH_STATE_CHANGED',
+                payload: {
+                  isAuthenticated: true,
+                  user: {
+                    id: user.uid,
+                    avatar: user.photoURL,
+                    email: user.email,
+                    name: user.displayName,
+                    walletAddress,
+                  },
+                },
+              });
+            });
+          } else {
+            walletAddress = claims.walletAddress;
+            console.log(walletAddress);
+            dispatch({
+              type: 'AUTH_STATE_CHANGED',
+              payload: {
+                isAuthenticated: true,
+                user: {
+                  id: user.uid,
+                  avatar: user.photoURL,
+                  email: user.email,
+                  name: user.displayName,
+                  walletAddress,
+                },
               },
-            },
-          });
+            });
+          }
         } else {
           dispatch({
             type: 'AUTH_STATE_CHANGED',
             payload: {
               isAuthenticated: false,
+              isLoading: false,
               user: null,
             },
           });
         }
       }),
-    [dispatch]
+    [dispatch],
   );
 
   const signInWithEmailAndPassword = (email, password) =>

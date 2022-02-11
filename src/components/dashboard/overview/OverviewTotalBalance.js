@@ -20,13 +20,21 @@ import { getBalance, getNft } from '../../../slices/wallet';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import AnimatedNumber from 'animated-number-react';
+import useAuth from '../../../hooks/useAuth';
 
 const OverviewTotalBalance = (props) => {
   const dispatch = useDispatch();
+  const { user } = useAuth();
   const wallet = useSelector((state) => state.wallet);
-  const status = useSelector((state) => state.wallet.status);
+  const nft = useSelector(
+    (state) => state.tasks.propertyData.nft.TransactionID,
+  );
+  const propertyData = useSelector(
+    (state) => state.tasks.propertyData,
+  );
+
   useEffect(async () => {
-    dispatch(getBalance());
+    dispatch(getBalance(user.walletAddress));
     dispatch(getNft());
   }, []);
 
@@ -40,9 +48,9 @@ const OverviewTotalBalance = (props) => {
     {
       amount: 1,
       id: 'FS1643812270',
-      link: 'https://testnet.cardanoscan.io/transaction/47069722864814ba992a33831fb89accbc6e96cbcc72968ac8a2d9327537a545',
+      link: `https://testnet.cardanoscan.io/transaction/${nft}`,
       color: '#FF4081',
-      name: '15573 SW 32 TER MIAMI FL',
+      name: propertyData.propertyData.formatted_street_address,
       type: 'nft',
     },
   ];
@@ -59,10 +67,10 @@ const OverviewTotalBalance = (props) => {
     >
       <CardHeader
         subheader={
-          status !== 'loading' ? (
+          wallet.status !== 'loading' ? (
             <Typography color="textPrimary" variant="h4">
               <AnimatedNumber
-                value={wallet.data.balanceSPACE}
+                value={wallet && wallet.data.balanceSPACE}
                 formatValue={(value) => value.toFixed(2)}
               />{' '}
               Space Tokens
@@ -77,7 +85,7 @@ const OverviewTotalBalance = (props) => {
         }
         sx={{ pb: 0 }}
         title={
-          status !== 'loading' ? (
+          wallet.status !== 'loading' ? (
             <Typography color="textSecondary" variant="overline">
               Total Space Tokens
             </Typography>
@@ -169,7 +177,7 @@ const OverviewTotalBalance = (props) => {
           }}
         >
           <Button
-            href="https://testnet.cardanoscan.io/address/6072cf7930333871a8d65f72ad4d46d152dbe79e921ac180a5a5b17c8b"
+            href={`https://testnet.cardanoscan.io/address/${user.walletAddress}`}
             target="_blank"
             color="primary"
             endIcon={<ArrowRightIcon fontSize="small" />}

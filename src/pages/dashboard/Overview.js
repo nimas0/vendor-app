@@ -26,12 +26,17 @@ import PlusIcon from '../../icons/Plus';
 
 import gtm from '../../lib/gtm';
 import useAuth from '../../hooks/useAuth';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { getClaimed } from '../../slices/tasks';
 import Tour from 'reactour';
 
 const Overview = () => {
   const { settings } = useSettings();
+  const loading = useSelector((state) => state.tasks.loading);
+  const claim = useSelector(
+    (state) => (state && state.tasks.propertyData) || null,
+  );
+
   const dispatch = useDispatch();
   const user = useAuth();
   useEffect(() => {
@@ -57,10 +62,13 @@ const Overview = () => {
   ];
 
   useEffect(() => {
-    dispatch(getClaimed(user.user.id));
+    if (claim == null || Object.keys(claim).length === 0) {
+      dispatch(getClaimed(user.user.id));
+    }
   }, []);
 
-  console.log('user!', user.user.id);
+  console.log('user!', loading);
+  if (loading) return 'loading';
   return (
     <>
       <Helmet>
@@ -72,9 +80,7 @@ const Overview = () => {
         isOpen={tour}
         onRequestClose={() => setTour(false)}
         lastStepNextButton={
-          <Button onClick={() => setTour(false)}>
-            Start Simulation
-          </Button>
+          <Button onClick={() => setTour(false)}>Proceed</Button>
         }
       />
       <Box

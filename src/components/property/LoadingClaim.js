@@ -11,16 +11,12 @@ import PropTypes from 'prop-types';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import { useNavigate } from 'react-router';
 import NFT from '../../assets/Token.gif';
-import { useDispatch, useSelector } from 'react-redux';
-import { claimHome } from '../../slices/tasks';
-import useAuth from '../../hooks/useAuth';
 
 function CircularProgressWithLabel(props) {
   return (
     <Box sx={{ position: 'relative', display: 'inline-flex', mr: 3 }}>
-      <CircularProgress size={200} variant='determinate' {...props} />
+      <CircularProgress size={200} variant="determinate" {...props} />
       <Box
         sx={{
           top: 0,
@@ -33,7 +29,11 @@ function CircularProgressWithLabel(props) {
           justifyContent: 'center',
         }}
       >
-        <Typography variant='caption' component='div' color='text.secondary'>
+        <Typography
+          variant="caption"
+          component="div"
+          color="text.secondary"
+        >
           {`${Math.round(props.value)}% `}
           <br />
           {(props.value <= 20 && 'Checking background') ||
@@ -58,22 +58,14 @@ CircularProgressWithLabel.propTypes = {
 export default function LoadingClaim({ onClose }) {
   const [progress, setProgress] = React.useState(0);
   const [view, setView] = React.useState(null);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const selectedPropertyId = useSelector(
-    (state) => state.properties.selectedPropertyId
-  );
-  const user = useAuth();
+
   React.useEffect(() => {
     const timer = setInterval(() => {
       setProgress((prevProgress) => {
         if (prevProgress >= 100) {
           setView('nft');
         }
-        if (prevProgress >= 120) {
-          dispatch(claimHome(selectedPropertyId, user.user.id));
-          navigate('/dashboard');
-        }
+
         return prevProgress + 10;
       });
     }, 1200);
@@ -89,7 +81,7 @@ export default function LoadingClaim({ onClose }) {
         <>
           <div sx={{ display: 'flex', flexDirection: 'column' }}>
             <p>Home Claimed! Redirecting you to your dashboard...</p>
-            <img src={NFT} alt='NFT' />
+            <img src={NFT} alt="NFT" />
           </div>
         </>
       ) : (
