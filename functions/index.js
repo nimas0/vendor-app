@@ -140,7 +140,8 @@ exports.processClaim = functions.https.onCall(
       // functions.logger.log('spacetokens', await spaceTokenResults);
 
       const nftResults = (await axios(options)).data;
-      functions.logger.log('nftfff', await nftResults);
+      // functions.logger.log('nftfff', nftResults);
+      functions.logger.log('nftfff', propertyData.image);
 
       await admin.firestore().collection('claims').doc(uid).set({
         nft: nftResults.Data.nftData,
@@ -153,6 +154,7 @@ exports.processClaim = functions.https.onCall(
       return {
         nft: nftResults.Data.nftData,
         propertyData: propertyData.address,
+        image: propertyData.image,
         id: propertyData.id,
         value: propertyData.market_assessments[0],
       };
@@ -167,3 +169,71 @@ exports.processClaim = functions.https.onCall(
     }
   },
 );
+
+exports.spendRealTokens = functions.https.onCall(
+  async (data, context) => {
+    functions.logger.log('i got called');
+    // functions.logger.log(data.propertyData.address);
+    const uid = context.auth.uid;
+    const walletAddress = data.walletAddress;
+
+    try {
+      const options = {
+        method: 'POST',
+        url: 'https://www.wolframcloud.com/obj/christianp/MyProjects/FindingSpaces/API/v1/transaction',
+        data: {
+          network: 'testnet',
+          type: 'token',
+          amount: 50,
+          sender: walletAddress,
+          recipient:
+            'addr_test1qzpr2w3dt0y5m6mvnp42rhszc0ra80hth675329n0mvqj29ee6g6hdpct9pegent6m020jcuhj6sl34s7nhs36z5vl0qqnmzny',
+        },
+        headers: {
+          'Content-Type': 'application-json',
+        },
+      };
+
+      const results = (await axios(options)).data;
+      functions.logger.log('spend', await results);
+      return {
+        results,
+      };
+    } catch (error) {
+      // functions.logger.log(error);
+      return { results };
+    }
+  },
+);
+
+exports.sendNFT = functions.https.onCall(async (data, context) => {
+  functions.logger.log('i got called');
+  // functions.logger.log(data.propertyData.address);
+  const uid = context.auth.uid;
+  const walletAddress = data.walletAddress;
+  const nftId = data.nftId;
+
+  try {
+    const options = {
+      method: 'POST',
+      url: 'https://www.wolframcloud.com/obj/christianp/MyProjects/FindingSpaces/API/v1/nft',
+      data: {
+        network: 'testnet',
+        action: 'transfer',
+        nftid: nftId,
+        sender: walletAddress,
+        owner:
+          'addr_test1qzpr2w3dt0y5m6mvnp42rhszc0ra80hth675329n0mvqj29ee6g6hdpct9pegent6m020jcuhj6sl34s7nhs36z5vl0qqnmzny',
+      },
+      headers: {
+        'Content-Type': 'application-json',
+      },
+    };
+
+    const results = (await axios(options)).data;
+    functions.logger.log('spend', await results);
+  } catch (error) {
+    functions.logger.log(error);
+    // return 'sdf';
+  }
+});

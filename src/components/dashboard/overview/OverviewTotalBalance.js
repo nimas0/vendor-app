@@ -26,6 +26,12 @@ const OverviewTotalBalance = (props) => {
   const dispatch = useDispatch();
   const { user } = useAuth();
   const wallet = useSelector((state) => state.wallet);
+  const nft = useSelector(
+    (state) => state.tasks.propertyData.nft.TransactionID,
+  );
+  const propertyData = useSelector(
+    (state) => state.tasks.propertyData,
+  );
 
   useEffect(async () => {
     dispatch(getBalance(user.walletAddress));
@@ -34,7 +40,7 @@ const OverviewTotalBalance = (props) => {
 
   const currencies = [
     {
-      // amount: wallet.data.balanceADA,
+      amount: wallet.data.balanceADA,
       color: '#6C76C4',
       name: 'Ada',
       type: 'token',
@@ -42,9 +48,9 @@ const OverviewTotalBalance = (props) => {
     {
       amount: 1,
       id: 'FS1643812270',
-      link: 'https://testnet.cardanoscan.io/transaction/47069722864814ba992a33831fb89accbc6e96cbcc72968ac8a2d9327537a545',
+      link: `https://testnet.cardanoscan.io/transaction/${nft}`,
       color: '#FF4081',
-      name: '15573 SW 32 TER MIAMI FL',
+      name: propertyData.propertyData.formatted_street_address,
       type: 'nft',
     },
   ];
@@ -171,7 +177,7 @@ const OverviewTotalBalance = (props) => {
           }}
         >
           <Button
-            href="https://testnet.cardanoscan.io/address/6072cf7930333871a8d65f72ad4d46d152dbe79e921ac180a5a5b17c8b"
+            href={`https://testnet.cardanoscan.io/address/${user.walletAddress}`}
             target="_blank"
             color="primary"
             endIcon={<ArrowRightIcon fontSize="small" />}

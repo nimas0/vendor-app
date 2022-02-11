@@ -17,7 +17,6 @@ import {
   closeModal,
   closeTour,
   getProperties,
-  initializeTour,
   openModal,
   resetSelect,
   selectProperty,
@@ -48,7 +47,6 @@ const Home = () => {
   useEffect(() => {
     dispatch(getProperties());
     console.log('authid', user);
-    dispatch(initializeTour(user.id));
   }, []);
 
   return (
@@ -59,10 +57,10 @@ const Home = () => {
       <Tour
         disableInteraction
         steps={properties.steps}
-        isOpen={!properties.tourCompleted}
-        onRequestClose={() => dispatch(closeTour(user.id))}
+        isOpen={properties.tour}
+        onRequestClose={() => dispatch(closeTour())}
         lastStepNextButton={
-          <Button onClick={() => dispatch(closeTour(user.id))}>
+          <Button onClick={() => dispatch(closeTour())}>
             Start Simulation
           </Button>
         }
@@ -73,11 +71,6 @@ const Home = () => {
           handleOpen={handleOpen}
           handleClose={handleClose}
         />
-        {/* <HomeOverview />
-        <HomeRoles />
-        <HomeTestimonials />
-        <HomeFeatures />
-        <HomeClients /> */}
       </div>
     </>
   );

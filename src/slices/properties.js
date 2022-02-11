@@ -1,19 +1,25 @@
+/* eslint-disable react/no-unescaped-entities */
 import { createSlice } from '@reduxjs/toolkit';
 import { propertyApi } from '../__fakeApi__/listingApi';
 import firebase from 'firebase';
+import WelcomeTour from '../components/property/WelcomeTour';
 
-const db = firebase.firestore();
+// const db = firebase.firestore();
 
 const initialState = {
   isModalOpen: false,
   isLoaded: false,
   selectedPropertyId: null,
   properties: [],
-  tourCompleted: true,
+  tour: false,
   steps: [
     {
       selector: '#body',
-      content: 'Welcome to Finding Spaces',
+      content: (
+        <>
+          <WelcomeTour />
+        </>
+      ),
     },
     {
       selector: '#homeview',
@@ -45,55 +51,58 @@ const slice = createSlice({
       state.selectedTask = null;
     },
     closeTour(state) {
-      state.tourCompleted = true;
+      state.tour = false;
     },
-    initializeTour(state, action) {
-      state.tourCompleted = action.payload.tourCompleted;
+    openTour(state) {
+      state.tour = true;
     },
+    // initializeTour(state, action) {
+    //   state.tour = action.payload.tour;
+    // },
   },
 });
 
-export const initializeTour = (uid) => async (dispatch) => {
-  const userReference = db.collection('users').doc(uid);
+// export const initializeTour = (uid) => async (dispatch) => {
+//   const userReference = db.collection('users').doc(uid);
 
-  try {
-    const snapshot = await userReference.get();
-    console.log('initializeTour', snapshot.exists);
+//   try {
+//     const snapshot = await userReference.get();
+//     console.log('initializeTour', snapshot.exists);
 
-    if (snapshot.exists) {
-      // get tour status and set
-      const data = snapshot.data();
-      if (typeof data.tourCompleted === 'boolean') {
-        dispatch(
-          slice.actions.initializeTour({
-            tourCompleted: data.tourCompleted,
-          }),
-        );
-      } else {
-        await userReference.set(
-          {
-            marketplaceTourCompleted: false,
-          },
-          { merge: true },
-        );
-        dispatch(
-          slice.actions.initializeTour({ tourCompleted: true }),
-        );
-      }
-    } else {
-      // set tour
-      await userReference.set(
-        {
-          tourCompleted: false,
-        },
-        { merge: true },
-      );
-      dispatch(slice.actions.initializeTour({ tourCompleted: true }));
-    }
-  } catch (error) {
-    console.log(error);
-  }
-};
+//     if (snapshot.exists) {
+//       // get tour status and set
+//       const data = snapshot.data();
+//       if (typeof data.tour === 'boolean') {
+//         dispatch(
+//           slice.actions.initializeTour({
+//             tour: data.tour,
+//           }),
+//         );
+//       } else {
+//         await userReference.set(
+//           {
+//             marketplacetour: false,
+//           },
+//           { merge: true },
+//         );
+//         dispatch(
+//           slice.actions.initializeTour({ tour: true }),
+//         );
+//       }
+//     } else {
+//       // set tour
+//       await userReference.set(
+//         {
+//           tour: false,
+//         },
+//         { merge: true },
+//       );
+//       dispatch(slice.actions.initializeTour({ tour: true }));
+//     }
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 export const getProperties = () => async (dispatch) => {
   const data = await propertyApi.getProperties();
@@ -123,15 +132,26 @@ export const postClaim = () => () => {
   });
 };
 
-export const closeTour = (uid) => async (dispatch) => {
-  const userReference = db.collection('users').doc(uid);
+export const openTour = () => async (dispatch) => {
+  // const userReference = db.collection('users').doc(uid);
+  dispatch(slice.actions.openTour());
+  // await userReference.set(
+  //   {
+  //     tour: true,
+  //   },
+  //   { merge: true },
+  // );
+};
+
+export const closeTour = () => async (dispatch) => {
+  // const userReference = db.collection('users').doc(uid);
   dispatch(slice.actions.closeTour());
-  await userReference.set(
-    {
-      tourCompleted: true,
-    },
-    { merge: true },
-  );
+  // await userReference.set(
+  //   {
+  //     tour: true,
+  //   },
+  //   { merge: true },
+  // );
 };
 
 export const { reducer } = slice;

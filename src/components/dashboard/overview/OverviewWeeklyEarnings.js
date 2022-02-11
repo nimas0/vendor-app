@@ -24,7 +24,7 @@ import numeral from 'numeral';
 
 const OverviewWeeklyEarnings = (props) => {
   // const theme = useTheme();
-  const claims = useSelector((state) => (state && state.tasks) || {});
+  const claims = useSelector((state) => state && state.tasks);
   const dispatch = useDispatch();
 
   console.log('taskss', claims);

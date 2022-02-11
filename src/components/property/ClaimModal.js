@@ -1,3 +1,5 @@
+/* eslint-disable function-paren-newline */
+/* eslint-disable implicit-arrow-linebreak */
 /* eslint-disable operator-linebreak */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
@@ -45,7 +47,7 @@ const ClaimModal = (props) => {
   const handleClaim = () => {
     const address = auth.user.walletAddress;
     setPage(true);
-    dispatch(claimHome(selectedPropertyId, address));
+    dispatch(claimHome(selectedPropertyId, address, navigate));
     // dispatch();
   };
 

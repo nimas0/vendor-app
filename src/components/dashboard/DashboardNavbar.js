@@ -68,7 +68,7 @@ const DashboardNavbar = (props) => {
           variant="h6"
           color="textPrimary"
         >
-          Seller Dashboard
+          Property Dashboard
         </Typography>
 
         <Box

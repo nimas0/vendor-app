@@ -11,7 +11,6 @@ import PropTypes from 'prop-types';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import { useNavigate } from 'react-router';
 import NFT from '../../assets/Token.gif';
 
 function CircularProgressWithLabel(props) {
@@ -59,7 +58,6 @@ CircularProgressWithLabel.propTypes = {
 export default function LoadingClaim({ onClose }) {
   const [progress, setProgress] = React.useState(0);
   const [view, setView] = React.useState(null);
-  const navigate = useNavigate();
 
   React.useEffect(() => {
     const timer = setInterval(() => {
@@ -67,9 +65,7 @@ export default function LoadingClaim({ onClose }) {
         if (prevProgress >= 100) {
           setView('nft');
         }
-        if (prevProgress >= 120) {
-          navigate('/dashboard');
-        }
+
         return prevProgress + 10;
       });
     }, 1200);

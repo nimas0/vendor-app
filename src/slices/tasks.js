@@ -1,6 +1,7 @@
 /* eslint-disable operator-linebreak */
 /* eslint-disable no-unused-vars */
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 // import objFromArray from '../utils/objFromArray';
 // import { chatApi } from '../__fakeApi__/chatApi';
 import firebase from '../lib/firebase';
@@ -96,7 +97,8 @@ const slice = createSlice({
       state.propertyData = action.payload;
     },
     claimHome(state, action) {
-      // state.push(action.payload);
+      console.log('claimHome', action.payload);
+      state.propertyData = action.payload;
     },
     closeTour(state) {
       state.tour = false;
@@ -155,7 +157,7 @@ export const closeTour = () => (dispatch) => {
 };
 
 export const claimHome =
-  (id, walletAddress) => async (dispatch, getState) => {
+  (id, walletAddress, navigate) => async (dispatch, getState) => {
     const request = firebase
       .functions()
       .httpsCallable('processClaim');
@@ -169,8 +171,9 @@ export const claimHome =
       request({ propertyData: propertyData[0], walletAddress }).then(
         (results) => {
           console.log('results from functions', results);
-          dispatch(slice.actions.getClaimed(results.data));
+          dispatch(slice.actions.claimHome(results.data));
           dispatch(setLoading(false));
+          navigate('/dashboard');
         },
       );
 

@@ -1,3 +1,5 @@
+/* eslint-disable function-paren-newline */
+/* eslint-disable implicit-arrow-linebreak */
 import PropTypes from 'prop-types';
 import { Link as RouterLink } from 'react-router-dom';
 import {
@@ -8,7 +10,6 @@ import {
   Divider,
   IconButton,
   InputBase,
-  Link,
   Toolbar,
   Typography,
 } from '@material-ui/core';
@@ -16,6 +17,8 @@ import MenuIcon from '../icons/Menu';
 import { styled } from '@material-ui/styles';
 import { SearchTwoTone } from '@material-ui/icons';
 import AccountPopover from './dashboard/AccountPopover';
+import { useSelector, useDispatch } from 'react-redux';
+import { openTour } from '../slices/properties';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -59,13 +62,20 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const MainNavbar = (props) => {
   const { onSidebarMobileOpen } = props;
+  const propertyCount = useSelector(
+    (state) => state.properties.properties.length,
+  );
+  const dispatch = useDispatch();
+
+  console.log('propertyCount', propertyCount);
 
   return (
     <AppBar
       elevation={3}
       sx={{
         backgroundColor: 'background.paper',
-        color: 'text.secondary',
+        color: 'text.primary',
+
         pt: 1,
       }}
     >
@@ -82,49 +92,44 @@ const MainNavbar = (props) => {
           <MenuIcon fontSize="small" />
         </IconButton>
 
-        <Link
-          disabled
-          color="textSecondary"
-          component={RouterLink}
-          to="/"
-          underline="none"
-          variant="body1"
+        <Button
+          variant="link"
+          href="https://findingspaces.com"
+          color="primary"
         >
-          Sell
-        </Link>
+          <Typography variant="h6"> Whitepaper</Typography>
+        </Button>
         <Divider
           orientation="vertical"
           sx={{
-            height: 32,
+            height: 22,
             mx: 2,
             backgroundColor: 'transparent',
           }}
         />
-        <Link
-          color="textSecondary"
-          component={RouterLink}
-          to="/"
-          underline="none"
-          variant="body1"
+        <Button
+          size="lg"
+          variant="link"
+          href="https://findingspaces.com"
+          color="primary"
         >
-          Buy
-        </Link>
+          <Typography variant="h6"> Roadmap </Typography>
+        </Button>
         <Divider
           orientation="vertical"
           sx={{
-            height: 32,
+            height: 22,
             mx: 2,
           }}
         />
-        <Link
-          color="textSecondary"
-          component={RouterLink}
-          to="/"
-          underline="none"
-          variant="body1"
+        <Button
+          size="lg"
+          variant="link"
+          href="https://findingspaces.com"
+          color="primary"
         >
-          Claim Home
-        </Link>
+          <Typography variant="h6"> Learn More </Typography>
+        </Button>
 
         <Box sx={{ flexGrow: 1 }} />
         <RouterLink to="/">
@@ -133,7 +138,7 @@ const MainNavbar = (props) => {
             src="https://firebasestorage.googleapis.com/v0/b/finding-spaces-73b23.appspot.com/o/logo%20idea-2-transparent.png?alt=media&token=0bc11614-2775-4c8c-8052-c897afb2b336"
           />
         </RouterLink>
-        <Box sx={{ flexGrow: 1 }} />
+        <Box sx={{ flexGrow: 1, marginLeft: 27 }} />
         <Box
           sx={{
             alignItems: 'center',
@@ -141,48 +146,28 @@ const MainNavbar = (props) => {
               md: 'flex',
               xs: 'none',
             },
+            mb: 1,
           }}
         >
-          {/* <Link
-            color="textSecondary"
-            component={RouterLink}
-            to="/browse"
-            underline="none"
-            variant="body1"
+          <Button
+            sx={{ mx: 3 }}
+            color="primary"
+            onClick={() => dispatch(openTour())}
+            to="/dashboard"
+            variant="contained"
           >
-            Sign up
-          </Link>
-          <Divider
-            orientation="vertical"
-            sx={{
-              height: 32,
-              mx: 2,
-            }}
-          />
-          <Link
-            color="textSecondary"
-            component={RouterLink}
-            to="/docs"
-            underline="none"
-            variant="body1"
-          >
-            Sign In
-          </Link> */}
+            Guided Simulation
+          </Button>
+
           <Button
             color="primary"
             component={RouterLink}
             to="/dashboard"
-            variant="contained"
+            variant="link"
           >
             Dashboard
           </Button>
-          {/* <Divider
-            orientation="vertical"
-            sx={{
-              height: 32,
-              mx: 2,
-            }}
-          /> */}
+
           <Box sx={{ ml: 2 }}>
             <AccountPopover />
           </Box>
@@ -231,8 +216,11 @@ const MainNavbar = (props) => {
           Home Type
         </Button>
         <Box sx={{ flexGrow: 1 }} />
-        <Typography variant="h6" sx={{ color: 'white' }}>
-          Search Results 3 of 3
+        <Typography
+          variant="h6"
+          sx={{ color: 'white', fontWeight: 'lighter' }}
+        >
+          Showing {propertyCount} of {propertyCount} Results
         </Typography>
       </Toolbar>
       <Divider />

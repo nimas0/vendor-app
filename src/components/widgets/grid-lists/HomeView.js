@@ -33,22 +33,26 @@ const GridList2 = ({ properties, handleOpen }) => (
     mb={2}
     display="flex"
     flexDirection="column"
-    height="800px" // fixed the height
+    height="85vh" // fixed the height
     style={{
       overflow: 'hidden',
       overflowY: 'scroll', // added scroll
     }}
     sx={{
-      backgroundColor: 'transparent',
-
+      backgroundColor: 'rgba(255, 255, 255, 0.75)',
+      backdropFilter: 'blur(3px)',
+      zIndex: 1,
       pt: 6,
-      pl: 3,
+      pl: 9,
       pr: 9,
+      pb: 30,
+      overflow: 'hidden',
+      overflowY: 'scroll', // adde
     }}
   >
     <Grid container spacing={3}>
       <Typography
-        sx={{ pl: 4, mt: 6, mb: 0, color: 'black' }}
+        sx={{ pl: 4, mt: 6, mb: 0, color: 'black', zIndex: 1 }}
         variant="h6"
       >
         Miami FL Real Estate & Homes For Sale
@@ -63,6 +67,8 @@ const GridList2 = ({ properties, handleOpen }) => (
                 boxShadow: '0px 11px 22px rgba(0,0,0, 0.25)',
                 transition: '0.15s ease-in-out',
               },
+
+              zIndex: 1,
             }}
             elevation={7}
           >
@@ -72,6 +78,7 @@ const GridList2 = ({ properties, handleOpen }) => (
                 sx={{
                   backgroundColor: 'transparent',
                   height: 180,
+                  zIndex: 1,
                 }}
               />
             </Box>
@@ -82,6 +89,7 @@ const GridList2 = ({ properties, handleOpen }) => (
                 pl: 2,
                 pr: 3,
                 py: 2,
+                zIndex: 1,
               }}
             >
               <Typography color="textPrimary" variant="h6">
@@ -197,6 +205,7 @@ const GridList2 = ({ properties, handleOpen }) => (
           </Card>
         </Grid>
       ))}
+      <div style={{ height: '40px' }} />
     </Grid>
   </Box>
 );
