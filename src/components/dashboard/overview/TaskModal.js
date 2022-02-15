@@ -116,7 +116,6 @@ const TaskModal = ({
                 href="https://spatialweb.net/@findingspaces"
                 onClick={() => handleSubmitTransfer(task[0].id)}
                 key={tasks.count}
-                disabled={tasks.loading}
                 color="primary"
                 fullWidth
                 size="large"
@@ -129,7 +128,6 @@ const TaskModal = ({
               <Button
                 key={tasks.count}
                 onClick={() => handleSubmit(task[0].id)}
-                disabled={tasks.loading}
                 color="primary"
                 fullWidth
                 size="large"
