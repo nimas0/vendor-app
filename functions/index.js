@@ -1,9 +1,10 @@
+/* eslint-disable max-len */
 /* eslint-disable indent */
 /* eslint-disable object-curly-spacing */
 /* eslint-disable no-unused-vars */
 /* eslint-disable quotes */
 const functions = require('firebase-functions');
-var serviceAccount = require('./service-account.json');
+const serviceAccount = require('./service-account.json');
 const cors = require('cors')({ origin: true });
 const axios = require('axios');
 
@@ -12,13 +13,6 @@ const admin = require('firebase-admin');
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
-
-exports.helloWorld = functions.https.onRequest(
-  (request, response) => {
-    functions.logger.info('Hello logs!', { structuredData: true });
-    response.send('Hello from Firebase!');
-  },
-);
 
 // exports.createWalletAddress = functions.auth
 //   .user()
@@ -161,7 +155,6 @@ exports.processClaim = functions.https.onCall(
     } catch (error) {
       // functions.logger.log(error);
       return {
-        nft: nftResults.Data.nftData,
         propertyData: propertyData.address,
         id: propertyData.id,
         value: propertyData.market_assessments[0],
@@ -201,7 +194,6 @@ exports.spendRealTokens = functions.https.onCall(
       };
     } catch (error) {
       // functions.logger.log(error);
-      return { results };
     }
   },
 );

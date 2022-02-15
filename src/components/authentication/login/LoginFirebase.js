@@ -112,7 +112,6 @@ const LoginFirebase = (props) => {
           handleBlur,
           handleChange,
           handleSubmit,
-          isSubmitting,
           touched,
           values,
         }) => (
@@ -151,7 +150,6 @@ const LoginFirebase = (props) => {
             <Box sx={{ mt: 2 }}>
               <Button
                 color="primary"
-                disabled={isSubmitting}
                 fullWidth
                 size="large"
                 type="submit"
