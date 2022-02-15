@@ -1,3 +1,5 @@
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/no-webpack-loader-syntax */
 /* eslint-disable operator-linebreak */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
@@ -8,6 +10,9 @@ import { Box, Container, Grid, IconButton } from '@material-ui/core';
 import HomeView from '../widgets/grid-lists/HomeView';
 // import { useTheme } from '@material-ui/core/styles';
 import ReactMapGL, { Marker } from 'react-map-gl';
+
+import mapboxgl from '!mapbox-gl';
+
 import { LocationOn } from '@material-ui/icons';
 import ClaimModal from '../property/ClaimModal';
 

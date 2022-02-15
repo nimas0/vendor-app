@@ -10,14 +10,18 @@ import {
 } from '@material-ui/core';
 import useAuth from '../../../hooks/useAuth';
 import useMounted from '../../../hooks/useMounted';
+import { useState } from 'react';
 
 const LoginFirebase = (props) => {
   const mounted = useMounted();
   const { signInWithEmailAndPassword, signInWithGoogle } = useAuth();
+  const [authLoading, setLoading] = useState(false);
 
   const handleGoogleClick = async () => {
     try {
+      setLoading(true);
       await signInWithGoogle();
+      setLoading(false);
     } catch (err) {
       console.error(err);
     }
@@ -27,6 +31,7 @@ const LoginFirebase = (props) => {
     <div {...props}>
       <Button
         fullWidth
+        disabled={authLoading}
         onClick={handleGoogleClick}
         size="large"
         sx={{
@@ -88,11 +93,12 @@ const LoginFirebase = (props) => {
           { setErrors, setStatus, setSubmitting },
         ) => {
           try {
+            setLoading(true);
             await signInWithEmailAndPassword(
               values.email,
               values.password,
             );
-
+            setLoading(false);
             if (mounted.current) {
               setStatus({ success: true });
               setSubmitting(false);
@@ -112,7 +118,6 @@ const LoginFirebase = (props) => {
           handleBlur,
           handleChange,
           handleSubmit,
-          isSubmitting,
           touched,
           values,
         }) => (
@@ -151,7 +156,7 @@ const LoginFirebase = (props) => {
             <Box sx={{ mt: 2 }}>
               <Button
                 color="primary"
-                disabled={isSubmitting}
+                disabled={authLoading}
                 fullWidth
                 size="large"
                 type="submit"
