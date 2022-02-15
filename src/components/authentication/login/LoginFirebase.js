@@ -10,7 +10,6 @@ import {
 } from '@material-ui/core';
 import useAuth from '../../../hooks/useAuth';
 import useMounted from '../../../hooks/useMounted';
-import { useState } from 'react';
 
 const LoginFirebase = (props) => {
   const mounted = useMounted();
