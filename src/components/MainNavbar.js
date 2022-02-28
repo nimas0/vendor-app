@@ -97,7 +97,7 @@ const MainNavbar = (props) => {
           href="https://findingspaces.com"
           color="primary"
         >
-          <Typography variant="h6"> Whitepaper</Typography>
+          <Typography variant="h6" />
         </Button>
         <Divider
           orientation="vertical"
@@ -113,7 +113,7 @@ const MainNavbar = (props) => {
           href="https://findingspaces.com"
           color="primary"
         >
-          <Typography variant="h6"> Roadmap </Typography>
+          <Typography variant="h6"> </Typography>
         </Button>
         <Divider
           orientation="vertical"
@@ -128,7 +128,7 @@ const MainNavbar = (props) => {
           href="https://findingspaces.com"
           color="primary"
         >
-          <Typography variant="h6"> Learn More </Typography>
+          <Typography variant="h6"> </Typography>
         </Button>
 
         <Box sx={{ flexGrow: 1 }} />
